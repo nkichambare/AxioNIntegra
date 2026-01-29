@@ -1,4 +1,3 @@
-# AxioNIntegra
 # Company Overview
 AxionIntegra is an engineering-driven precision manufacturing and supply chain consultancy that delivers precision manufactured components, assemblies, and sourcing solutions under full accountability.
 We support companies that require cost-effective, high precision, and quality certified manufacturing, but do not want to manage vendor search, manufacturing coordination, quality inspections, and execution risks internally.
