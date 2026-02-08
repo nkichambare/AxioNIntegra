@@ -52,4 +52,13 @@ body {
   .section-heading {
     @apply text-balance text-2xl font-normal uppercase  tracking-[0.2em];
   }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }

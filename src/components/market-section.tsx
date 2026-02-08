@@ -1,55 +1,89 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-
-import Button from "@/components/button";
+import { useRef, useState } from 'react';
+import { HiOutlineArrowLongRight } from 'react-icons/hi2';
 
 const markets = [
   {
-    title: "Networks & Data Centres",
-    description: "Infrastructure reliability, thermal control, and precision assemblies.",
-    details:
-      "Supports energy‑intensive infrastructure with controlled tolerances, thermal stability, and verified quality.",
+    title: 'Networks & Data Centres',
+    bgClass: "bg-[url('/market/networks-data-centres.png')]",
   },
   {
-    title: "Switchgears",
-    description: "High‑accuracy components for critical electrical systems.",
-    details:
-      "Electrical systems demand repeatable geometry, robust insulation interfaces, and compliance‑ready build records.",
+    title: 'Switchgears',
+    bgClass: "bg-[url('/market/switchgears.png')]",
   },
   {
-    title: "Metals & Chlorine Refining",
-    description: "Corrosion‑resistant parts and process‑critical assemblies.",
-    details:
-      "Material integrity and process resistance for harsh chemical environments and continuous‑duty operations.",
+    title: 'Metals & Chlorine Refining',
+    bgClass: "bg-[url('/market/metals-chlorine-refining.png')]",
   },
   {
-    title: "Green Hydrogen",
-    description: "Manufacturing support for emerging energy systems.",
-    details:
-      "Precision components for systems scaling into industrial production and deployment.",
+    title: 'Green Hydrogen',
+    bgClass: "bg-[url('/market/green-hydrogen..png')]",
   },
   {
-    title: "Power Storage",
-    description: "Precision manufacturing for storage modules and enclosures.",
-    details:
-      "Structural assemblies, thermal interfaces, and manufacturing governance for energy storage programs.",
+    title: 'Power Storage',
+    bgClass: "bg-[url('/market/power-storage.png')]",
   },
   {
-    title: "Industrial Mobility",
-    description: "Durable components for heavy‑duty applications.",
-    details:
-      "Designed for load, vibration, and lifecycle performance in industrial operating environments.",
+    title: 'Industrial Mobility',
+    bgClass: "bg-[url('/market/industrial-mobility.png')]",
   },
 ];
 
 export default function MarketSection() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const activeMarket = markets[activeIndex];
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  // Tracks the centered slide on mobile to drive the dot indicator.
+  const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
+  const mobileTrackRef = useRef<HTMLElement | null>(null);
+  const marketRows = [markets.slice(0, 3), markets.slice(3, 6)];
+
+  // Desktop-only: resize cards within the hovered row (expanded card + shrunken neighbors).
+  const getDesktopCardBasis = (index: number) => {
+    if (hoveredIndex === null) {
+      return '33.3333%';
+    }
+
+    const rowStart = Math.floor(index / 3) * 3;
+    const rowEnd = rowStart + 2;
+
+    if (hoveredIndex < rowStart || hoveredIndex > rowEnd) {
+      return '33.3333%';
+    }
+
+    return hoveredIndex === index ? '40.3333%' : '29.8333%';
+  };
+
+  // Shared card UI for mobile/tablet/desktop with optional behavior flags.
+  const renderCardContent = (
+    title: string,
+    isHovered: boolean,
+    options?: { alwaysShowExplore?: boolean; titleClassName?: string },
+  ) => (
+    <>
+      <div className="absolute inset-0 bg-slate-900/55 transition-colors duration-500 group-hover:bg-slate-900/45" />
+      <div className="relative h-full">
+        <p className={`heading-3 absolute top-[20%] text-white ${options?.titleClassName ?? ''}`}>
+          {title}
+        </p>
+        <span className="absolute bottom-0 right-0 flex items-center gap-2 text-white">
+          <span
+            className={`label-text transition-all duration-500 ${
+              isHovered || options?.alwaysShowExplore
+                ? 'translate-x-0 opacity-100'
+                : 'translate-x-2 opacity-0'
+            }`}
+          >
+            Explore
+          </span>
+          <HiOutlineArrowLongRight className="h-6 w-6" aria-hidden="true" />
+        </span>
+      </div>
+    </>
+  );
 
   return (
     <section id="market" className="bg-bg py-24">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-6">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 md:gap-16 px-6">
         <div className="flex flex-col gap-3">
           <p className="section-heading text-secondary">Markets</p>
           <h2 className="heading-2">Where we operate</h2>
@@ -59,56 +93,93 @@ export default function MarketSection() {
           </p>
         </div>
 
-        <section className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-4">
-            {markets.map((market, index) => {
-              const isActive = index === activeIndex;
+        {/* Mobile carousel (< md): horizontal snap slider with active-dot tracking */}
+        <section
+          ref={mobileTrackRef}
+          onScroll={() => {
+            const track = mobileTrackRef.current;
+            if (!track) return;
 
-              return (
-                <button
-                  key={market.title}
-                  type="button"
-                  onClick={() => setActiveIndex(index)}
-                  className={`w-full border-b border-border pb-4 text-left transition ${
-                    isActive ? "text-primary" : "text-secondary"
-                  }`}
-                >
-                  <p className="heading-3">{market.title}</p>
-                  <p className="body-text mt-2 text-secondary">{market.description}</p>
-                </button>
-              );
-            })}
-          </div>
+            const cardCenters = Array.from(track.children).map((card) => {
+              const element = card as HTMLElement;
+              return element.offsetLeft + element.offsetWidth / 2;
+            });
+            const trackCenter = track.scrollLeft + track.clientWidth / 2;
+            let nextIndex = 0;
+            let nearestDistance = Number.POSITIVE_INFINITY;
 
-          <div className="rounded-2xl border border-border bg-soft p-6">
-            <p className="label-text text-secondary">Coverage</p>
-            <div className="mt-6 flex h-64 items-center justify-center rounded-xl border border-dashed border-border bg-bg p-6">
-              <svg viewBox="0 0 360 180" className="h-full w-full" fill="none" aria-hidden="true">
-                <path
-                  d="M24 90C44 62 78 42 118 44C160 46 178 76 220 78C260 80 280 56 312 60C334 62 350 74 356 90C350 108 332 122 310 124C272 126 262 104 224 102C182 100 164 130 120 134C78 138 44 118 24 90Z"
-                  stroke="rgb(226 232 240)"
-                  strokeWidth="2"
-                />
-                <path
-                  d="M86 64C104 52 124 48 150 52C176 56 186 70 210 72C236 74 246 62 268 66"
-                  stroke="rgb(226 232 240)"
-                  strokeWidth="1"
-                />
-                <path
-                  d="M92 108C118 122 150 128 182 124C214 120 232 108 258 106"
-                  stroke="rgb(226 232 240)"
-                  strokeWidth="1"
-                />
-                <circle cx="90" cy="70" r="4" fill="rgb(30 58 138)" />
-                <circle cx="190" cy="90" r="4" fill="rgb(30 58 138)" />
-                <circle cx="260" cy="70" r="4" fill="rgb(30 58 138)" />
-              </svg>
+            cardCenters.forEach((center, index) => {
+              const distance = Math.abs(center - trackCenter);
+              if (distance < nearestDistance) {
+                nearestDistance = distance;
+                nextIndex = index;
+              }
+            });
+
+            setMobileActiveIndex(nextIndex);
+          }}
+          className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 hide-scrollbar md:hidden"
+        >
+          {markets.map((market) => (
+            <article
+              key={market.title}
+              className={`group relative min-h-[420px] w-[86%] shrink-0 snap-center overflow-hidden rounded-2xl border border-border bg-slate-900 bg-cover bg-center bg-no-repeat p-6 cursor-pointer ${market.bgClass}`}
+            >
+              {renderCardContent(market.title, false, {
+                alwaysShowExplore: true,
+                titleClassName: 'max-w-[85%] text-[22px] font-medium leading-[1.25] break-words',
+              })}
+            </article>
+          ))}
+        </section>
+
+        {/* Mobile dot indicators */}
+        <div className="flex items-center justify-center gap-3 md:hidden">
+          {markets.map((market, index) => (
+            <span
+              key={`${market.title}-dot`}
+              className={`inline-block rounded-full bg-slate-500 transition-all duration-300 ${
+                mobileActiveIndex === index ? 'h-2 w-5 bg-slate-900' : 'h-2 w-2'
+              }`}
+              aria-hidden="true"
+            />
+          ))}
+        </div>
+
+        {/* Tablet grid (md to lg): static 2-column card layout */}
+        <section className="hidden gap-6 md:grid md:grid-cols-2 lg:hidden">
+          {markets.map((market) => (
+            <article
+              key={market.title}
+              className={`group relative min-h-[280px] overflow-hidden rounded-2xl border border-border bg-slate-900 bg-cover bg-center bg-no-repeat p-6 cursor-pointer ${market.bgClass}`}
+            >
+              {renderCardContent(market.title, false)}
+            </article>
+          ))}
+        </section>
+
+        {/* Desktop grid (lg+): row-based hover expansion behavior */}
+        <section className="hidden flex-col gap-6 lg:flex">
+          {marketRows.map((row, rowIndex) => (
+            <div key={`market-row-${rowIndex}`} className="flex gap-6">
+              {row.map((market, colIndex) => {
+                const index = rowIndex * 3 + colIndex;
+                const isHovered = hoveredIndex === index;
+
+                return (
+                  <article
+                    key={market.title}
+                    onMouseEnter={() => setHoveredIndex(index)}
+                    onMouseLeave={() => setHoveredIndex(null)}
+                    style={{ flexBasis: getDesktopCardBasis(index) }}
+                    className={`group relative min-h-[280px] shrink-0 overflow-hidden rounded-2xl border border-border bg-slate-900 bg-cover bg-center bg-no-repeat p-6 cursor-pointer transition-all duration-500 ${market.bgClass}`}
+                  >
+                    {renderCardContent(market.title, isHovered)}
+                  </article>
+                );
+              })}
             </div>
-            <p className="body-text mt-4 text-secondary">{activeMarket.details}</p>
-            <div className="mt-6">
-              <Button variant="secondary">Read more</Button>
-            </div>
-          </div>
+          ))}
         </section>
       </div>
     </section>
