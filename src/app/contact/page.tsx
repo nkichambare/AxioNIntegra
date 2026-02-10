@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { IoHome } from 'react-icons/io5';
-
 import Button from '@/components/button';
 
 export default function ContactPage() {
@@ -8,13 +7,7 @@ export default function ContactPage() {
     <main className="min-h-screen bg-bg pt-[88px] text-primary">
       <section className="border-b border-border bg-soft/60 py-16 sm:py-20">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-6">
-          <p className="section-heading text-secondary">Contact</p>
-          <h1 className="heading-1 max-w-4xl">Talk to our team.</h1>
-          <p className="body-text max-w-2xl text-secondary">
-            Share your product goals, technical requirements, and expected timelines. We will
-            respond with the right engineering path and execution model.
-          </p>
-          <div className="pt-2">
+          <div>
             <Link
               href="/"
               aria-label="Back to home"
@@ -23,6 +16,12 @@ export default function ContactPage() {
               <IoHome className="h-6 w-6" aria-hidden="true" />
             </Link>
           </div>
+          <p className="section-heading text-secondary">Contact</p>
+          <h1 className="heading-1 max-w-4xl">Talk to our team.</h1>
+          <p className="body-text max-w-2xl text-secondary">
+            Share your product goals, technical requirements, and expected timelines. We will
+            respond with the right engineering path and execution model.
+          </p>
         </div>
       </section>
 

@@ -71,9 +71,9 @@ export default function SiteHeader() {
       <header className="fixed top-0 left-0 right-0 z-30 border-b border-border bg-bg/90 backdrop-blur">
         <div className="mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center px-4">
           <div className="flex items-center gap-3">
-            <span className="text-[15px] font-semibold leading-[1.2] text-primary">
+            <Link href="/" className="text-[15px] font-semibold leading-[1.2] text-primary">
               AxioNIntegra
-            </span>
+            </Link>
           </div>
 
           <nav className="hidden items-center justify-center gap-8 md:flex">
@@ -136,7 +136,9 @@ export default function SiteHeader() {
               className="mx-auto flex h-full max-w-5xl flex-col px-6 py-10 text-footer-text"
             >
               <div className="flex items-center justify-between">
-                <span className="text-[15px] font-semibold leading-[1.2]">AxioNIntegra</span>
+                <Link href="/" className="text-[15px] font-semibold leading-[1.2]" onClick={closeMenu}>
+                  AxioNIntegra
+                </Link>
                 <div className="flex items-center gap-3">
                   <LanguageSelect
                     id="language-mobile"
