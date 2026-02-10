@@ -1,9 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-
+import Link from 'next/link';
 import AboutSection from '@/components/about-section';
-import Button from '@/components/button';
 import CapabilitiesSection from '@/components/capabilities-section';
 import ExpertiseSection from '@/components/expertise-section';
 import MarketSection from '@/components/market-section';
@@ -51,7 +50,12 @@ export default function Home() {
               </motion.p>
 
               <motion.div variants={fadeUp} className="mt-2 flex flex-wrap items-center gap-6">
-                <Button>Speak to us</Button>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-[14px] font-semibold leading-[1.2] text-white shadow-lg shadow-slate-900/10 transition hover:-translate-y-0.5 hover:shadow-slate-900/20"
+                >
+                  Speak to us
+                </Link>
               </motion.div>
             </motion.div>
           </div>
