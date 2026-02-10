@@ -50,6 +50,12 @@ export default function SiteFooter() {
           © {new Date().getFullYear()} AxioNIntegra. All rights reserved.
         </p>
       </div>
+
+      <div className="mt-8 w-full overflow-hidden px-6 pb-6">
+        <h1 className="whitespace-nowrap text-[17vw] font-semibold leading-[0.9] tracking-tight text-white/15">
+          AxioNIntegra
+        </h1>
+      </div>
     </footer>
   );
 }
