@@ -9,6 +9,7 @@ import ExpertiseSection from '@/components/expertise-section';
 import LanguageSelect from '@/components/language-select';
 import MarketSection from '@/components/market-section';
 import ResourcesSection from '@/components/resources-section';
+import SiteFooter from '@/components/site-footer';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
@@ -41,7 +42,6 @@ export default function Home() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-bg">
       <div className="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-soft blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 right-0 h-80 w-80 translate-x-1/3 translate-y-1/3 rounded-full bg-soft blur-3xl" />
 
       <header className="fixed top-0 left-0 right-0 z-30 border-b border-border bg-bg/90 backdrop-blur">
         <div className="mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center px-4">
@@ -140,6 +140,7 @@ export default function Home() {
         <MarketSection />
         <CapabilitiesSection />
         <ResourcesSection />
+        <SiteFooter />
       </main>
 
       <AnimatePresence>
