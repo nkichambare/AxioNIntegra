@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 import Button from "@/components/button";
+import AboutSection from "@/components/about-section";
 import CapabilitiesSection from "@/components/capabilities-section";
 import ExpertiseSection from "@/components/expertise-section";
 import LanguageSelect from "@/components/language-select";
@@ -136,6 +137,7 @@ export default function Home() {
             </motion.div>
           </div>
         </section>
+        <AboutSection />
         <ExpertiseSection />
         <MarketSection />
         <CapabilitiesSection />
