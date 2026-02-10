@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
+import SiteFooter from '@/components/site-footer';
+import SiteHeader from '@/components/site-header';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Home',
-  description: 'AxioNIntegra home page',
+  title: 'AxioNIntegra',
+  description: 'AxioNIntegra',
 };
 
 export default function RootLayout({
@@ -13,7 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className='antialiased'>{children}</body>
+      <body className='antialiased'>
+        <SiteHeader />
+        {children}
+        <SiteFooter />
+      </body>
     </html>
   );
 }

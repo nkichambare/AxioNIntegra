@@ -1,6 +1,8 @@
+import Link from 'next/link';
+
 export default function SiteFooter() {
   return (
-    <footer id="contact" className="bg-footer py-16 text-footer-text sm:py-20">
+    <footer className="bg-footer py-16 text-footer-text sm:py-20">
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-6 md:grid-cols-[1.2fr_0.8fr_1fr]">
         <div className="flex flex-col gap-4">
           <p className="text-[15px] font-semibold leading-[1.2] text-white">AxioNIntegra</p>
@@ -12,24 +14,27 @@ export default function SiteFooter() {
         <div className="flex flex-col gap-4">
           <p className="label-text text-footer-text/80">Explore</p>
           <div className="flex flex-col gap-3">
-            <a href="#about" className="text-[15px] text-footer-text transition hover:text-white">
+            <Link href="/#about" className="text-[15px] text-footer-text transition hover:text-white">
               About
-            </a>
-            <a href="#market" className="text-[15px] text-footer-text transition hover:text-white">
+            </Link>
+            <Link href="/#market" className="text-[15px] text-footer-text transition hover:text-white">
               Market
-            </a>
-            <a
-              href="#capabilities"
+            </Link>
+            <Link
+              href="/#capabilities"
               className="text-[15px] text-footer-text transition hover:text-white"
             >
               Capabilities
-            </a>
-            <a
-              href="#resources"
+            </Link>
+            <Link
+              href="/#resources"
               className="text-[15px] text-footer-text transition hover:text-white"
             >
               Resources
-            </a>
+            </Link>
+            <Link href="/contact" className="text-[15px] text-footer-text transition hover:text-white">
+              Contact
+            </Link>
           </div>
         </div>
 
