@@ -32,11 +32,8 @@ const capabilityGroups = [
   },
 ];
 
-const hoverStyles = [
-  'transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-slate-900/10',
-  'transition hover:border-accent/40',
-  'relative overflow-hidden transition before:absolute before:left-0 before:top-0 before:h-full before:w-0.5 before:rounded-l-2xl before:bg-accent before:opacity-0 before:transition hover:before:opacity-100',
-];
+const sharedHoverStyle =
+  'relative overflow-hidden transition before:absolute before:left-0 before:top-0 before:h-full before:w-0.5 before:rounded-l-2xl before:bg-accent before:opacity-0 before:transition hover:before:opacity-100';
 
 export default function CapabilitiesSection() {
   return (
@@ -47,10 +44,10 @@ export default function CapabilitiesSection() {
         </div>
 
         <div className="grid gap-6 lg:grid-cols-3 lg:gap-8">
-          {capabilityGroups.map((group, index) => (
+          {capabilityGroups.map((group) => (
             <div
               key={group.title}
-              className={`rounded-2xl border border-border bg-bg p-8 ${hoverStyles[index % hoverStyles.length]}`}
+              className={`rounded-2xl border border-border bg-bg p-8 ${sharedHoverStyle}`}
             >
               <h3 className="body-text font-semibold">{group.title}</h3>
               <p className="mt-3 text-[12px] text-secondary">{group.framing}</p>
