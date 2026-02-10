@@ -33,6 +33,10 @@ body {
   font-family: var(--font-sans);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @layer utilities {
   .heading-1 {
     @apply text-balance text-[38px] font-semibold leading-[1.2] tracking-tight sm:text-[52px];

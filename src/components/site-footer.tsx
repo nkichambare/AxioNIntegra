@@ -52,7 +52,7 @@ export default function SiteFooter() {
       </div>
 
       <div className="mt-8 w-full overflow-hidden px-6 pb-6">
-        <h1 className="whitespace-nowrap text-[17vw] font-semibold leading-[0.9] tracking-tight text-white/15">
+        <h1 className="whitespace-nowrap text-[15vw] md:text-[17vw] font-semibold leading-[0.9] tracking-tight text-white/15">
           AxioNIntegra
         </h1>
       </div>

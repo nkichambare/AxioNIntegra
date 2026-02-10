@@ -16,8 +16,43 @@ const fadeUp = {
   show: { opacity: 1, y: 0 },
 };
 
+const menuReveal = {
+  hidden: {
+    opacity: 0,
+    clipPath: 'circle(0px at calc(100% - 54px) 32px)',
+  },
+  show: {
+    opacity: 1,
+    clipPath: 'circle(160% at calc(100% - 54px) 32px)',
+    transition: {
+      type: 'spring',
+      stiffness: 160,
+      damping: 28,
+    },
+  },
+  exit: {
+    opacity: 0,
+    clipPath: 'circle(0px at calc(100% - 54px) 32px)',
+    transition: {
+      type: 'spring',
+      stiffness: 160,
+      damping: 28,
+    },
+  },
+};
+
+const menuContent = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { delay: 0.1 },
+  },
+  exit: { opacity: 0 },
+};
+
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const closeMenu = () => setIsMenuOpen(false);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -57,6 +92,12 @@ export default function Home() {
               className="text-[14px] font-medium text-secondary transition hover:text-primary"
             >
               Market
+            </a>
+            <a
+              href="#expertise"
+              className="text-[14px] font-medium text-secondary transition hover:text-primary"
+            >
+              Expertise
             </a>
             <a
               href="#capabilities"
@@ -130,7 +171,7 @@ export default function Home() {
               </motion.p>
 
               <motion.div variants={fadeUp} className="mt-2 flex flex-wrap items-center gap-6">
-                <Button>Talk to an Engineer</Button>
+                <Button>Speak to us</Button>
               </motion.div>
             </motion.div>
           </div>
@@ -146,58 +187,58 @@ export default function Home() {
       <AnimatePresence>
         {isMenuOpen ? (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial="hidden"
+            animate="show"
+            exit="exit"
+            variants={menuReveal}
             className="fixed inset-0 z-40 bg-footer"
           >
             <motion.div
-              initial={{ y: 12, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 12, opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              variants={menuContent}
+              initial="hidden"
+              animate="show"
+              exit="exit"
               className="mx-auto flex h-full max-w-5xl flex-col px-6 py-10 text-footer-text"
             >
               <div className="flex items-center justify-between">
                 <span className="text-[15px] font-semibold leading-[1.2]">AxioNIntegra</span>
-                <button
-                  type="button"
-                  aria-label="Close menu"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-footer-text"
-                >
-                  ✕
-                </button>
+                <div className="flex items-center gap-3">
+                  <LanguageSelect
+                    id="language-mobile"
+                    selectClassName="border-white/20 bg-transparent text-footer-text focus:ring-white/20"
+                    chevronClassName="text-footer-text"
+                  />
+                  <button
+                    type="button"
+                    aria-label="Close menu"
+                    onClick={closeMenu}
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-footer-text"
+                  >
+                    ✕
+                  </button>
+                </div>
               </div>
 
-              <nav className="mt-16 flex flex-col gap-8">
-                <a className="heading-2 text-footer-text" href="#market">
+              <nav className="mt-16 flex flex-col items-start gap-8">
+                <a className="heading-2 text-footer-text" href="#market" onClick={closeMenu}>
                   Market
                 </a>
-                <a className="heading-2 text-footer-text" href="#capabilities">
+                <a className="heading-2 text-footer-text" href="#capabilities" onClick={closeMenu}>
                   Capabilities
                 </a>
-                <a className="heading-2 text-footer-text" href="#about">
+                <a className="heading-2 text-footer-text" href="#about" onClick={closeMenu}>
                   About
                 </a>
-                <a className="heading-2 text-footer-text" href="#contact">
+                <a className="heading-2 text-footer-text" href="#contact" onClick={closeMenu}>
                   Contact
                 </a>
-                <a className="heading-2 text-footer-text" href="#resources">
+                <a className="heading-2 text-footer-text" href="#resources" onClick={closeMenu}>
                   Resources
                 </a>
-                <a className="heading-2 text-footer-text" href="#how-we-work">
+                <a className="heading-2 text-footer-text" href="#how-we-work" onClick={closeMenu}>
                   How We Work
                 </a>
               </nav>
-
-              <div className="mt-auto">
-                <LanguageSelect
-                  id="language-mobile"
-                  selectClassName="border-white/20 bg-transparent text-footer-text focus:ring-white/20"
-                  chevronClassName="text-footer-text"
-                />
-              </div>
             </motion.div>
           </motion.div>
         ) : null}
