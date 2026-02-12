@@ -1,14 +1,13 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { AnimatePresence, motion, type Variants } from 'framer-motion';
 import Link from 'next/link';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { TfiClose } from 'react-icons/tfi';
-
 import LanguageSelect from '@/components/language-select';
 
-const menuReveal = {
+const menuReveal: Variants = {
   hidden: {
     opacity: 0,
     clipPath: 'circle(0px at calc(100% - 54px) 32px)',
@@ -33,7 +32,7 @@ const menuReveal = {
   },
 };
 
-const menuContent = {
+const menuContent: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -136,7 +135,11 @@ export default function SiteHeader() {
               className="mx-auto flex h-full max-w-5xl flex-col px-6 py-10 text-footer-text"
             >
               <div className="flex items-center justify-between">
-                <Link href="/" className="text-[15px] font-semibold leading-[1.2]" onClick={closeMenu}>
+                <Link
+                  href="/"
+                  className="text-[15px] font-semibold leading-[1.2]"
+                  onClick={closeMenu}
+                >
                   AxioNIntegra
                 </Link>
                 <div className="flex items-center gap-3">
