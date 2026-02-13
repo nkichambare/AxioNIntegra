@@ -89,7 +89,7 @@ export default function SiteHeader() {
               Capabilities
             </Link>
             <Link
-              href="/#about"
+              href="/about"
               className="text-[14px] font-medium text-secondary transition hover:text-primary"
             >
               About

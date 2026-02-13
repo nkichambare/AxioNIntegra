@@ -24,13 +24,21 @@ export default function AboutSection() {
             Engineering Integration Built for Industrial Scale.
           </h2>
           <p className="body-text text-secondary">
-            AxioNIntegra operates as a single engineering partner across concept design, system
-            development, and production readiness. We align multidisciplinary teams around one
-            technical plan so complex programs move from idea to deployment with fewer handoffs.
-          </p>
-          <p className="body-text text-secondary">
-            Our delivery model is structured for enterprise environments where performance,
-            compliance, and lifecycle reliability matter as much as speed.
+            AxionIntegra is an engineering-driven precision manufacturing and supply chain
+            consultancy that delivers precision manufactured components, assemblies, and sourcing
+            solutions under full accountability.
+            <p className="body-text text-secondary">
+              We support companies that require cost-effective, high precision, and quality
+              certified manufacturing, but do not want to manage vendor search, manufacturing
+              coordination, quality inspections, and execution risks internally.
+            </p>
+            <p className="body-text text-secondary">
+              Depending on project requirements, AxionIntegra operates as a precision component
+              manufacturer and supplier, a manufacturing integrator, or a strategic sourcing and
+              engineering consultancy. In every engagement, we take complete responsibility for
+              manufacturing accuracy, quality performance, cost efficiency, and delivery
+              reliability.
+            </p>
           </p>
           <div className="pt-2">
             <Link
