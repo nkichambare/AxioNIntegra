@@ -2,26 +2,13 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { teamProfiles } from '@/lib/team-profiles';
 
 type AboutTab = 'about' | 'mission';
 
-const teamMembers = [
-  { name: 'Aarav Mehta', role: 'Head of Engineering', image: '/team/p1.png' },
-  { name: 'Sofia Laurent', role: 'Program Delivery Lead', image: '/team/p2.png' },
-  { name: 'Lukas Schneider', role: 'Manufacturing Systems Lead', image: '/team/p3.png' },
-  { name: 'Emma Dubois', role: 'Quality and Compliance Lead', image: '/team/p4.png' },
-];
-
-const advisors = [
-  {
-    name: 'Daniel Brooks',
-    role: 'Industrial Strategy Advisor',
-    image: '/team/p4.png',
-  },
-  { name: 'Nora Richter', role: 'Energy Infrastructure Advisor', image: '/team/p3.png' },
-  { name: 'Marco Bellini', role: 'Operations Excellence Advisor', image: '/team/p2.png' },
-  { name: 'Claire Martin', role: 'Enterprise Transformation Advisor', image: '/team/p1.png' },
-];
+const teamMembers = teamProfiles.filter((profile) => profile.category === 'team');
+const advisors = teamProfiles.filter((profile) => profile.category === 'advisor');
 
 const values = [
   {
@@ -102,9 +89,10 @@ export default function AboutPage() {
                 </div>
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {teamMembers.map((member) => (
-                    <article
+                    <Link
                       key={member.name}
-                      className="group relative rounded-3xl bg-bg pb-8 transition duration-300 ease-out hover:-translate-y-1 hover:drop-shadow-[0_12px_24px_rgba(15,23,42,0.12)]"
+                      href={`/about/${member.slug}`}
+                      className="group relative block rounded-3xl bg-bg pb-8 transition duration-300 ease-out hover:-translate-y-1 hover:drop-shadow-[0_12px_24px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                     >
                       <div className="relative h-[380px] overflow-hidden rounded-3xl">
                         <Image
@@ -116,10 +104,12 @@ export default function AboutPage() {
                         <div className="absolute inset-0 bg-slate-900/20 transition duration-300 group-hover:bg-slate-900/16" />
                       </div>
                       <div className="pointer-events-none absolute inset-x-4 -bottom-2 rounded-2xl border border-border bg-bg/95 px-4 py-3 text-center shadow-sm backdrop-blur transition duration-300 ease-out group-hover:-translate-y-1">
-                        <p className="text-[16px] font-medium leading-[1.3] text-primary">{member.name}</p>
+                        <p className="text-[16px] font-medium leading-[1.3] text-primary">
+                          {member.name}
+                        </p>
                         <p className="mt-1 text-[14px] text-secondary">{member.role}</p>
                       </div>
-                    </article>
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -133,9 +123,10 @@ export default function AboutPage() {
                 </div>
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {advisors.map((member) => (
-                    <article
+                    <Link
                       key={member.name}
-                      className="group relative rounded-3xl bg-bg pb-8 transition duration-300 ease-out hover:-translate-y-1 hover:drop-shadow-[0_12px_24px_rgba(15,23,42,0.12)]"
+                      href={`/about/${member.slug}`}
+                      className="group relative block rounded-3xl bg-bg pb-8 transition duration-300 ease-out hover:-translate-y-1 hover:drop-shadow-[0_12px_24px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                     >
                       <div className="relative h-[380px] overflow-hidden rounded-3xl">
                         <Image
@@ -147,10 +138,12 @@ export default function AboutPage() {
                         <div className="absolute inset-0 bg-slate-900/20 transition duration-300 group-hover:bg-slate-900/16" />
                       </div>
                       <div className="pointer-events-none absolute inset-x-4 -bottom-2 rounded-2xl border border-border bg-bg/95 px-4 py-3 text-center shadow-sm backdrop-blur transition duration-300 ease-out group-hover:-translate-y-1">
-                        <p className="text-[16px] font-medium leading-[1.3] text-primary">{member.name}</p>
+                        <p className="text-[16px] font-medium leading-[1.3] text-primary">
+                          {member.name}
+                        </p>
                         <p className="mt-1 text-[14px] text-secondary">{member.role}</p>
                       </div>
-                    </article>
+                    </Link>
                   ))}
                 </div>
               </div>
