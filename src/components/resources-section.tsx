@@ -1,7 +1,6 @@
 'use client';
 
 import { type PointerEvent as ReactPointerEvent, useRef, useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { HiOutlineArrowLongLeft, HiOutlineArrowLongRight } from 'react-icons/hi2';
 import type { Locale, ResourceCard } from '@/lib/content';
@@ -18,8 +17,14 @@ export default function ResourcesSection({ resources, requestedLocale }: Resourc
   const dragStartX = useRef(0);
   const dragStartScrollLeft = useRef(0);
 
+  const isInteractiveTarget = (target: EventTarget | null) => {
+    if (!(target instanceof HTMLElement)) return false;
+    return Boolean(target.closest('a,button,input,select,textarea,label,[role="button"]'));
+  };
+
   const handlePointerDown = (event: ReactPointerEvent<HTMLElement>) => {
     if (window.innerWidth < 768) return;
+    if (isInteractiveTarget(event.target)) return;
     const track = trackRef.current;
     if (!track) return;
 
@@ -32,6 +37,7 @@ export default function ResourcesSection({ resources, requestedLocale }: Resourc
   const handlePointerMove = (event: ReactPointerEvent<HTMLElement>) => {
     if (window.innerWidth < 768) return;
     if (!isDragging) return;
+    if (isInteractiveTarget(event.target)) return;
     const track = trackRef.current;
     if (!track) return;
 
@@ -129,11 +135,10 @@ export default function ResourcesSection({ resources, requestedLocale }: Resourc
               href={`/resources/${resource.postSlug}?lang=${requestedLocale}`}
               className="group relative min-h-[340px] w-[86%] shrink-0 snap-center overflow-hidden rounded-2xl border border-border bg-slate-900 p-6 cursor-pointer sm:w-[62%] lg:w-[38%]"
             >
-              <Image
+              <img
                 src={resource.backgroundImagePath}
                 alt={resource.title}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-slate-900/55 transition-colors duration-500 group-hover:bg-slate-900/45" />
               <div className="absolute bottom-0 right-0 h-[72%] w-[78%] translate-x-full translate-y-full rounded-tl-2xl bg-accent/85 transition-transform duration-500 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
