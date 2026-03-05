@@ -1,0 +1,12 @@
+{
+  "entry": "Prototype Production EN",
+  "translationKey": "prototype-to-production-checklist",
+  "locale": "en",
+  "sortOrder": 3,
+  "title": "Prototype to Production Checklist",
+  "preview": "Key gates to move from prototype validation into stable and repeatable manufacturing.",
+  "backgroundImagePath": "/market/metals-chlorine-refining.png",
+  "postSlug": "prototype-to-production-checklist",
+  "ctaLabel": "Read",
+  "published": true
+}

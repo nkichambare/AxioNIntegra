@@ -1,0 +1,12 @@
+{
+  "entry": "Energy Delivery EN",
+  "translationKey": "energy-systems-delivery-brief",
+  "locale": "en",
+  "sortOrder": 4,
+  "title": "Energy Systems Delivery Brief",
+  "preview": "Operational insights for delivering high-compliance energy infrastructure programs.",
+  "backgroundImagePath": "/market/power-storage.png",
+  "postSlug": "energy-systems-delivery-brief",
+  "ctaLabel": "Read",
+  "published": true
+}

@@ -1,0 +1,12 @@
+{
+  "entry": "Prototype Production EN",
+  "translationKey": "prototype-to-production-checklist",
+  "locale": "en",
+  "routeSlug": "prototype-to-production-checklist",
+  "title": "Prototype to Production Checklist",
+  "excerpt": "Critical readiness gates to move confidently from pilot builds to scaled manufacturing.",
+  "coverImagePath": "/market/metals-chlorine-refining.png",
+  "publishDate": "2026-03-05",
+  "body": "Prototype success does not guarantee production stability.\nBefore scale-up, verify process windows, test coverage, and supply continuity for all critical parts.\nA disciplined readiness checklist protects schedule and quality once customer demand increases.",
+  "published": true
+}

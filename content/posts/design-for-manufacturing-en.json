@@ -1,0 +1,12 @@
+{
+  "entry": "Design For Manufacturing EN",
+  "translationKey": "design-for-manufacturing-guide",
+  "locale": "en",
+  "routeSlug": "design-for-manufacturing-guide",
+  "title": "Design for Manufacturing Guide",
+  "excerpt": "How early engineering decisions reduce production defects, cost overruns, and launch delays.",
+  "coverImagePath": "/market/networks-data-centres.png",
+  "publishDate": "2026-03-05",
+  "body": "Design for manufacturing starts with tolerances that match available process capability.\nTeams that validate manufacturability during concept work avoid expensive redesign loops later in the lifecycle.\nTreat supplier feedback as a design input, not a late-stage correction mechanism.",
+  "published": true
+}

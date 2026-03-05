@@ -1,34 +1,17 @@
 'use client';
 
 import { type PointerEvent as ReactPointerEvent, useRef, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { HiOutlineArrowLongLeft, HiOutlineArrowLongRight } from 'react-icons/hi2';
+import type { Locale, ResourceCard } from '@/lib/content';
 
-const resources = [
-  {
-    title: 'Design for Manufacturing Guide',
-    preview:
-      'Learn how engineering choices early in development reduce downstream production risk.',
-    bgClass: "bg-[url('/market/networks-data-centres.png')]",
-  },
-  {
-    title: 'Industrial Quality Playbook',
-    preview: 'A practical framework for quality controls, traceability, and release confidence.',
-    bgClass: "bg-[url('/market/switchgears.png')]",
-  },
-  {
-    title: 'Prototype to Production Checklist',
-    preview:
-      'Key gates to move from prototype validation into stable and repeatable manufacturing.',
-    bgClass: "bg-[url('/market/metals-chlorine-refining.png')]",
-  },
-  {
-    title: 'Energy Systems Delivery Brief',
-    preview: 'Operational insights for delivering high-compliance energy infrastructure programs.',
-    bgClass: "bg-[url('/market/power-storage.png')]",
-  },
-];
+type ResourcesSectionProps = {
+  resources: ResourceCard[];
+  requestedLocale: Locale;
+};
 
-export default function ResourcesSection() {
+export default function ResourcesSection({ resources, requestedLocale }: ResourcesSectionProps) {
   const trackRef = useRef<HTMLElement | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
@@ -141,10 +124,17 @@ export default function ResourcesSection() {
           } ${isDragging ? 'cursor-grabbing select-none' : 'cursor-grab'}`}
         >
           {resources.map((resource) => (
-            <article
+            <Link
               key={resource.title}
-              className={`group relative min-h-[340px] w-[86%] shrink-0 snap-center overflow-hidden rounded-2xl border border-border bg-slate-900 bg-cover bg-center bg-no-repeat p-6 cursor-pointer sm:w-[62%] lg:w-[38%] ${resource.bgClass}`}
+              href={`/resources/${resource.postSlug}?lang=${requestedLocale}`}
+              className="group relative min-h-[340px] w-[86%] shrink-0 snap-center overflow-hidden rounded-2xl border border-border bg-slate-900 p-6 cursor-pointer sm:w-[62%] lg:w-[38%]"
             >
+              <Image
+                src={resource.backgroundImagePath}
+                alt={resource.title}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
               <div className="absolute inset-0 bg-slate-900/55 transition-colors duration-500 group-hover:bg-slate-900/45" />
               <div className="absolute bottom-0 right-0 h-[72%] w-[78%] translate-x-full translate-y-full rounded-tl-2xl bg-accent/85 transition-transform duration-500 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
               <div className="relative z-10 flex h-full flex-col justify-between">
@@ -155,11 +145,11 @@ export default function ResourcesSection() {
                   </p>
                 </div>
                 <span className="absolute bottom-0 right-0 flex items-center gap-2 text-white">
-                  <span className="label-text translate-x-0 opacity-100">Read</span>
+                  <span className="label-text translate-x-0 opacity-100">{resource.ctaLabel}</span>
                   <HiOutlineArrowLongRight className="h-6 w-6" aria-hidden="true" />
                 </span>
               </div>
-            </article>
+            </Link>
           ))}
         </section>
 

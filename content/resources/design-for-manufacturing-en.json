@@ -1,0 +1,12 @@
+{
+  "entry": "Design For Manufacturing EN",
+  "translationKey": "design-for-manufacturing-guide",
+  "locale": "en",
+  "sortOrder": 1,
+  "title": "Design for Manufacturing Guide",
+  "preview": "Learn how engineering choices early in development reduce downstream production risk.",
+  "backgroundImagePath": "/market/networks-data-centres.png",
+  "postSlug": "design-for-manufacturing-guide",
+  "ctaLabel": "Read",
+  "published": true
+}
