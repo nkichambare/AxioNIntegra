@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getPostBySlug, getPosts, normalizeLocale, supportedLocales } from '@/lib/content';
+import ResourceBody from '@/components/resource-body';
+import { getPostBySlug, getPosts, normalizeLocale } from '@/lib/content';
+import { formatLocalDate } from '@/lib/date-format';
 
 type ResourcePostPageProps = {
   params: Promise<{ slug: string }>;
@@ -55,28 +57,6 @@ export default async function ResourcePostPage({ params, searchParams }: Resourc
             <span className="text-muted">/</span>
             <span className="text-secondary">{post.title}</span>
           </nav>
-          <div className="flex items-center gap-2">
-            {supportedLocales.map((targetLocale) => {
-              const translated = post.translations.find((item) => item.locale === targetLocale);
-              const href = translated
-                ? `/resources/${translated.routeSlug}?lang=${targetLocale}`
-                : `/resources/${post.routeSlug}?lang=${targetLocale}`;
-
-              return (
-                <Link
-                  key={targetLocale}
-                  href={href}
-                  className={`rounded-full border px-3 py-1 text-[12px] font-medium transition ${
-                    locale === targetLocale
-                      ? 'border-accent bg-accent/10 text-accent'
-                      : 'border-border text-secondary hover:text-primary'
-                  }`}
-                >
-                  {targetLocale.toUpperCase()}
-                </Link>
-              );
-            })}
-          </div>
         </div>
       </section>
 
@@ -86,22 +66,13 @@ export default async function ResourcePostPage({ params, searchParams }: Resourc
         </div>
 
         <header className="mt-7">
-          <p className="label-text text-muted">{post.publishDate}</p>
+          <p className="label-text text-muted">{formatLocalDate(post.publishDate, locale)}</p>
           <h1 className="heading-2 mt-3">{post.title}</h1>
         </header>
 
         <div className="mt-6">
           <p className="body-text text-secondary">{post.excerpt}</p>
-          <div className="mt-4 flex flex-col gap-4">
-            {post.body
-              .split('\n')
-              .filter((paragraph) => paragraph.trim().length > 0)
-              .map((paragraph, index) => (
-                <p key={`${post.routeSlug}-${index}`} className="body-text text-secondary">
-                  {paragraph}
-                </p>
-              ))}
-          </div>
+          <ResourceBody body={post.body} />
         </div>
       </article>
     </main>

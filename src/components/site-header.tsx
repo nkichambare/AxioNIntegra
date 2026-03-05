@@ -1,8 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useTransition } from 'react';
 import { AnimatePresence, motion, type Variants } from 'framer-motion';
 import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { TfiClose } from 'react-icons/tfi';
 import LanguageSelect from '@/components/language-select';
@@ -42,8 +44,47 @@ const menuContent: Variants = {
 };
 
 export default function SiteHeader() {
+  const pathname = usePathname();
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
+  const [currentLang, setCurrentLang] = useState(() => {
+    if (typeof window === 'undefined') return 'en';
+    return new URLSearchParams(window.location.search).get('lang') ?? 'en';
+  });
+
+  const withLang = (href: string) => {
+    if (!href.startsWith('/')) return href;
+    const [pathWithQuery, hashPart] = href.split('#');
+    const separator = pathWithQuery.includes('?') ? '&' : '?';
+    const nextHref = `${pathWithQuery}${separator}lang=${encodeURIComponent(currentLang)}`;
+    return hashPart ? `${nextHref}#${hashPart}` : nextHref;
+  };
+
+  const handleLanguageChange = (nextLang: string) => {
+    setCurrentLang(nextLang);
+    const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
+    params.set('lang', nextLang);
+    const query = params.toString();
+    const hash = typeof window !== 'undefined' ? window.location.hash : '';
+    startTransition(() => {
+      router.push(`${pathname}${query ? `?${query}` : ''}${hash}`);
+    });
+    closeMenu();
+  };
+
+  useEffect(() => {
+    const syncLangFromUrl = () => {
+      const next = new URLSearchParams(window.location.search).get('lang') ?? 'en';
+      setCurrentLang((prev) => (prev === next ? prev : next));
+    };
+
+    window.addEventListener('popstate', syncLangFromUrl);
+    return () => {
+      window.removeEventListener('popstate', syncLangFromUrl);
+    };
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -67,35 +108,41 @@ export default function SiteHeader() {
 
   return (
     <>
+      <div
+        aria-hidden="true"
+        className={`fixed left-0 right-0 top-0 z-50 h-[2px] bg-accent/85 transition-transform duration-300 ease-out ${
+          isPending ? 'origin-left scale-x-100' : 'origin-right scale-x-0'
+        }`}
+      />
       <header className="fixed top-0 left-0 right-0 z-30 border-b border-border bg-bg/90 backdrop-blur">
         <div className="mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center px-4">
           <div className="flex items-center gap-3">
-            <Link href="/" className="text-[15px] font-semibold leading-[1.2] text-primary">
+            <Link href={withLang('/')} className="text-[15px] font-semibold leading-[1.2] text-primary">
               AxioNIntegra
             </Link>
           </div>
 
           <nav className="hidden items-center justify-center gap-8 md:flex">
             <Link
-              href="/#market"
+              href={withLang('/#market')}
               className="text-[14px] font-medium text-secondary transition hover:text-primary"
             >
               Market
             </Link>
             <Link
-              href="/#capabilities"
+              href={withLang('/#capabilities')}
               className="text-[14px] font-medium text-secondary transition hover:text-primary"
             >
               Capabilities
             </Link>
             <Link
-              href="/about"
+              href={withLang('/about')}
               className="text-[14px] font-medium text-secondary transition hover:text-primary"
             >
               About
             </Link>
             <Link
-              href="/contact"
+              href={withLang('/contact')}
               className="text-[14px] font-medium text-secondary transition hover:text-primary"
             >
               Contact
@@ -113,7 +160,7 @@ export default function SiteHeader() {
               <RxHamburgerMenu className="h-4 w-4" aria-hidden="true" />
             </button>
 
-            <LanguageSelect />
+            <LanguageSelect value={currentLang} onChange={handleLanguageChange} />
           </div>
         </div>
       </header>
@@ -136,7 +183,7 @@ export default function SiteHeader() {
             >
               <div className="flex items-center justify-between">
                 <Link
-                  href="/"
+                  href={withLang('/')}
                   className="text-[15px] font-semibold leading-[1.2]"
                   onClick={closeMenu}
                 >
@@ -145,6 +192,8 @@ export default function SiteHeader() {
                 <div className="flex items-center gap-3">
                   <LanguageSelect
                     id="language-mobile"
+                    value={currentLang}
+                    onChange={handleLanguageChange}
                     selectClassName="border-white/20 bg-transparent text-footer-text focus:ring-white/20"
                     chevronClassName="text-footer-text"
                   />
@@ -160,23 +209,23 @@ export default function SiteHeader() {
               </div>
 
               <nav className="mt-16 flex flex-col items-start gap-8">
-                <Link className="heading-2 text-footer-text" href="/#market" onClick={closeMenu}>
+                <Link className="heading-2 text-footer-text" href={withLang('/#market')} onClick={closeMenu}>
                   Market
                 </Link>
                 <Link
                   className="heading-2 text-footer-text"
-                  href="/#capabilities"
+                  href={withLang('/#capabilities')}
                   onClick={closeMenu}
                 >
                   Capabilities
                 </Link>
-                <Link className="heading-2 text-footer-text" href="/#about" onClick={closeMenu}>
+                <Link className="heading-2 text-footer-text" href={withLang('/#about')} onClick={closeMenu}>
                   About
                 </Link>
-                <Link className="heading-2 text-footer-text" href="/contact" onClick={closeMenu}>
+                <Link className="heading-2 text-footer-text" href={withLang('/contact')} onClick={closeMenu}>
                   Contact
                 </Link>
-                <Link className="heading-2 text-footer-text" href="/#resources" onClick={closeMenu}>
+                <Link className="heading-2 text-footer-text" href={withLang('/#resources')} onClick={closeMenu}>
                   Resources
                 </Link>
               </nav>

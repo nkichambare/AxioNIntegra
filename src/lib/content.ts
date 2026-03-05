@@ -19,7 +19,7 @@ export type ResourceCard = {
   backgroundImagePath: string;
   postSlug: string;
   ctaLabel: string;
-  sortOrder: number;
+  publishDate: string;
 };
 
 export type BlogPostSummary = {
@@ -109,9 +109,9 @@ export async function getResources(locale: Locale): Promise<ResourceCard[]> {
       backgroundImagePath: entry.coverImagePath,
       postSlug: entry.routeSlug,
       ctaLabel: entry.resourceCtaLabel,
-      sortOrder: entry.resourceSortOrder,
+      publishDate: entry.publishDate,
     }))
-    .sort((a, b) => a.sortOrder - b.sortOrder);
+    .sort((a, b) => b.publishDate.localeCompare(a.publishDate));
 }
 
 export async function getPosts(locale: Locale): Promise<BlogPostSummary[]> {

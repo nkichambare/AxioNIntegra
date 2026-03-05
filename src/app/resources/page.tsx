@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getPosts, normalizeLocale } from '@/lib/content';
+import { formatLocalDate } from '@/lib/date-format';
 
 type ResourcesListPageProps = {
   searchParams: Promise<{ lang?: string | string[] }>;
@@ -29,7 +30,7 @@ export default async function ResourcesListPage({ searchParams }: ResourcesListP
               href={`/resources/${post.routeSlug}?lang=${locale}`}
               className="rounded-2xl border border-border bg-bg p-5 transition hover:border-accent/40"
             >
-              <p className="label-text text-muted">{post.publishDate}</p>
+              <p className="label-text text-muted">{formatLocalDate(post.publishDate, locale)}</p>
               <h2 className="heading-3 mt-2">{post.title}</h2>
               <p className="body-text mt-2 text-secondary">{post.excerpt}</p>
             </Link>

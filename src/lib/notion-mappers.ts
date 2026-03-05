@@ -11,7 +11,6 @@ export type NotionPostRecord = {
   body: string;
   status: string;
   publishAt: string;
-  resourceSortOrder: number;
   resourceCtaLabel: string;
   translations: { locale: string; routeSlug: string; title: string }[];
 };
@@ -57,17 +56,6 @@ function readSelect(properties: Record<string, NotionProperty>, names: string[])
   return '';
 }
 
-function readNumber(properties: Record<string, NotionProperty>, names: string[], fallback: number) {
-  const prop = findProperty(properties, names);
-  if (!prop) return fallback;
-  if (prop.type === 'number' && typeof prop.number === 'number') return prop.number;
-  if (prop.type === 'rich_text') {
-    const parsed = Number(richTextToString(prop.rich_text));
-    return Number.isFinite(parsed) ? parsed : fallback;
-  }
-  return fallback;
-}
-
 function readDate(properties: Record<string, NotionProperty>, names: string[]) {
   const prop = findProperty(properties, names);
   if (!prop) return '';
@@ -100,11 +88,6 @@ export function mapPageToPost(page: NotionPage, body: string): NotionPostRecord 
   const coverImagePath = readFilesUrl(page.properties, ['coverImage', 'cover image', 'image']);
   const publishDate = readDate(page.properties, ['publishAt', 'publish at', 'publishDate', 'publish date']);
   const status = readSelect(page.properties, ['status']) || 'draft';
-  const resourceSortOrder = readNumber(
-    page.properties,
-    ['resourceSortOrder', 'resource sort order'],
-    999,
-  );
   const resourceCtaLabel = readText(page.properties, ['resourceCtaLabel', 'resource cta label']) || 'Read';
 
   return {
@@ -118,7 +101,6 @@ export function mapPageToPost(page: NotionPage, body: string): NotionPostRecord 
     body,
     status,
     publishAt: publishDate,
-    resourceSortOrder,
     resourceCtaLabel,
     translations: [],
   };
