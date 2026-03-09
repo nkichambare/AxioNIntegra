@@ -1,4 +1,3 @@
-import { cache } from 'react';
 import 'server-only';
 import { getEnv, getPageBlocksMarkdown, hasNotionConfig, queryAllPages } from '@/lib/notion-client';
 import {
@@ -42,7 +41,7 @@ export function normalizeLocale(value: string | string[] | undefined): Locale {
   return supportedLocales.includes(next as Locale) ? (next as Locale) : 'en';
 }
 
-const getAllPosts = cache(async (): Promise<NotionPostRecord[]> => {
+async function getAllPosts(): Promise<NotionPostRecord[]> {
   const databaseId = getEnv('NOTION_DATABASE_ID');
   if (!hasNotionConfig() || !databaseId) {
     return [];
@@ -61,7 +60,6 @@ const getAllPosts = cache(async (): Promise<NotionPostRecord[]> => {
       (post) =>
         post.routeSlug &&
         post.title &&
-        post.coverImagePath &&
         supportedLocales.includes(post.locale as Locale) &&
         isPublishedPost(post.status, post.publishAt),
     );
@@ -70,7 +68,7 @@ const getAllPosts = cache(async (): Promise<NotionPostRecord[]> => {
   } catch {
     return [];
   }
-});
+}
 
 function pickLocalized<T extends { translationKey: string; locale: string }>(
   entries: T[],
@@ -106,7 +104,7 @@ export async function getResources(locale: Locale): Promise<ResourceCard[]> {
       locale: entry.locale as Locale,
       title: entry.title,
       preview: entry.excerpt,
-      backgroundImagePath: entry.coverImagePath,
+      backgroundImagePath: entry.coverImagePath || '/about-us.png',
       postSlug: entry.routeSlug,
       ctaLabel: entry.resourceCtaLabel,
       publishDate: entry.publishDate,
@@ -125,7 +123,7 @@ export async function getPosts(locale: Locale): Promise<BlogPostSummary[]> {
       routeSlug: entry.routeSlug,
       title: entry.title,
       excerpt: entry.excerpt,
-      coverImagePath: entry.coverImagePath,
+      coverImagePath: entry.coverImagePath || '/about-us.png',
       publishDate: entry.publishDate,
     }))
     .sort((a, b) => b.publishDate.localeCompare(a.publishDate));
@@ -162,7 +160,7 @@ export async function getPostBySlug(routeSlug: string, locale: Locale): Promise<
     routeSlug: resolved.routeSlug,
     title: resolved.title,
     excerpt: resolved.excerpt,
-    coverImagePath: resolved.coverImagePath,
+    coverImagePath: resolved.coverImagePath || '/about-us.png',
     publishDate: resolved.publishDate,
     body: resolved.body,
     translations: resolved.translations

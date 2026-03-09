@@ -10,6 +10,14 @@ type ResourcePostPageProps = {
   searchParams: Promise<{ lang?: string | string[] }>;
 };
 
+async function getResourcePageData(params: Promise<{ slug: string }>, searchParams: Promise<{ lang?: string | string[] }>) {
+  const { slug } = await params;
+  const { lang } = await searchParams;
+  const locale = normalizeLocale(lang);
+  const post = await getPostBySlug(slug, locale);
+  return { locale, post };
+}
+
 export async function generateStaticParams() {
   const posts = await getPosts('en');
   return posts.map((post) => ({ slug: post.routeSlug }));
@@ -19,28 +27,37 @@ export async function generateMetadata({
   params,
   searchParams,
 }: ResourcePostPageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const { lang } = await searchParams;
-  const locale = normalizeLocale(lang);
-  const post = await getPostBySlug(slug, locale);
+  try {
+    const { post } = await getResourcePageData(params, searchParams);
 
-  if (!post) {
+    if (!post) {
+      return {
+        title: 'Resources | AxioNIntegra',
+      };
+    }
+
+    return {
+      title: `${post.title} | AxioNIntegra`,
+      description: post.excerpt,
+    };
+  } catch {
     return {
       title: 'Resources | AxioNIntegra',
     };
   }
-
-  return {
-    title: `${post.title} | AxioNIntegra`,
-    description: post.excerpt,
-  };
 }
 
 export default async function ResourcePostPage({ params, searchParams }: ResourcePostPageProps) {
-  const { slug } = await params;
-  const { lang } = await searchParams;
-  const locale = normalizeLocale(lang);
-  const post = await getPostBySlug(slug, locale);
+  let locale: ReturnType<typeof normalizeLocale> = 'en';
+  let post: Awaited<ReturnType<typeof getPostBySlug>> = null;
+
+  try {
+    const data = await getResourcePageData(params, searchParams);
+    locale = data.locale;
+    post = data.post;
+  } catch {
+    notFound();
+  }
 
   if (!post) {
     notFound();
