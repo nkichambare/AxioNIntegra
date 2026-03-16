@@ -16,7 +16,7 @@ export default async function Home({ searchParams }: HomePageProps) {
   const resources = await getResources(locale);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-bg">
+    <div className="relative min-h-screen overflow-x-hidden bg-bg">
       <div className="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-soft blur-3xl" />
 
       <main className="relative flex w-full flex-col text-primary">
