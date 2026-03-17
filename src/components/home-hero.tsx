@@ -21,20 +21,21 @@ export default function HomeHero() {
           }}
           className="flex max-w-3xl flex-col gap-6 pt-[12%] text-left"
         >
-          <motion.div variants={fadeUp} className="flex items-center gap-4">
+          {/* <motion.div variants={fadeUp} className="flex items-center gap-4">
             <span className="h-px w-10 bg-border" />
-            <span className="label-text text-secondary">End-to-end engineering services</span>
-          </motion.div>
+            <span className="label-text text-secondary">From Requirement to Delivery.</span>
+          </motion.div> */}
 
           <motion.h1 variants={fadeUp} className="heading-1">
-            From Concept to Production.
-            <span className="block text-muted">One Accountable Partner.</span>
+            From Requirement to Delivery.
+            <span className="block text-muted"> One Responsible Interface..</span>
           </motion.h1>
 
           <motion.p variants={fadeUp} className="body-text max-w-2xl text-pretty text-secondary">
-            We take full ownership of the engineering journey. By integrating design, development,
-            and production under one roof, we reduce technical risk and complexity for enterprise
-            clients.
+            We take full ownership of precision manufacturing and supply chain execution. By
+            integrating supplier coordination, quality validation, and delivery management under one
+            accountable structure, we reduce operational complexity and protect performance for
+            industrial customers.
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-2 flex flex-wrap items-center gap-6">

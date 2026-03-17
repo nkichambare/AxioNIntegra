@@ -6,7 +6,7 @@ type ExperienceItem = {
   id: string;
   title: string;
   subtitle: string;
-  description: string;
+  description?: string;
   image: string;
   cta: string;
   href: string;
@@ -15,30 +15,30 @@ type ExperienceItem = {
 const experiences: ExperienceItem[] = [
   {
     id: 'accountability',
-    title: 'Single point of accountability',
-    subtitle: 'From scope to delivery. One responsible partner.',
-    description:
-      'AxioNIntegra aligns engineering decisions, supplier control, and execution into one accountable delivery model.',
+    title: 'Single Responsible Interface',
+    subtitle: 'One accountable partner from specification clarification to final delivery.',
+    // description:
+    //   'AxioNIntegra aligns engineering decisions, supplier control, and execution into one accountable delivery model.',
     image: '/expertise/expertise1.png',
     cta: 'Discover more',
     href: '#capabilities',
   },
   {
     id: 'execution',
-    title: 'Engineering-first execution',
-    subtitle: 'Manufacturing decisions with design intent intact.',
-    description:
-      'We convert specifications into stable production plans with quality gates, traceability, and delivery discipline.',
+    title: 'Engineering-Led Execution',
+    subtitle: 'Technical alignment, process discipline, and cost control drive every project.',
+    // description:
+    //   'We convert specifications into stable production plans with quality gates, traceability, and delivery discipline.',
     image: '/expertise/expertise2.png',
     cta: 'Discover more',
     href: '#market',
   },
   {
     id: 'quality',
-    title: 'Quality built-in',
-    subtitle: 'Inspection discipline at every stage.',
-    description:
-      'Controlled processes and measurable standards reduce variability and protect enterprise program outcomes.',
+    title: 'Quality Built Into the Process',
+    subtitle: 'Structured inspections, traceable documentation, and controlled output validation.',
+    // description:
+    //   'Controlled processes and measurable standards reduce variability and protect enterprise program outcomes.',
     image: '/expertise/expertise3.png',
     cta: 'Discover more',
     href: '#resources',
@@ -51,10 +51,11 @@ export default function ExpertiseSection() {
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-6 md:gap-16">
         <div className="flex flex-col gap-3">
           <p className="section-heading text-secondary">Expertise</p>
-          <h2 className="heading-2">Experience Portfolio</h2>
+          <h2 className="heading-2">Accountability Across the Full Manufacturing Cycle.</h2>
           <p className="body-text max-w-2xl text-secondary">
-            Engineering-led manufacturing programs structured for execution, control, and measurable
-            delivery outcomes.
+            AxionIntegra operates as a precision integration partner. We unify engineering
+            alignment, supplier coordination, production control, and quality validation under one
+            responsible structure.
           </p>
         </div>
 
@@ -81,9 +82,11 @@ export default function ExpertiseSection() {
                     {item.title}
                   </p>
                   <p className="mt-3 text-[14px] leading-[1.6] text-white/85">{item.subtitle}</p>
-                  <p className="body-text mt-4 translate-y-1 text-[14px] leading-[1.6] text-white/90 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                    {item.description}
-                  </p>
+                  {item.description && (
+                    <p className="body-text mt-4 translate-y-1 text-[14px] leading-[1.6] text-white/90 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                      {item.description}
+                    </p>
+                  )}
                 </div>
 
                 <span className="flex items-center gap-2 text-white">

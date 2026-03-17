@@ -5,27 +5,27 @@ import { HiOutlineArrowLongRight } from 'react-icons/hi2';
 
 const markets = [
   {
-    title: 'Networks & Data Centres',
+    title: 'Industrial Equipment Manufacturers',
     bgClass: "bg-[url('/market/networks-data-centres.png')]",
   },
   {
-    title: 'Switchgears',
+    title: 'Electrical & Power Systems',
     bgClass: "bg-[url('/market/switchgears.png')]",
   },
   {
-    title: 'Metals & Chlorine Refining',
+    title: 'Precision Engineering & Machine Builders',
     bgClass: "bg-[url('/market/metals-chlorine-refining.png')]",
   },
   {
-    title: 'Green Hydrogen',
+    title: 'Renewable & Industrial Energy Systems',
     bgClass: "bg-[url('/market/green-hydrogen..png')]",
   },
   {
-    title: 'Power Storage',
+    title: 'Automotive & Industrial Mobility Components',
     bgClass: "bg-[url('/market/power-storage.png')]",
   },
   {
-    title: 'Industrial Mobility',
+    title: 'Industrial Assemblies & OEM Suppliers',
     bgClass: "bg-[url('/market/industrial-mobility.png')]",
   },
 ];
@@ -86,10 +86,14 @@ export default function MarketSection() {
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 md:gap-16 px-6">
         <div className="flex flex-col gap-3">
           <p className="section-heading text-secondary">Markets</p>
-          <h2 className="heading-2">Where we operate</h2>
-          <p className="body-text max-w-2xl text-secondary">
-            Focused expertise across energy, industrial, and infrastructure markets that demand
-            precision, compliance, and delivery reliability.
+          <h2 className="heading-2">Supporting Industrial Manufacturing Where Precision Matters</h2>
+          <p className="body-text max-w-4xl text-secondary">
+            AxionIntegra operates in industrial sectors where engineering accuracy, structured
+            execution, and delivery reliability are critical to performance. We support
+            organizations that require precision components, assemblies, and integrated
+            manufacturing solutions within regulated and cost-sensitive environments. Our approach
+            is aligned with industries that value accountability, technical clarity, and long-term
+            supply stability.
           </p>
         </div>
 

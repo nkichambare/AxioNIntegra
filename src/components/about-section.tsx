@@ -21,7 +21,7 @@ export default function AboutSection() {
         <div className="order-1 flex flex-col gap-5 md:order-1">
           <p className="section-heading text-secondary">About</p>
           <h2 className="heading-2 text-primary">
-            Engineering Integration Built for Industrial Scale.
+            Precision Manufacturing Built for Industrial Reliability.
           </h2>
           <p className="body-text text-secondary">
             AxionIntegra is an engineering-driven precision manufacturing and supply chain
