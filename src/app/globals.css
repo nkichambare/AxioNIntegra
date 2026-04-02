@@ -16,6 +16,8 @@
 
 @theme inline {
   --font-sans: var(--font-sans);
+  --font-playfair: var(--font-playfair);
+  --font-ibm-mono: var(--font-ibm-mono);
   --color-primary: var(--color-text-primary);
   --color-secondary: var(--color-text-secondary);
   --color-muted: var(--color-text-muted);
