@@ -258,12 +258,12 @@ export default async function ResourcePostPage({ params, searchParams }: Resourc
             </p>
           </div>
           <div className="flex min-w-[180px] flex-col">
-            <a
-              href="mailto:info@axionintegra.com"
+            <Link
+              href="/contact"
               className="block whitespace-nowrap bg-accent px-6 py-3.5 text-center font-ibm-mono text-[11px] tracking-[0.15em] uppercase text-white transition hover:opacity-90"
             >
               Get in Touch
-            </a>
+            </Link>
           </div>
         </div>
       </div>
