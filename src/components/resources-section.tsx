@@ -1,6 +1,6 @@
 import Link from 'next/link';
+import ResourcesSlider from '@/components/resources-slider';
 import type { Locale, ResourceCard } from '@/lib/content';
-import ResourceCardComponent from '@/components/resource-card';
 
 type ResourcesSectionProps = {
   resources: ResourceCard[];
@@ -11,7 +11,6 @@ export default function ResourcesSection({ resources, requestedLocale }: Resourc
   return (
     <section id="resources" className="bg-bg py-24">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-6 md:gap-14">
-
         {/* Header */}
         <div className="flex items-end justify-between gap-6">
           <div className="flex flex-col gap-3">
@@ -30,24 +29,8 @@ export default function ResourcesSection({ resources, requestedLocale }: Resourc
           </Link>
         </div>
 
-        {/* Grid */}
-        {resources.length > 0 ? (
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {resources.map((resource, index) => (
-              <ResourceCardComponent
-                key={resource.translationKey}
-                index={index + 1}
-                category="Resources"
-                heading={resource.title}
-                description={resource.preview}
-                readTime={resource.ctaLabel}
-                href={`/resources/${resource.postSlug}?lang=${requestedLocale}`}
-              />
-            ))}
-          </div>
-        ) : (
-          <p className="text-[15px] text-muted">No resources published yet.</p>
-        )}
+        {/* Slider */}
+        <ResourcesSlider resources={resources} requestedLocale={requestedLocale} />
 
         {/* Mobile "all articles" link */}
         <div className="flex justify-center md:hidden">
@@ -58,7 +41,6 @@ export default function ResourcesSection({ resources, requestedLocale }: Resourc
             All Articles →
           </Link>
         </div>
-
       </div>
     </section>
   );

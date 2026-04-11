@@ -30,16 +30,16 @@ export default function ResourceCard({
       </p>
 
       {/* Heading */}
-      <h3 className="mb-2.5 font-playfair text-[19px] font-bold leading-[1.25] text-primary transition group-hover:text-accent">
+      <h3 className="mb-2.5 font-playfair text-[19px] font-bold leading-tight text-primary transition group-hover:text-accent">
         {heading}
       </h3>
 
       {/* Description */}
-      <p className="mb-6 grow text-[14px] leading-[1.65] text-secondary">{description}</p>
+      <p className="mb-6 line-clamp-4 text-[14px] leading-[1.65] text-secondary">{description}</p>
 
       {/* Footer */}
       <div className="flex items-center justify-between border-t border-border pt-4">
-        <span className="font-ibm-mono text-[11px] tracking-[0.1em] uppercase text-muted">
+        <span className="font-ibm-mono text-[11px] tracking-widest uppercase text-muted">
           {readTime}
         </span>
         <span className="text-accent transition group-hover:translate-x-1" aria-hidden="true">
