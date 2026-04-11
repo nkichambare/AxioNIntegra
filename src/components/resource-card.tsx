@@ -30,7 +30,7 @@ export default function ResourceCard({
       </p>
 
       {/* Heading */}
-      <h3 className="mb-2.5 font-playfair text-[19px] font-bold leading-tight text-primary transition group-hover:text-accent">
+      <h3 className="mb-2.5 text-[19px] font-bold leading-tight text-primary transition group-hover:text-accent">
         {heading}
       </h3>
 

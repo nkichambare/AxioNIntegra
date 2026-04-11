@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import ResourceBody from '@/components/resource-body';
-import { getPostBySlug, getPosts, normalizeLocale } from '@/lib/content';
+import { type BlogPostSummary, getPostBySlug, getPosts, normalizeLocale } from '@/lib/content';
 import { formatLocalDate } from '@/lib/date-format';
 
 type ResourcePostPageProps = {
@@ -17,8 +17,9 @@ async function getResourcePageData(
   const { slug } = await params;
   const { lang } = await searchParams;
   const locale = normalizeLocale(lang);
-  const post = await getPostBySlug(slug, locale);
-  return { locale, post };
+  const [post, allPosts] = await Promise.all([getPostBySlug(slug, locale), getPosts(locale)]);
+  const relatedArticles = allPosts.filter((p) => p.routeSlug !== slug).slice(0, 5);
+  return { locale, post, relatedArticles };
 }
 
 export async function generateStaticParams() {
@@ -60,25 +61,16 @@ function extractHeadings(markdown: string): { text: string; id: string }[] {
     });
 }
 
-const CAPABILITIES = [
-  'Precision CNC Components',
-  'Tight Tolerance Manufacturing',
-  'Sub-assemblies & Modules',
-  'Manufacturing Integration',
-  'Quality Inspection & Reporting',
-  'Supplier Qualification',
-  'Prototypes to Mass Production',
-  'Material Sourcing',
-];
-
 export default async function ResourcePostPage({ params, searchParams }: ResourcePostPageProps) {
   let locale: ReturnType<typeof normalizeLocale> = 'en';
   let post: Awaited<ReturnType<typeof getPostBySlug>> = null;
+  let relatedArticles: BlogPostSummary[] = [];
 
   try {
     const data = await getResourcePageData(params, searchParams);
     locale = data.locale;
     post = data.post;
+    relatedArticles = data.relatedArticles;
   } catch {
     notFound();
   }
@@ -105,7 +97,7 @@ export default async function ResourcePostPage({ params, searchParams }: Resourc
             </span>
           </div>
 
-          <h1 className="mb-5 font-playfair text-[clamp(26px,3.8vw,44px)] font-black leading-[1.15] text-[#f1f5f9]">
+          <h1 className="mb-5 text-[clamp(26px,3.8vw,44px)] font-black leading-[1.15] text-[#f1f5f9]">
             {post.title}
           </h1>
 
@@ -184,55 +176,39 @@ export default async function ResourcePostPage({ params, searchParams }: Resourc
               Approaching a scale-up decision? We provide end-to-end manufacturing accountability —
               from DFM review to production ramp support.
             </p>
-            <a
-              href="mailto:info@axionintegra.com"
+            <Link
+              href="/contact"
               className="block text-center bg-black/20 px-4 py-2.5 font-ibm-mono text-[11px] tracking-[0.15em] uppercase text-white transition hover:bg-black/30"
             >
               Contact Us →
-            </a>
+            </Link>
           </div>
 
-          {/* Capabilities */}
-          <div className="overflow-hidden border border-border">
-            <div className="bg-footer px-4 py-2.5 font-ibm-mono text-[9px] tracking-[0.22em] uppercase text-[#94a3b8]">
-              AxionIntegra Capabilities
+          {/* Related Articles */}
+          {relatedArticles.length > 0 && (
+            <div className="overflow-hidden border border-border">
+              <div className="bg-footer px-4 py-2.5 font-ibm-mono text-[9px] tracking-[0.22em] uppercase text-[#94a3b8]">
+                Related Articles
+              </div>
+              <ul className="bg-bg">
+                {relatedArticles.map((article, i) => (
+                  <li key={article.routeSlug} className="border-b border-border last:border-b-0">
+                    <Link
+                      href={`/resources/${article.routeSlug}?lang=${locale}`}
+                      className="flex items-start gap-2.5 px-4 py-3 transition hover:bg-soft"
+                    >
+                      <span className="mt-0.5 shrink-0 font-ibm-mono text-[10px] text-accent">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <span className="text-[13px] leading-[1.45] text-secondary hover:text-primary">
+                        {article.title}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="flex flex-col gap-1.5 bg-bg p-4">
-              {CAPABILITIES.map((cap) => (
-                <div
-                  key={cap}
-                  className="border-l-[3px] border-accent bg-soft px-3 py-1.5 font-ibm-mono text-[11px] tracking-[0.06em] text-primary"
-                >
-                  {cap}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* How We Operate */}
-          <div className="overflow-hidden border border-border">
-            <div className="bg-footer px-4 py-2.5 font-ibm-mono text-[9px] tracking-[0.22em] uppercase text-[#94a3b8]">
-              How We Operate
-            </div>
-            <div className="space-y-3 bg-bg p-4">
-              <p className="text-[13.5px] leading-[1.65] text-secondary">
-                <strong className="font-medium text-primary">
-                  Precision Manufacturing &amp; Supply
-                </strong>{' '}
-                — Components and assemblies delivered under AxionIntegra&apos;s name and
-                responsibility.
-              </p>
-              <p className="text-[13.5px] leading-[1.65] text-secondary">
-                <strong className="font-medium text-primary">Manufacturing Integration</strong> — We
-                coordinate third-party production while controlling processes, quality, and
-                delivery.
-              </p>
-              <p className="text-[13.5px] leading-[1.65] text-secondary">
-                <strong className="font-medium text-primary">Consultancy &amp; Sourcing</strong> —
-                Vendor qualification, cost benchmarking, and manufacturing feasibility support.
-              </p>
-            </div>
-          </div>
+          )}
         </aside>
       </div>
 
@@ -246,10 +222,10 @@ export default async function ResourcePostPage({ params, searchParams }: Resourc
             AXIONINTEGRA
           </div>
           <div>
-            <span className="mb-3.5 block font-ibm-mono text-[10px] tracking-[0.22em] uppercase text-accent">
+            <span className="mb-3.5 block font-ibm-mono text-[10px] tracking-[0.22em] uppercase text-[#93c5fd]">
               From Design to Delivery — One Responsible Partner
             </span>
-            <h3 className="mb-3.5 font-playfair text-[28px] font-bold leading-[1.25] text-white sm:text-[30px]">
+            <h3 className="mb-3.5 text-[28px] font-bold leading-[1.25] text-white sm:text-[30px]">
               Ready to Scale with Confidence?
             </h3>
             <p className="max-w-[500px] text-[15px] leading-[1.7] text-[#94a3b8]">

@@ -3,7 +3,6 @@ import ContactForm from '@/components/contact-form';
 const TRUST_POINTS = [
   'Full NDA available on request before project discussion',
   'No commitment required for initial technical review',
-  'EU-based data handling, GDPR compliant',
 ];
 
 export default function ContactPage() {
@@ -38,7 +37,9 @@ export default function ContactPage() {
               <p className="font-ibm-mono text-[10px] tracking-[0.2em] uppercase text-muted mb-3">
                 Response Time
               </p>
-              <p className="text-[17px] font-medium text-primary mb-1.5">Within 1 business day</p>
+              <p className="text-[17px] font-medium text-primary mb-1.5">
+                Within 2-3 business days
+              </p>
               <p className="text-[14px] leading-[1.6] text-secondary">
                 Project inquiries routed to the relevant engineering team on receipt.
               </p>
@@ -71,7 +72,7 @@ export default function ContactPage() {
 
           {/* ── Right form card ── */}
           <div
-            className="rounded-b-2xl rounded-t-none border border-border bg-bg p-6"
+            className="rounded-b-2xl rounded-t-none border border-border bg-bg p-8 sm:p-10"
             style={{ borderTopWidth: '1.5px', borderTopColor: 'var(--color-accent)' }}
           >
             <ContactForm />

@@ -6,21 +6,21 @@ import { type ContactFormData, submitContactForm } from '@/app/contact/actions';
 
 // ── Shared styles ──────────────────────────────────────────────
 const inputClass =
-  'h-11 w-full rounded-lg border border-border bg-bg px-3 text-[15px] text-primary outline-none transition placeholder:text-muted focus:border-accent/40 focus:ring-2 focus:ring-accent/10';
+  'h-12 w-full border-0 border-b border-border bg-transparent px-0 text-[15px] text-primary outline-none transition placeholder:text-muted focus:border-accent focus:ring-0';
 
 const inputErrorClass =
-  'h-11 w-full rounded-lg border border-red-400 bg-bg px-3 text-[15px] text-primary outline-none transition placeholder:text-muted focus:border-red-400 focus:ring-2 focus:ring-red-100';
+  'h-12 w-full border-0 border-b border-red-400 bg-transparent px-0 text-[15px] text-primary outline-none transition placeholder:text-muted focus:border-red-400 focus:ring-0';
 
 const selectClass =
-  'h-11 w-full appearance-none rounded-lg border border-border bg-bg px-3 pr-8 text-[15px] text-primary outline-none transition focus:border-accent/40 focus:ring-2 focus:ring-accent/10 cursor-pointer';
+  'h-12 w-full appearance-none border-0 border-b border-border bg-transparent px-0 pr-6 text-[15px] text-primary outline-none transition focus:border-accent focus:ring-0 cursor-pointer invalid:text-muted [&>option:not(:disabled)]:text-primary [&>option[value=""]]:text-muted';
 
 const selectErrorClass =
-  'h-11 w-full appearance-none rounded-lg border border-red-400 bg-bg px-3 pr-8 text-[15px] text-primary outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100 cursor-pointer';
+  'h-12 w-full appearance-none border-0 border-b border-red-400 bg-transparent px-0 pr-6 text-[15px] text-primary outline-none transition focus:border-red-400 focus:ring-0 cursor-pointer invalid:text-muted [&>option:not(:disabled)]:text-primary [&>option[value=""]]:text-muted';
 
 // ── Sub-components ─────────────────────────────────────────────
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="col-span-full pb-1 font-ibm-mono text-[10px] tracking-[0.2em] uppercase text-muted border-b border-border">
+    <p className="col-span-full mt-4 pb-2 font-ibm-mono text-[10px] tracking-[0.2em] uppercase text-muted border-b border-border">
       {children}
     </p>
   );
@@ -38,7 +38,7 @@ function FieldLabel({
   return (
     <span className="flex items-center gap-1.5 text-[13px] font-medium text-secondary">
       {children}
-      {required && <span className="text-accent">*</span>}
+      {required && <span style={{ color: '#1e3a8a' }}>*</span>}
       {optional && <span className="text-[11px] font-normal text-muted">(optional)</span>}
     </span>
   );
@@ -63,16 +63,22 @@ function SelectWrapper({ children }: { children: React.ReactNode }) {
 // ── Main component ─────────────────────────────────────────────
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<ContactFormData>({ mode: 'onSubmit' });
+  } = useForm<ContactFormData>({ mode: 'onBlur', reValidateMode: 'onChange' });
 
   async function onSubmit(data: ContactFormData) {
-    await submitContactForm(data);
-    setSubmitted(true);
+    setSubmitError(false);
+    const result = await submitContactForm(data);
+    if (result.ok) {
+      setSubmitted(true);
+    } else {
+      setSubmitError(true);
+    }
   }
 
   if (submitted) {
@@ -91,7 +97,7 @@ export default function ContactForm() {
         </div>
         <h3 className="heading-3 mb-2">Inquiry received</h3>
         <p className="body-text text-secondary">
-          Your inquiry has been received. We will respond within one business day.
+          Your inquiry has been received. We will respond within 2–3 business days.
         </p>
       </div>
     );
@@ -99,7 +105,7 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {/* ── Your details ── */}
         <SectionLabel>Your details</SectionLabel>
 
@@ -124,7 +130,10 @@ export default function ContactForm() {
             className={errors.workEmail ? inputErrorClass : inputClass}
             {...register('workEmail', {
               required: 'Work email is required',
-              pattern: { value: /^\S+@\S+\.\S+$/, message: 'Enter a valid email address' },
+              pattern: {
+                value: /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/,
+                message: 'Enter a valid email address',
+              },
             })}
           />
           <ErrorMsg message={errors.workEmail?.message} />
@@ -163,6 +172,7 @@ export default function ContactForm() {
           <SelectWrapper>
             <select
               defaultValue=""
+              required
               className={errors.programmeType ? selectErrorClass : selectClass}
               {...register('programmeType', { required: 'Please select a programme type' })}
             >
@@ -183,7 +193,12 @@ export default function ContactForm() {
         <label className="flex flex-col gap-1.5">
           <FieldLabel optional>Manufacturing Process</FieldLabel>
           <SelectWrapper>
-            <select defaultValue="" className={selectClass} {...register('manufacturingProcess')}>
+            <select
+              defaultValue=""
+              required
+              className={selectClass}
+              {...register('manufacturingProcess')}
+            >
               <option value="" disabled>
                 Select process
               </option>
@@ -224,16 +239,26 @@ export default function ContactForm() {
           <FieldLabel required>How Can We Help?</FieldLabel>
           <textarea
             rows={5}
-            placeholder="Brief description of your requirement. Attach drawings if available."
-            className={`w-full rounded-lg border px-3 py-2.5 text-[15px] text-primary outline-none transition placeholder:text-muted focus:ring-2 ${
+            placeholder="Brief description of your requirement."
+            className={`w-full border-0 border-b bg-transparent px-0 py-3 text-[15px] text-primary outline-none transition placeholder:text-muted focus:ring-0 resize-none ${
               errors.message
-                ? 'border-red-400 focus:border-red-400 focus:ring-red-100'
-                : 'border-border bg-bg focus:border-accent/40 focus:ring-accent/10'
+                ? 'border-red-400 focus:border-red-400'
+                : 'border-border focus:border-accent'
             }`}
             {...register('message', { required: 'Please describe how we can help' })}
           />
           <ErrorMsg message={errors.message?.message} />
         </label>
+
+        {/* Submit error */}
+        {submitError && (
+          <p className="col-span-full text-[13px] text-red-500">
+            Something went wrong — please email us directly at{' '}
+            <a href="mailto:contact@axionintegra.com" className="underline">
+              contact@axionintegra.com
+            </a>
+          </p>
+        )}
 
         {/* Submit */}
         <div className="col-span-full pt-1">

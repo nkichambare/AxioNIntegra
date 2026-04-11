@@ -1,5 +1,9 @@
+import React from 'react';
+import type { Blockquote, Text } from 'mdast';
 import type { Components } from 'react-markdown';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { visit } from 'unist-util-visit';
 
 type ResourceBodyProps = {
   body: string;
@@ -12,12 +16,138 @@ function slugify(text: string) {
     .replace(/^-|-$/g, '');
 }
 
+const BLOCKQUOTE_THEMES = {
+  highlight: { borderColor: '#d97706', background: '#fffbeb', color: '#92400e' },
+  warning: { borderColor: '#dc2626', background: '#fff5f5', color: '#991b1b' },
+  default: { borderColor: '#1e3a8a', background: '#f1f5f9', color: '#0f172a' },
+} as const;
+
+type BlockquoteTheme = keyof typeof BLOCKQUOTE_THEMES;
+
+/**
+ * Remark plugin: detects [highlight] / [warning] at the start of a blockquote,
+ * strips the keyword from the AST text node, and stores the theme on
+ * node.data.hProperties so it reaches the React component as a data-* attribute.
+ */
+function remarkBlockquoteTheme() {
+  return (tree: Parameters<typeof visit>[0]) => {
+    visit(tree, 'blockquote', (node: Blockquote) => {
+      const firstBlock = node.children[0];
+      if (firstBlock?.type !== 'paragraph') return;
+
+      const firstInline = firstBlock.children[0];
+      if (firstInline?.type !== 'text') return;
+
+      const match = (firstInline as Text).value.match(/^\[(highlight|warning)\]\s*/);
+      if (!match) return;
+
+      // Strip keyword from the AST — bold/italic siblings are untouched
+      (firstInline as Text).value = (firstInline as Text).value.replace(
+        /^\[(highlight|warning)\]\s*/,
+        '',
+      );
+
+      // Pass theme down to the hast/React layer via a data attribute
+      node.data = node.data ?? {};
+      (node.data as Record<string, unknown>).hProperties = {
+        ...((node.data as Record<string, unknown>).hProperties as object),
+        'data-theme': match[1],
+      };
+    });
+  };
+}
+
 const components: Components = {
+  // H2 — left vertical bar
   h2({ children }) {
     const text = Array.isArray(children)
       ? children.map((c) => (typeof c === 'string' ? c : '')).join('')
       : String(children ?? '');
-    return <h2 id={slugify(text)}>{children}</h2>;
+    return (
+      <h2
+        id={slugify(text)}
+        className="mt-16 mb-5 border-l-4 border-accent pl-4 text-[27px] font-bold leading-[1.2] text-primary"
+      >
+        {children}
+      </h2>
+    );
+  },
+
+  // Blockquote — theme read from data-theme attribute set by remark plugin
+  blockquote({ children, node }) {
+    const theme = ((node as unknown as { properties?: Record<string, string> })?.properties?.[
+      'data-theme'
+    ] ?? 'default') as BlockquoteTheme;
+    const t = BLOCKQUOTE_THEMES[theme] ?? BLOCKQUOTE_THEMES.default;
+    return (
+      <blockquote
+        className="my-10 -mx-8 px-9 py-7 text-[19px] italic leading-[1.6] [&_p]:mb-0"
+        style={{
+          borderLeft: `4px solid ${t.borderColor}`,
+          background: t.background,
+          color: t.color,
+        }}
+      >
+        {children}
+      </blockquote>
+    );
+  },
+
+  // Ordered list — numbered card layout
+  ol({ children }) {
+    const items = React.Children.toArray(children);
+    let liIdx = 0;
+    return (
+      <ol className="my-6 list-none pl-0">
+        {items.map((child, i) => {
+          if (React.isValidElement<{ children: React.ReactNode }>(child) && child.type === 'li') {
+            liIdx++;
+            const num = String(liIdx).padStart(2, '0');
+            return (
+              <li key={i} className="mb-3 flex border border-border">
+                <span className="flex min-w-[64px] shrink-0 items-center justify-center self-stretch bg-footer font-ibm-mono text-[22px] font-black text-accent">
+                  {num}
+                </span>
+                <div className="px-5 py-4 text-[15px] leading-[1.65] text-secondary [&_p]:mb-0 [&_strong]:mb-1.5 [&_strong]:block [&_strong]:font-ibm-mono [&_strong]:text-[10px] [&_strong]:font-medium [&_strong]:not-italic [&_strong]:tracking-[0.15em] [&_strong]:uppercase [&_strong]:text-primary">
+                  {child.props.children}
+                </div>
+              </li>
+            );
+          }
+          return child;
+        })}
+      </ol>
+    );
+  },
+
+  // Tables
+  table({ children }) {
+    return (
+      <div className="my-8 overflow-x-auto">
+        <table className="w-full border-collapse border border-border text-[14px]">
+          {children}
+        </table>
+      </div>
+    );
+  },
+  thead({ children }) {
+    return <thead className="bg-footer">{children}</thead>;
+  },
+  tbody({ children }) {
+    return <tbody>{children}</tbody>;
+  },
+  tr({ children }) {
+    return <tr className="border-b border-border even:bg-soft">{children}</tr>;
+  },
+  th({ children }) {
+    return (
+      <th className="px-4 py-3 text-left font-ibm-mono text-[10px] tracking-[0.15em] uppercase text-[#94a3b8]">
+        {children}
+      </th>
+    );
+  },
+  td({ children }) {
+    return <td className="px-4 py-3 text-[14px] leading-[1.55] text-secondary">{children}</td>;
   },
 };
 
@@ -32,25 +162,13 @@ export default function ResourceBody({ body }: ResourceBodyProps) {
 
         // Drop cap on first paragraph
         '[&>p:first-of-type]:first-letter:float-left',
-        '[&>p:first-of-type]:first-letter:font-playfair',
+        '[&>p:first-of-type]:first-letter:font-sans',
         '[&>p:first-of-type]:first-letter:text-[64px]',
         '[&>p:first-of-type]:first-letter:font-black',
         '[&>p:first-of-type]:first-letter:leading-[0.8]',
         '[&>p:first-of-type]:first-letter:mr-2',
         '[&>p:first-of-type]:first-letter:mt-2',
         '[&>p:first-of-type]:first-letter:text-primary',
-
-        // H2 — editorial section headings
-        '[&_h2]:mt-16',
-        '[&_h2]:mb-5',
-        '[&_h2]:font-playfair',
-        '[&_h2]:text-[27px]',
-        '[&_h2]:font-bold',
-        '[&_h2]:leading-[1.2]',
-        '[&_h2]:text-primary',
-        '[&_h2]:pb-3.5',
-        '[&_h2]:border-b-2',
-        '[&_h2]:border-border',
 
         // H3 — uppercase label style
         '[&_h3]:mt-10',
@@ -80,31 +198,8 @@ export default function ResourceBody({ body }: ResourceBodyProps) {
         '[&_ul_li]:before:left-0',
         '[&_ul_li]:before:top-[11px]',
         '[&_ul_li]:before:font-ibm-mono',
-        '[&_ul_li]:before:text-[13px]',
+        '[&_ul_li]:before:text-[10px]',
         '[&_ul_li]:before:text-accent',
-
-        // Ordered lists
-        '[&_ol]:my-5',
-        '[&_ol]:ml-5',
-        '[&_ol]:list-decimal',
-        '[&_ol_li]:py-1.5',
-        '[&_ol_li]:text-[15.5px]',
-        '[&_ol_li]:leading-[1.55]',
-
-        // Blockquotes — pull-quote style
-        '[&_blockquote]:my-10',
-        '[&_blockquote]:-mx-8',
-        '[&_blockquote]:border-l-4',
-        '[&_blockquote]:border-accent',
-        '[&_blockquote]:bg-footer',
-        '[&_blockquote]:px-9',
-        '[&_blockquote]:py-7',
-        '[&_blockquote_p]:font-playfair',
-        '[&_blockquote_p]:text-[20px]',
-        '[&_blockquote_p]:italic',
-        '[&_blockquote_p]:leading-[1.55]',
-        '[&_blockquote_p]:text-[#e2e8f0]',
-        '[&_blockquote_p]:mb-0',
 
         // Strong / bold
         '[&_strong]:font-medium',
@@ -117,7 +212,9 @@ export default function ResourceBody({ body }: ResourceBodyProps) {
         '[&_a:hover]:opacity-75',
       ].join(' ')}
     >
-      <ReactMarkdown components={components}>{body}</ReactMarkdown>
+      <ReactMarkdown components={components} remarkPlugins={[remarkGfm, remarkBlockquoteTheme]}>
+        {body}
+      </ReactMarkdown>
     </div>
   );
 }
