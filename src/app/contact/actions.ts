@@ -76,7 +76,7 @@ export async function submitContactForm(data: ContactFormData): Promise<{ ok: bo
     const { error } = await resend.emails.send({
       from: 'AxionIntegra Contact <onboarding@resend.dev>',
       to,
-      reply_to: data.workEmail,
+      replyTo: data.workEmail,
       subject: `[Enquiry] ${data.fullName} – ${data.companyName}`,
       html: buildEmailHtml(data),
       tags: [
