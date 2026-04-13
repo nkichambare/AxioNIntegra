@@ -1,23 +1,29 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { IoIosArrowRoundForward } from 'react-icons/io';
+
+const stats = [
+  {
+    value: '6+',
+    title: 'Industries served',
+    description:
+      'Automotive, energy, precision engineering, electrical, OEM, and machine building.',
+  },
+  {
+    value: '3',
+    title: 'Operating modes',
+    description: 'Manufacturer, integrator, or sourcing consultancy we adapt to your structure.',
+  },
+  {
+    value: '∞',
+    title: 'End-to-end ownership',
+    description: 'From spec review to final delivery one team, one contract, one point of contact.',
+  },
+];
 
 export default function AboutSection() {
   return (
     <section id="about" className="bg-bg py-20 sm:py-24">
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 md:grid-cols-2 md:items-center md:gap-14">
-        <div className="order-2 md:order-2">
-          <div className="relative overflow-hidden rounded-2xl border border-border bg-soft">
-            <Image
-              src="/about-us.png"
-              alt="AxioNIntegra engineering team and industrial infrastructure"
-              width={960}
-              height={720}
-              className="h-full w-full object-cover"
-            />
-          </div>
-        </div>
-
         <div className="order-1 flex flex-col gap-5 md:order-1">
           <p className="section-heading text-secondary">About</p>
           <h2 className="heading-2 text-primary">
@@ -51,6 +57,20 @@ export default function AboutSection() {
                 className="ml-2 text-[20px] transition-transform duration-200 group-hover:translate-x-0.5"
               />
             </Link>
+          </div>
+        </div>
+
+        <div className="order-2 md:order-2">
+          <div className="flex flex-col divide-y divide-border rounded-2xl border border-border bg-soft">
+            {stats.map((stat) => (
+              <div key={stat.title} className="flex flex-col gap-2 p-7">
+                <span className="text-[42px] font-semibold leading-none tracking-tight text-accent">
+                  {stat.value}
+                </span>
+                <p className="heading-3 text-primary">{stat.title}</p>
+                <p className="body-text text-secondary">{stat.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

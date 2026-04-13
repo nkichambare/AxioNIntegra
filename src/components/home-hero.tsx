@@ -8,6 +8,13 @@ const fadeUp = {
   show: { opacity: 1, y: 0 },
 };
 
+const trustItems = [
+  { label: 'ISO-aligned quality processes' },
+  { label: 'EU supply chain coverage' },
+  { label: 'Single accountable interface' },
+  { label: 'Prototype to volume production' },
+];
+
 export default function HomeHero() {
   return (
     <section className="relative w-full px-0 pb-20 pt-[88px] [background-image:linear-gradient(to_right,rgba(226,232,240,0.6)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.6)_1px,transparent_1px)] [background-size:40px_40px]">
@@ -45,6 +52,36 @@ export default function HomeHero() {
             >
               Speak to us
             </Link>
+          </motion.div>
+
+          <motion.div
+            variants={fadeUp}
+            className="mt-4 flex items-center gap-6 border-t border-border pt-6"
+          >
+            {trustItems.map((item) => (
+              <div key={item.label} className="flex shrink-0 items-center gap-2">
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 15 15"
+                  fill="none"
+                  className="shrink-0 text-accent"
+                  aria-hidden="true"
+                >
+                  <circle cx="7.5" cy="7.5" r="7.5" className="fill-accent/10" />
+                  <path
+                    d="M4.5 7.5L6.5 9.5L10.5 5.5"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                <span className="whitespace-nowrap text-[13px] leading-[1.4] text-secondary">
+                  {item.label}
+                </span>
+              </div>
+            ))}
           </motion.div>
         </motion.div>
       </div>
