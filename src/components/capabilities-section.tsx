@@ -1,38 +1,84 @@
-const capabilityGroups = [
+import Link from 'next/link';
+import { IoIosArrowRoundForward } from 'react-icons/io';
+
+type Capability = {
+  slug: string;
+  title: string;
+  description: string;
+  items: string[];
+};
+
+const capabilities: Capability[] = [
   {
-    title: 'Engineering & Materials',
-    framing: 'Material selection and design optimization for manufacturability.',
+    slug: 'precision-manufacturing',
+    title: 'Precision Manufacturing Execution',
+    description:
+      'We coordinate and deliver precision-machined components, fabricated metal parts, and industrial assemblies through qualified manufacturing networks under structured production control.',
     items: [
-      'Metals and alloys',
-      'Engineering polymers',
-      'Composite materials',
-      'Design-for-manufacturing analysis',
+      'CNC machining of tight-tolerance components',
+      'Fabricated and formed metal parts',
+      'Conductive and structural industrial components',
+      'Surface treatment and finishing processes',
+      'Sub-assembly integration',
+      'Prototype, pre-series, and serial production',
     ],
   },
   {
-    title: 'Manufacturing Processes',
-    framing: 'Precision manufacturing across established industrial methods.',
+    slug: 'manufacturing-integration',
+    title: 'Manufacturing Integration & Supplier Coordination',
+    description:
+      'We manage supplier alignment, production scheduling, technical clarification, and manufacturing oversight — acting as a single accountable interface between customer requirements and production execution.',
     items: [
-      'CNC machining',
-      'Injection molding',
-      'Sheet metal forming',
-      'Surface treatment and finishing',
-      'Assembly and integration',
+      'Supplier identification and qualification',
+      'Technical documentation alignment',
+      'Production scheduling coordination',
+      'Capacity planning discussions',
+      'Change management support',
+      'Communication governance',
     ],
   },
   {
-    title: 'Production Scale',
-    framing: 'Flexible capacity from single prototypes to volume production.',
+    slug: 'quality-validation',
+    title: 'Quality Validation & Compliance Control',
+    description:
+      'We implement structured inspection checkpoints, documentation verification, and traceability processes to ensure dimensional accuracy, material conformity, and delivery compliance.',
     items: [
-      'Functional prototypes',
-      'Pilot and validation runs',
-      'Series production',
-      'Volume manufacturing',
+      'Inspection planning and coordination',
+      'Dimensional validation',
+      'Material certificate verification',
+      'Process documentation review',
+      'Final quality approval before dispatch',
+    ],
+  },
+  {
+    slug: 'strategic-sourcing',
+    title: 'Strategic Sourcing & Cost Optimization',
+    description:
+      'We support cost-sensitive industrial programs through disciplined supplier qualification, structured benchmarking, and scalable sourcing strategies without compromising engineering standards.',
+    items: [
+      'Cost benchmarking',
+      'Supplier comparison analysis',
+      'Manufacturing feasibility evaluation',
+      'Capacity assessment',
+      'Long-term sourcing strategy support',
+    ],
+  },
+  {
+    slug: 'scalable-production',
+    title: 'Scalable Production & Program Support',
+    description:
+      'From prototype validation to serial production, we align capacity planning, execution control, and delivery coordination to support industrial growth and program expansion.',
+    items: [
+      'Prototype validation support',
+      'Pre-series production coordination',
+      'Serial production planning',
+      'Capacity scalability discussions',
+      'Program lifecycle support',
     ],
   },
 ];
 
-const sharedHoverStyle =
+const hoverStyle =
   'relative overflow-hidden transition before:absolute before:left-0 before:top-0 before:h-full before:w-0.5 before:rounded-l-2xl before:bg-accent before:opacity-0 before:transition hover:before:opacity-100';
 
 export default function CapabilitiesSection() {
@@ -43,24 +89,28 @@ export default function CapabilitiesSection() {
           <p className="section-heading">Core Capabilities</p>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-3 lg:gap-8">
-          {capabilityGroups.map((group) => (
-            <div
-              key={group.title}
-              className={`rounded-2xl border border-border bg-bg p-8 ${sharedHoverStyle}`}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {capabilities.map((cap) => (
+            <Link
+              key={cap.slug}
+              href={`/capabilities/${cap.slug}`}
+              className={`group flex flex-col rounded-2xl border border-border bg-bg p-7 cursor-pointer ${hoverStyle}`}
             >
-              <h3 className="body-text font-semibold">{group.title}</h3>
-              <p className="mt-3 text-[12px] text-secondary">{group.framing}</p>
+              <h3 className="text-[15px] font-semibold leading-snug text-primary">{cap.title}</h3>
+              <p className="mt-3 flex-1 text-[13px] leading-[1.7] text-secondary">
+                {cap.description}
+              </p>
 
-              <ul className="mt-6 space-y-3">
-                {group.items.map((item) => (
-                  <li key={item} className="flex items-center text-[14px] text-secondary">
-                    <span className="mr-3 h-px w-3 bg-border" aria-hidden="true" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+              <div className="mt-6 flex items-center gap-1.5 border-t border-border pt-4">
+                <span className="label-text text-accent transition-opacity group-hover:opacity-80">
+                  Learn More
+                </span>
+                <IoIosArrowRoundForward
+                  aria-hidden="true"
+                  className="text-[18px] text-accent transition-transform duration-200 group-hover:translate-x-0.5"
+                />
+              </div>
+            </Link>
           ))}
         </div>
       </div>
