@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useTransition } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { AnimatePresence, motion, type Variants } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -117,7 +116,10 @@ export default function SiteHeader() {
       <header className="fixed top-0 left-0 right-0 z-30 border-b border-border bg-bg/90 backdrop-blur">
         <div className="mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center px-4">
           <div className="flex items-center gap-3">
-            <Link href={withLang('/')} className="text-[15px] font-semibold leading-[1.2] text-primary">
+            <Link
+              href={withLang('/')}
+              className="text-[15px] font-semibold leading-[1.2] text-primary"
+            >
               AxioNIntegra
             </Link>
           </div>
@@ -134,6 +136,12 @@ export default function SiteHeader() {
               className="text-[14px] font-medium text-secondary transition hover:text-primary"
             >
               Capabilities
+            </Link>
+            <Link
+              href={withLang('/how-we-work')}
+              className="text-[14px] font-medium text-secondary transition hover:text-primary"
+            >
+              How We Work
             </Link>
             <Link
               href={withLang('/about')}
@@ -209,7 +217,11 @@ export default function SiteHeader() {
               </div>
 
               <nav className="mt-16 flex flex-col items-start gap-8">
-                <Link className="heading-2 text-footer-text" href={withLang('/#market')} onClick={closeMenu}>
+                <Link
+                  className="heading-2 text-footer-text"
+                  href={withLang('/#market')}
+                  onClick={closeMenu}
+                >
                   Market
                 </Link>
                 <Link
@@ -219,13 +231,32 @@ export default function SiteHeader() {
                 >
                   Capabilities
                 </Link>
-                <Link className="heading-2 text-footer-text" href={withLang('/#about')} onClick={closeMenu}>
+                <Link
+                  className="heading-2 text-footer-text"
+                  href={withLang('/how-we-work')}
+                  onClick={closeMenu}
+                >
+                  How We Work
+                </Link>
+                <Link
+                  className="heading-2 text-footer-text"
+                  href={withLang('/#about')}
+                  onClick={closeMenu}
+                >
                   About
                 </Link>
-                <Link className="heading-2 text-footer-text" href={withLang('/contact')} onClick={closeMenu}>
+                <Link
+                  className="heading-2 text-footer-text"
+                  href={withLang('/contact')}
+                  onClick={closeMenu}
+                >
                   Contact
                 </Link>
-                <Link className="heading-2 text-footer-text" href={withLang('/#resources')} onClick={closeMenu}>
+                <Link
+                  className="heading-2 text-footer-text"
+                  href={withLang('/#resources')}
+                  onClick={closeMenu}
+                >
                   Resources
                 </Link>
               </nav>

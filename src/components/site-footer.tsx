@@ -4,6 +4,7 @@ const companyLinks = [
   { label: 'About Us', href: '/about' },
   { label: 'Our Team', href: '/about' },
   { label: 'Capabilities', href: '/#capabilities' },
+  { label: 'How We Work', href: '/how-we-work' },
   { label: 'Markets', href: '/#market' },
   { label: 'Resources', href: '/#resources' },
   { label: 'Contact', href: '/contact' },
