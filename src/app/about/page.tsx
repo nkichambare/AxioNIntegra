@@ -70,11 +70,14 @@ export default function AboutPage() {
           {activeTab === 'about' ? (
             <div className="flex flex-col gap-14">
               <div className="max-w-3xl">
-                <h1 className="heading-2">Integrated engineering for complex programs.</h1>
+                <h1 className="heading-2">
+                  Engineering expertise. Industrial discipline. End-to-end accountability.
+                </h1>
                 <p className="body-text mt-4 text-secondary">
-                  AxioNIntegra brings design, manufacturing, and quality execution together under a
-                  single accountable model. We help enterprise teams reduce handoffs, improve
-                  predictability, and deliver production-ready outcomes.
+                  AxionIntegra is led by engineers and operators who have worked across precision
+                  manufacturing, industrial supply chain management, and quality systems. Our team
+                  combines deep technical knowledge with operational experience to deliver programs
+                  that perform under real industrial conditions.
                 </p>
               </div>
 

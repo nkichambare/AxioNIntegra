@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { IBM_Plex_Mono, Playfair_Display } from 'next/font/google';
-import Script from 'next/script';
+import CookieBanner from '@/components/cookie-banner';
 import SiteFooter from '@/components/site-footer';
 import SiteHeader from '@/components/site-header';
 import './globals.css';
@@ -31,22 +31,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased ${playfair.variable} ${ibmMono.variable}`}>
-        <Script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-N9XBDHVLBQ"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-N9XBDHVLBQ');
-          `}
-        </Script>
         <SiteHeader />
         {children}
         <SiteFooter />
+        <CookieBanner />
       </body>
     </html>
   );

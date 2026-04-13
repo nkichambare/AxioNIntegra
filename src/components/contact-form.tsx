@@ -261,7 +261,7 @@ export default function ContactForm() {
         )}
 
         {/* Submit */}
-        <div className="col-span-full pt-1">
+        <div className="col-span-full flex flex-col gap-3 pt-1">
           <button
             type="submit"
             disabled={isSubmitting}
@@ -286,6 +286,14 @@ export default function ContactForm() {
             )}
             {isSubmitting ? 'Sending…' : 'Send Inquiry'}
           </button>
+          <p className="text-[12px] leading-[1.6] text-muted">
+            By submitting this form, you agree that your data will be used solely to respond to your
+            inquiry in accordance with our{' '}
+            <a href="/privacy-policy" className="underline underline-offset-2 hover:text-secondary">
+              Privacy Policy
+            </a>
+            . We do not share or sell your data.
+          </p>
         </div>
       </div>
     </form>
