@@ -79,12 +79,12 @@ export default function DatenschutzPage() {
               <p>Wir nutzen die folgenden Dienstleister zur Verarbeitung Ihrer Anfragen:</p>
               <ul>
                 <li>
-                  <strong>Resend</strong> (E-Mail-Versand) — Ihre Anfragedaten werden über die
+                  <strong>Resend</strong> (E-Mail-Versand) Ihre Anfragedaten werden über die
                   Infrastruktur von Resend übermittelt, um unser Team zu erreichen. Resend ist
                   DSGVO-konform.
                 </li>
                 <li>
-                  <strong>Google Analytics</strong> — wird nur verwendet, wenn Sie der Nutzung von
+                  <strong>Google Analytics</strong> wird nur verwendet, wenn Sie der Nutzung von
                   Analyse-Cookies ausdrücklich zugestimmt haben. Keine personenbezogenen Daten aus
                   dem Kontaktformular werden an Google Analytics übermittelt.
                 </li>
@@ -94,7 +94,7 @@ export default function DatenschutzPage() {
             <Section title="5. Rechtsgrundlage der Verarbeitung">
               <p>
                 Die Verarbeitung Ihrer personenbezogenen Daten erfolgt auf Grundlage von{' '}
-                <strong>Art. 6 Abs. 1 lit. f DSGVO</strong> (berechtigtes Interesse) — konkret zur
+                <strong>Art. 6 Abs. 1 lit. f DSGVO</strong> (berechtigtes Interesse) konkret zur
                 Bearbeitung einer von Ihnen initiierten Geschäftsanfrage. Eine Verarbeitung zu
                 anderen Zwecken erfolgt nicht ohne Ihre ausdrückliche Einwilligung.
               </p>
@@ -103,7 +103,7 @@ export default function DatenschutzPage() {
             <Section title="6. Speicherdauer">
               <p>
                 Wir speichern Ihre Anfragedaten nur so lange, wie es zur Bearbeitung Ihrer Anfrage
-                und etwaiger Folgekommunikation erforderlich ist — in der Regel nicht länger als{' '}
+                und etwaiger Folgekommunikation erforderlich ist in der Regel nicht länger als{' '}
                 <strong>12 Monate</strong> ab dem letzten Kontakt. Danach werden die Daten gelöscht.
               </p>
             </Section>
@@ -112,25 +112,25 @@ export default function DatenschutzPage() {
               <p>Sie haben als betroffene Person folgende Rechte:</p>
               <ul>
                 <li>
-                  <strong>Auskunftsrecht</strong> (Art. 15 DSGVO) — Kopie Ihrer gespeicherten Daten
+                  <strong>Auskunftsrecht</strong> (Art. 15 DSGVO) - Kopie Ihrer gespeicherten Daten
                 </li>
                 <li>
-                  <strong>Berichtigungsrecht</strong> (Art. 16 DSGVO) — Korrektur unrichtiger Daten
+                  <strong>Berichtigungsrecht</strong> (Art. 16 DSGVO) - Korrektur unrichtiger Daten
                 </li>
                 <li>
-                  <strong>Recht auf Löschung</strong> (Art. 17 DSGVO) — „Recht auf
+                  <strong>Recht auf Löschung</strong> (Art. 17 DSGVO) - „Recht auf
                   Vergessenwerden&quot;
                 </li>
                 <li>
-                  <strong>Recht auf Einschränkung</strong> (Art. 18 DSGVO) — Einschränkung der
+                  <strong>Recht auf Einschränkung</strong> (Art. 18 DSGVO) - Einschränkung der
                   Verarbeitung
                 </li>
                 <li>
-                  <strong>Widerspruchsrecht</strong> (Art. 21 DSGVO) — gegen Verarbeitung auf Basis
+                  <strong>Widerspruchsrecht</strong> (Art. 21 DSGVO) - gegen Verarbeitung auf Basis
                   berechtigten Interesses
                 </li>
                 <li>
-                  <strong>Recht auf Datenübertragbarkeit</strong> (Art. 20 DSGVO) — Erhalt Ihrer
+                  <strong>Recht auf Datenübertragbarkeit</strong> (Art. 20 DSGVO) - Erhalt Ihrer
                   Daten in maschinenlesbarem Format
                 </li>
               </ul>

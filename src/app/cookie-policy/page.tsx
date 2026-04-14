@@ -55,7 +55,7 @@ export default function CookiePolicyPage() {
                     <tr>
                       <td className="px-4 py-3 font-mono text-[13px]">_ga, _ga_*</td>
                       <td className="px-4 py-3">
-                        Google Analytics — measures aggregate website usage (pages visited, session
+                        Google Analytics measures aggregate website usage (pages visited, session
                         length). Only set if you accept analytics cookies.
                       </td>
                       <td className="px-4 py-3">Up to 2 years</td>
@@ -74,11 +74,11 @@ export default function CookiePolicyPage() {
               <p>When you first visit our website, a cookie consent banner is shown. You can:</p>
               <ul>
                 <li>
-                  <strong>Accept</strong> — the functional cookie is set and Google Analytics is
+                  <strong>Accept</strong> - the functional cookie is set and Google Analytics is
                   activated to help us understand how the site is used.
                 </li>
                 <li>
-                  <strong>Decline</strong> — only the consent preference cookie is set. Google
+                  <strong>Decline</strong> - only the consent preference cookie is set. Google
                   Analytics does not load. The site works fully without analytics cookies.
                 </li>
               </ul>
@@ -92,7 +92,7 @@ export default function CookiePolicyPage() {
               <p>You can change or withdraw your cookie consent at any time by:</p>
               <ul>
                 <li>
-                  Clearing your browser cookies for this site, then revisiting — the banner will
+                  Clearing your browser cookies for this site, then revisiting the banner will
                   reappear
                 </li>
                 <li>
@@ -108,7 +108,7 @@ export default function CookiePolicyPage() {
             <PolicySection title="5. Google Analytics">
               <p>
                 When you accept analytics cookies, we use Google Analytics 4 (GA4) to collect
-                anonymised information about how visitors use our site — such as pages visited and
+                anonymised information about how visitors use our site such as pages visited and
                 time spent. This data is aggregate and does not identify individuals.
               </p>
               <p>

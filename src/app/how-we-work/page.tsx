@@ -14,7 +14,7 @@ const steps = [
     num: '02',
     title: 'Supplier Selection',
     description:
-      'Vetted partners qualified to documented standards. We match your programme to suppliers with verified capabilities, capacity, and quality track records — no guesswork, no untested vendors.',
+      'Vetted partners qualified to documented standards. We match your programme to suppliers with verified capabilities, capacity, and quality track records  no guesswork, no untested vendors.',
   },
   {
     num: '03',

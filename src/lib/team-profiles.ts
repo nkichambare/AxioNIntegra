@@ -22,7 +22,7 @@ export const teamProfiles: TeamProfile[] = [
     shortBio:
       'Founded AxionIntegra with a clear focus on solving structural challenges in industrial supply chains through centralized responsibility and accountable execution.',
     longBio: [
-      'Nikhil Kichambare founded AxionIntegra with a clear focus on solving a structural challenge in industrial supply chains — the lack of centralized responsibility across manufacturing and execution.',
+      'Nikhil Kichambare founded AxionIntegra with a clear focus on solving a structural challenge in industrial supply chains the lack of centralized responsibility across manufacturing and execution.',
       'His approach is centered on integrating engineering requirements with manufacturing capability under a controlled and accountable framework. He works across supplier coordination, production alignment, and quality validation to ensure that industrial programs are executed with clarity, discipline, and predictable outcomes.',
       'Nikhil operates at the intersection of precision manufacturing, supply chain integration, and execution governance, enabling companies to reduce operational complexity while maintaining performance standards across cost, quality, and delivery.',
     ],

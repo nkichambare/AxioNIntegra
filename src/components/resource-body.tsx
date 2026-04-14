@@ -41,7 +41,7 @@ function remarkBlockquoteTheme() {
       const match = (firstInline as Text).value.match(/^\[(highlight|warning)\]\s*/);
       if (!match) return;
 
-      // Strip keyword from the AST — bold/italic siblings are untouched
+      // Strip keyword from the AST  bold/italic siblings are untouched
       (firstInline as Text).value = (firstInline as Text).value.replace(
         /^\[(highlight|warning)\]\s*/,
         '',
@@ -58,7 +58,7 @@ function remarkBlockquoteTheme() {
 }
 
 const components: Components = {
-  // H2 — left vertical bar
+  // H2  left vertical bar
   h2({ children }) {
     const text = Array.isArray(children)
       ? children.map((c) => (typeof c === 'string' ? c : '')).join('')
@@ -73,7 +73,7 @@ const components: Components = {
     );
   },
 
-  // Blockquote — theme read from data-theme attribute set by remark plugin
+  // Blockquote  theme read from data-theme attribute set by remark plugin
   blockquote({ children, node }) {
     const theme = ((node as unknown as { properties?: Record<string, string> })?.properties?.[
       'data-theme'
@@ -93,7 +93,7 @@ const components: Components = {
     );
   },
 
-  // Ordered list — numbered card layout
+  // Ordered list  numbered card layout
   ol({ children }) {
     const items = React.Children.toArray(children);
     let liIdx = 0;
@@ -170,7 +170,7 @@ export default function ResourceBody({ body }: ResourceBodyProps) {
         '[&>p:first-of-type]:first-letter:mt-2',
         '[&>p:first-of-type]:first-letter:text-primary',
 
-        // H3 — uppercase label style
+        // H3  uppercase label style
         '[&_h3]:mt-10',
         '[&_h3]:mb-3',
         '[&_h3]:font-ibm-mono',
@@ -180,7 +180,7 @@ export default function ResourceBody({ body }: ResourceBodyProps) {
         '[&_h3]:uppercase',
         '[&_h3]:text-accent',
 
-        // Unordered lists — arrow bullets
+        // Unordered lists  arrow bullets
         '[&_ul]:my-5',
         '[&_ul]:list-none',
         '[&_ul]:pl-0',

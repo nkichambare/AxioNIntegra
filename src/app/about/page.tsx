@@ -102,7 +102,7 @@ export default function AboutPage() {
                     Our brilliant team of <span className="text-accent">AxioNIntegra</span>
                   </h2>
                   <p className="body-text text-secondary">
-                    These people work on making our product best.
+                    Specialists who bring deep domain expertise to every client engagement.
                   </p>
                 </div>
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

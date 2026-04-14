@@ -32,7 +32,7 @@ export default function ResourcesSlider({ resources, requestedLocale }: Resource
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Carousel track — scrollable but scrollbar hidden */}
+      {/* Carousel track  scrollable but scrollbar hidden */}
       <div
         ref={trackRef}
         className="flex gap-5 overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"

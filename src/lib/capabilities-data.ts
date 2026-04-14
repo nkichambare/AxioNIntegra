@@ -56,7 +56,7 @@ export const capabilities: Capability[] = [
     slug: 'manufacturing-integration',
     title: 'Manufacturing Integration & Supplier Coordination',
     metaDescription:
-      'Integration layer between customer engineering requirements and manufacturing execution — centralising responsibility and simplifying multi-vendor complexity.',
+      'Integration layer between customer engineering requirements and manufacturing execution centralising responsibility and simplifying multi-vendor complexity.',
     heroSubtitle:
       'Improved predictability, reduced coordination overhead, and unified execution accountability across the supply chain.',
     overview: [
@@ -100,7 +100,7 @@ export const capabilities: Capability[] = [
       'Reliable, compliant, and traceable production output that protects customer performance and reputation.',
     overview: [
       'Quality is engineered into every project through defined validation checkpoints and traceable documentation processes. AxionIntegra ensures that manufactured components meet dimensional, material, and compliance requirements prior to release.',
-      'Quality is not assumed — it is structured and verified.',
+      'Quality is not assumed  it is structured and verified.',
     ],
     scope: [
       'Inspection planning and coordination',

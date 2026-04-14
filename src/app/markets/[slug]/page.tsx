@@ -70,7 +70,7 @@ export default async function Page({ params }: Props) {
           {/* Intro */}
           <section id="overview">
             <span className="mb-3 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
-              01 — Overview
+              01 Overview
             </span>
             <div className="flex flex-col gap-4">
               {market.intro.map((para, i) => (
@@ -84,7 +84,7 @@ export default async function Page({ params }: Props) {
           {/* Capabilities chips */}
           <section id="capabilities">
             <span className="mb-4 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
-              02 — Sector Capabilities
+              02 Sector Capabilities
             </span>
             <div className="flex flex-wrap gap-2">
               {market.capabilities.map((cap) => (
@@ -101,7 +101,7 @@ export default async function Page({ params }: Props) {
           {/* Key challenges */}
           <section id="challenges">
             <span className="mb-3 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
-              03 — Key Challenges We Solve
+              03 Key Challenges We Solve
             </span>
             <ul className="flex flex-col gap-3">
               {market.challenges.map((item) => (
@@ -121,7 +121,7 @@ export default async function Page({ params }: Props) {
           {/* Value points */}
           <section id="value">
             <span className="mb-3 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
-              04 — Why AxionIntegra
+              04 Why AxionIntegra
             </span>
             <ul className="flex flex-col gap-3">
               {market.valuePoints.map((item) => (
@@ -141,7 +141,7 @@ export default async function Page({ params }: Props) {
           {/* Technical specs */}
           <section id="specs">
             <span className="mb-4 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
-              05 — Technical Specifications
+              05 Technical Specifications
             </span>
             <div className="overflow-hidden border border-border">
               {market.specs.map((row, i) => (

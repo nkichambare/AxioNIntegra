@@ -174,7 +174,7 @@ export default async function ResourcePostPage({ params, searchParams }: Resourc
               Talk to AxionIntegra
             </span>
             <p className="mb-4 text-[14px] leading-[1.6] text-white/90">
-              Approaching a scale-up decision? We provide end-to-end manufacturing accountability —
+              Approaching a scale-up decision? We provide end-to-end manufacturing accountability
               from DFM review to production ramp support.
             </p>
             <Link
@@ -224,7 +224,7 @@ export default async function ResourcePostPage({ params, searchParams }: Resourc
           </div>
           <div>
             <span className="mb-3.5 block font-ibm-mono text-[10px] tracking-[0.22em] uppercase text-[#93c5fd]">
-              From Design to Delivery — One Responsible Partner
+              From Design to Delivery One Responsible Partner
             </span>
             <h3 className="mb-3.5 text-[28px] font-bold leading-[1.25] text-white sm:text-[30px]">
               Ready to Scale with Confidence?

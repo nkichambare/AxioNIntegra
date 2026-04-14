@@ -253,7 +253,7 @@ export default function ContactForm() {
         {/* Submit error */}
         {submitError && (
           <p className="col-span-full text-[13px] text-red-500">
-            Something went wrong — please email us directly at{' '}
+            Something went wrong please email us directly at{' '}
             <a href="mailto:contact@axionintegra.com" className="underline">
               contact@axionintegra.com
             </a>

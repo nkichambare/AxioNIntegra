@@ -27,7 +27,7 @@ const capabilities: Capability[] = [
     slug: 'manufacturing-integration',
     title: 'Manufacturing Integration & Supplier Coordination',
     description:
-      'We manage supplier alignment, production scheduling, technical clarification, and manufacturing oversight — acting as a single accountable interface between customer requirements and production execution.',
+      'We manage supplier alignment, production scheduling, technical clarification, and manufacturing oversight acting as a single accountable interface between customer requirements and production execution.',
     items: [
       'Supplier identification and qualification',
       'Technical documentation alignment',

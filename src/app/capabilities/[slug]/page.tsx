@@ -69,7 +69,7 @@ export default async function Page({ params }: Props) {
         <article className="flex flex-col gap-12">
           <section id="overview">
             <span className="mb-3 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
-              01 — Overview
+              01 Overview
             </span>
             <div className="flex flex-col gap-4">
               {cap.overview.map((para, i) => (
@@ -82,12 +82,17 @@ export default async function Page({ params }: Props) {
 
           <section id="scope">
             <span className="mb-3 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
-              02 — Scope
+              02 Scope
             </span>
             <ul className="flex flex-col gap-3">
               {cap.scope.map((item) => (
                 <li key={item} className="flex items-start gap-3 body-text text-secondary">
-                  <span className="mt-[10px] h-px w-4 shrink-0 bg-accent/50" aria-hidden="true" />
+                  <span
+                    className="shrink-0 font-ibm-mono text-[13px] text-accent"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
                   {item}
                 </li>
               ))}
@@ -96,7 +101,7 @@ export default async function Page({ params }: Props) {
 
           <section id="process">
             <span className="mb-3 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
-              03 — Process
+              03 Process
             </span>
             <ol className="flex flex-col gap-4">
               {cap.process.map((step, i) => (
@@ -112,12 +117,17 @@ export default async function Page({ params }: Props) {
 
           <section id="risk">
             <span className="mb-3 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
-              04 — Risk Control
+              04 Risk Control
             </span>
             <ul className="flex flex-col gap-3">
               {cap.risk.map((item) => (
                 <li key={item} className="flex items-start gap-3 body-text text-secondary">
-                  <span className="mt-[10px] h-px w-4 shrink-0 bg-accent/50" aria-hidden="true" />
+                  <span
+                    className="shrink-0 font-ibm-mono text-[13px] text-accent"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
                   {item}
                 </li>
               ))}
@@ -126,7 +136,7 @@ export default async function Page({ params }: Props) {
 
           <section id="outcome">
             <span className="mb-3 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
-              05 — Outcome
+              05 Outcome
             </span>
             <p className="body-text text-secondary">{cap.outcome}</p>
           </section>

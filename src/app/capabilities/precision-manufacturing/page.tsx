@@ -62,7 +62,7 @@ export default function Page() {
         <article className="flex flex-col gap-12">
           <section id="overview">
             <span className="mb-3 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
-              01 — Overview
+              01 Overview
             </span>
             {/* <h2 className="heading-3 mb-4 text-primary">Overview</h2> */}
             <div className="flex flex-col gap-4">
@@ -81,7 +81,7 @@ export default function Page() {
 
           <section id="scope">
             <span className="mb-3 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
-              02 — Scope
+              02 Scope
             </span>
             <p className="body-text mb-5 text-secondary">
               We support industrial manufacturing across:
@@ -105,7 +105,7 @@ export default function Page() {
 
           <section id="process">
             <span className="mb-3 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
-              03 — Process
+              03 Process
             </span>
             <p className="body-text mb-5 text-secondary">
               Our precision execution framework includes:
@@ -132,7 +132,7 @@ export default function Page() {
 
           <section id="risk">
             <span className="mb-3 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
-              04 — Risk Control
+              04 Risk Control
             </span>
             <p className="body-text mb-5 text-secondary">We reduce production risk through:</p>
             <ul className="flex flex-col gap-3">
@@ -153,7 +153,7 @@ export default function Page() {
 
           <section id="outcome">
             <span className="mb-3 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
-              05 — Outcome
+              05 Outcome
             </span>
             <p className="body-text text-secondary">
               Controlled, traceable, and performance-aligned manufacturing execution that meets

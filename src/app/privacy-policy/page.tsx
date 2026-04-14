@@ -82,32 +82,31 @@ export default function PrivacyPolicyPage() {
               </p>
               <ul>
                 <li>
-                  <strong>Resend</strong> (email delivery) — your inquiry data is transmitted
-                  through Resend&apos;s infrastructure to reach our team. Resend is GDPR-compliant.
-                  See their privacy policy at{' '}
-                  <span className="text-accent">resend.com/privacy</span>.
+                  <strong>Resend</strong> (email delivery) your inquiry data is transmitted through
+                  Resend&apos;s infrastructure to reach our team. Resend is GDPR-compliant. See
+                  their privacy policy at <span className="text-accent">resend.com/privacy</span>.
                 </li>
               </ul>
               <p>
                 We also use <strong>Google Analytics</strong> to understand aggregate website usage
-                — only if you have accepted analytics cookies. No personal data from the contact
-                form is sent to Google Analytics.
+                only if you have accepted analytics cookies. No personal data from the contact form
+                is sent to Google Analytics.
               </p>
             </PolicySection>
 
             <PolicySection title="5. Legal basis for processing">
               <p>
                 We process your personal data under the lawful basis of{' '}
-                <strong>legitimate interest</strong> (Article 6(1)(f) GDPR) — specifically, to
-                respond to an inbound business inquiry that you have initiated. We do not process
-                your data for any other purpose without your explicit consent.
+                <strong>legitimate interest</strong> (Article 6(1)(f) GDPR) specifically, to respond
+                to an inbound business inquiry that you have initiated. We do not process your data
+                for any other purpose without your explicit consent.
               </p>
             </PolicySection>
 
             <PolicySection title="6. Data retention">
               <p>
                 We retain inquiry data only for as long as necessary to handle your inquiry and any
-                follow-up communications — typically no longer than <strong>12 months</strong> from
+                follow-up communications typically no longer than <strong>12 months</strong> from
                 last contact. After this period, data is deleted.
               </p>
             </PolicySection>
@@ -116,22 +115,23 @@ export default function PrivacyPolicyPage() {
               <p>If you are located in the European Economic Area (EEA), you have the right to:</p>
               <ul>
                 <li>
-                  <strong>Access</strong> — request a copy of the personal data we hold about you
+                  <strong>Access</strong> - request a copy of the personal data we hold about you
                 </li>
                 <li>
-                  <strong>Rectification</strong> — request correction of inaccurate data
+                  <strong>Rectification</strong> - request correction of inaccurate data
                 </li>
                 <li>
-                  <strong>Erasure</strong> — request deletion of your data ("right to be forgotten")
+                  <strong>Erasure</strong> - request deletion of your data (&quot;right to be
+                  forgotten&quot;)
                 </li>
                 <li>
-                  <strong>Restriction</strong> — request that we limit processing of your data
+                  <strong>Restriction</strong> - request that we limit processing of your data
                 </li>
                 <li>
-                  <strong>Objection</strong> — object to processing based on legitimate interest
+                  <strong>Objection</strong> - object to processing based on legitimate interest
                 </li>
                 <li>
-                  <strong>Portability</strong> — receive your data in a structured, machine-readable
+                  <strong>Portability</strong> - receive your data in a structured, machine-readable
                   format
                 </li>
               </ul>
