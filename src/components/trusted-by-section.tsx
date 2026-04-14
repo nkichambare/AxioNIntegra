@@ -31,7 +31,7 @@ export default function TrustedBySection() {
     <section ref={ref} className="bg-white py-8">
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-5 px-6">
         <span
-          className={`font-ibm-mono text-[16px] tracking-[0.2em] uppercase text-muted transition-all duration-700 ${
+          className={`font-ibm-mono text-[16px] tracking-[0.2em] uppercase text-[#475569] transition-all duration-700 ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
           }`}
         >

@@ -63,10 +63,14 @@ export default function ResourcesSlider({ resources, requestedLocale }: Resource
               key={i}
               onClick={() => scrollTo(i)}
               aria-label={`Go to slide ${i + 1}`}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === current ? 'w-6 bg-accent' : 'w-1.5 bg-border'
-              }`}
-            />
+              className="flex items-center justify-center p-2"
+            >
+              <span
+                className={`block h-1.5 rounded-full transition-all duration-300 ${
+                  i === current ? 'w-6 bg-accent' : 'w-1.5 bg-border'
+                }`}
+              />
+            </button>
           ))}
         </div>
 

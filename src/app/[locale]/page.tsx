@@ -29,7 +29,7 @@ export default async function Home({ params }: HomePageProps) {
   const resources = await getResources(normalizedLocale);
 
   return (
-    <>
+    <main>
       <HomeHero />
       <TrustedBySection />
       <AboutSection />
@@ -37,6 +37,6 @@ export default async function Home({ params }: HomePageProps) {
       <CapabilitiesSection />
       <MarketSection />
       <ResourcesSection resources={resources} requestedLocale={normalizedLocale} />
-    </>
+    </main>
   );
 }

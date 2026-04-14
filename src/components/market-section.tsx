@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { HiOutlineArrowLongRight } from 'react-icons/hi2';
 import { markets } from '@/lib/markets-data';
@@ -115,8 +116,15 @@ export default function MarketSection() {
             <Link
               key={market.title}
               href={`/markets/${market.slug}`}
-              className={`group relative min-h-[420px] w-[86%] shrink-0 snap-center overflow-hidden rounded-2xl border border-border bg-slate-900 bg-cover bg-center bg-no-repeat p-6 cursor-pointer ${market.bgClass}`}
+              className="group relative min-h-[420px] w-[86%] shrink-0 snap-center overflow-hidden rounded-2xl border border-border bg-slate-900 p-6 cursor-pointer"
             >
+              <Image
+                src={market.src}
+                alt=""
+                fill
+                className="object-cover object-center"
+                sizes="86vw"
+              />
               {renderCardContent(market.title, false, {
                 alwaysShowExplore: true,
                 titleClassName: 'max-w-[85%] text-[22px] font-medium leading-[1.25] break-words',
@@ -164,8 +172,15 @@ export default function MarketSection() {
             <Link
               key={market.title}
               href={`/markets/${market.slug}`}
-              className={`group relative min-h-[280px] overflow-hidden rounded-2xl border border-border bg-slate-900 bg-cover bg-center bg-no-repeat p-6 cursor-pointer ${market.bgClass}`}
+              className="group relative min-h-[280px] overflow-hidden rounded-2xl border border-border bg-slate-900 p-6 cursor-pointer"
             >
+              <Image
+                src={market.src}
+                alt=""
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 1024px) 50vw, 34vw"
+              />
               {renderCardContent(market.title, false)}
             </Link>
           ))}
@@ -186,8 +201,15 @@ export default function MarketSection() {
                     onMouseEnter={() => setHoveredIndex(index)}
                     onMouseLeave={() => setHoveredIndex(null)}
                     style={{ flexBasis: getDesktopCardBasis(index) }}
-                    className={`group relative min-h-[280px] shrink-0 overflow-hidden rounded-2xl border border-border bg-slate-900 bg-cover bg-center bg-no-repeat p-6 cursor-pointer transition-all duration-500 ${market.bgClass}`}
+                    className="group relative min-h-[280px] shrink-0 overflow-hidden rounded-2xl border border-border bg-slate-900 p-6 cursor-pointer transition-all duration-500"
                   >
+                    <Image
+                      src={market.src}
+                      alt=""
+                      fill
+                      className="object-cover object-center"
+                      sizes="(max-width: 1024px) 50vw, 34vw"
+                    />
                     {renderCardContent(market.title, isHovered)}
                   </Link>
                 );

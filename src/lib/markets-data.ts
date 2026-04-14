@@ -1,7 +1,7 @@
 export type Market = {
   slug: string;
   title: string;
-  bgClass: string;
+  src: string;
   metaDescription: string;
   intro: string[];
   capabilities: string[];
@@ -15,7 +15,7 @@ export const markets: Market[] = [
   {
     slug: 'industrial-equipment-manufacturers',
     title: 'Industrial Equipment Manufacturers',
-    bgClass: "bg-[url('/market/networks-data-centres.png')]",
+    src: '/market/networks-data-centres.png',
     metaDescription:
       'Single-point accountability for precision components, structural parts, and assemblies across industrial equipment manufacturing programmes.',
     intro: [
@@ -70,7 +70,7 @@ export const markets: Market[] = [
   {
     slug: 'electrical-power-systems',
     title: 'Electrical & Power Systems',
-    bgClass: "bg-[url('/market/switchgears.png')]",
+    src: '/market/switchgears.png',
     metaDescription:
       'Reliable supplier coordination, quality validation, and full documentation traceability for electrical switchgear, power distribution, and industrial control systems.',
     intro: [
@@ -122,7 +122,7 @@ export const markets: Market[] = [
   {
     slug: 'precision-engineering-machine-builders',
     title: 'Precision Engineering & Machine Builders',
-    bgClass: "bg-[url('/market/metals-chlorine-refining.png')]",
+    src: '/market/metals-chlorine-refining.png',
     metaDescription:
       'Sub-millimetre tolerance components, full dimensional traceability, and prototype-to-production continuity for high-precision instruments and specialist machinery.',
     intro: [
@@ -171,7 +171,7 @@ export const markets: Market[] = [
   {
     slug: 'renewable-energy-infrastructure',
     title: 'Renewable Energy & Energy Infrastructure',
-    bgClass: "bg-[url('/market/green-hydrogen..png')]",
+    src: '/market/green-hydrogen..png',
     metaDescription:
       'EU-compliant manufacturing coordination for solar, wind, energy storage, and industrial energy infrastructure corrosion-resistant, traceable, and timeline-aligned.',
     intro: [
@@ -229,7 +229,7 @@ export const markets: Market[] = [
   {
     slug: 'automotive-industrial-mobility',
     title: 'Automotive & Industrial Mobility',
-    bgClass: "bg-[url('/market/power-storage.png')]",
+    src: '/market/power-storage.png',
     metaDescription:
       'PPAP documentation, IATF 16949-aligned quality management, and prototype-to-production continuity for automotive Tier 1/2 suppliers and OEMs.',
     intro: [
@@ -281,7 +281,7 @@ export const markets: Market[] = [
   {
     slug: 'industrial-assemblies-oem-suppliers',
     title: 'Industrial Assemblies & OEM Suppliers',
-    bgClass: "bg-[url('/market/industrial-mobility.png')]",
+    src: '/market/industrial-mobility.png',
     metaDescription:
       'Integrated sourcing, kitting, sub-assembly, and line-side delivery for OEM suppliers managing complex multi-component industrial programmes.',
     intro: [
