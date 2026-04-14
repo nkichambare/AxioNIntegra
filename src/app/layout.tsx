@@ -35,6 +35,10 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
+      <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+      </head>
       <body className={`antialiased ${playfair.variable} ${ibmMono.variable}`}>
         <SiteHeader />
         {children}
