@@ -6,9 +6,9 @@ type Props = { children: React.ReactNode; params: Promise<{ locale: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   return {
-    title: 'About | AxionIntegra',
+    title: 'About AxionIntegra | Engineering Team & Industrial Expertise',
     description:
-      'Engineering expertise and industrial discipline. Meet the team behind AxionIntegra.',
+      'Meet the engineers and specialists behind AxionIntegra — a team with deep domain expertise in precision manufacturing, supply chain execution, and quality management.',
     alternates: buildAlternates(locale, '/about'),
   };
 }

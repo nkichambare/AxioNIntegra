@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getMarket, markets } from '@/lib/markets-data';
 import { buildAlternates } from '@/lib/locale-meta';
+import { getMarket, markets } from '@/lib/markets-data';
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const market = getMarket(slug);
   if (!market) return {};
   return {
-    title: `${market.title} | AxionIntegra`,
+    title: `${market.title} Manufacturing Solutions | AxionIntegra`,
     description: market.metaDescription,
     alternates: buildAlternates(locale, `/markets/${slug}`),
   };
@@ -104,7 +104,10 @@ export default async function Page({ params }: Props) {
             <ul className="flex flex-col gap-3">
               {market.challenges.map((item) => (
                 <li key={item} className="flex items-start gap-3 body-text text-secondary">
-                  <span className="shrink-0 font-ibm-mono text-[13px] text-accent" aria-hidden="true">
+                  <span
+                    className="shrink-0 font-ibm-mono text-[13px] text-accent"
+                    aria-hidden="true"
+                  >
                     →
                   </span>
                   {item}
@@ -120,7 +123,10 @@ export default async function Page({ params }: Props) {
             <ul className="flex flex-col gap-3">
               {market.valuePoints.map((item) => (
                 <li key={item} className="flex items-start gap-3 body-text text-secondary">
-                  <span className="mt-[3px] shrink-0 font-ibm-mono text-[13px] font-semibold text-accent" aria-hidden="true">
+                  <span
+                    className="mt-[3px] shrink-0 font-ibm-mono text-[13px] font-semibold text-accent"
+                    aria-hidden="true"
+                  >
                     ✓
                   </span>
                   {item}

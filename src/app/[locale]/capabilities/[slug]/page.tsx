@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cap = getCapability(slug);
   if (!cap) return {};
   return {
-    title: `${cap.title} | AxionIntegra`,
+    title: `${cap.title} | Manufacturing Services | AxionIntegra`,
     description: cap.metaDescription,
     alternates: buildAlternates(locale, `/capabilities/${slug}`),
   };
@@ -55,7 +55,10 @@ export default async function Page({ params }: Props) {
       <div className="border-b border-border bg-bg/80">
         <div className="mx-auto max-w-[1060px] px-6 py-3 sm:px-14">
           <nav className="flex items-center gap-2 font-ibm-mono text-[11px] tracking-[0.08em] uppercase">
-            <Link href={`/${locale}/#capabilities`} className="text-accent transition hover:opacity-70">
+            <Link
+              href={`/${locale}/#capabilities`}
+              className="text-accent transition hover:opacity-70"
+            >
               Capabilities
             </Link>
             <span className="text-muted">/</span>
@@ -88,7 +91,12 @@ export default async function Page({ params }: Props) {
             <ul className="flex flex-col gap-3">
               {cap.scope.map((item) => (
                 <li key={item} className="flex items-start gap-3 body-text text-secondary">
-                  <span className="shrink-0 font-ibm-mono text-[13px] text-accent" aria-hidden="true">→</span>
+                  <span
+                    className="shrink-0 font-ibm-mono text-[13px] text-accent"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
                   {item}
                 </li>
               ))}
@@ -118,7 +126,12 @@ export default async function Page({ params }: Props) {
             <ul className="flex flex-col gap-3">
               {cap.risk.map((item) => (
                 <li key={item} className="flex items-start gap-3 body-text text-secondary">
-                  <span className="shrink-0 font-ibm-mono text-[13px] text-accent" aria-hidden="true">→</span>
+                  <span
+                    className="shrink-0 font-ibm-mono text-[13px] text-accent"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
                   {item}
                 </li>
               ))}

@@ -7,9 +7,9 @@ type Props = { params: Promise<{ locale: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   return {
-    title: 'Precision Manufacturing Execution | AxionIntegra',
+    title: 'Precision Manufacturing Services | CNC & Traceable Execution | AxionIntegra',
     description:
-      'Controlled, traceable, and performance-aligned manufacturing execution that meets technical specifications and delivery commitments.',
+      'CNC machining, sheet metal, and close-tolerance components delivered through controlled, traceable manufacturing execution — meeting technical specifications and delivery commitments.',
     alternates: buildAlternates(locale, '/capabilities/precision-manufacturing'),
   };
 }
@@ -55,7 +55,10 @@ export default async function Page({ params }: Props) {
       <div className="border-b border-border bg-bg/80">
         <div className="mx-auto max-w-[1060px] px-6 py-3 sm:px-14">
           <nav className="flex items-center gap-2 font-ibm-mono text-[11px] tracking-[0.08em] uppercase">
-            <Link href={`/${locale}/#capabilities`} className="text-accent transition hover:opacity-70">
+            <Link
+              href={`/${locale}/#capabilities`}
+              className="text-accent transition hover:opacity-70"
+            >
               Capabilities
             </Link>
             <span className="text-muted">/</span>
@@ -103,7 +106,12 @@ export default async function Page({ params }: Props) {
                 'Prototype, pre-series, and serial production',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 body-text text-secondary">
-                  <span className="shrink-0 font-ibm-mono text-[13px] text-accent" aria-hidden="true">→</span>
+                  <span
+                    className="shrink-0 font-ibm-mono text-[13px] text-accent"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
                   {item}
                 </li>
               ))}
@@ -151,7 +159,12 @@ export default async function Page({ params }: Props) {
                 'Escalation procedures for deviation management',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 body-text text-secondary">
-                  <span className="shrink-0 font-ibm-mono text-[13px] text-accent" aria-hidden="true">→</span>
+                  <span
+                    className="shrink-0 font-ibm-mono text-[13px] text-accent"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
                   {item}
                 </li>
               ))}

@@ -7,8 +7,9 @@ type Props = { params: Promise<{ locale: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   return {
-    title: 'Contact | AxionIntegra',
-    description: 'Get in touch with the AxionIntegra team.',
+    title: 'Contact AxionIntegra | Start Your Manufacturing Programme',
+    description:
+      'Discuss your precision manufacturing or supply chain requirement with the AxionIntegra team. No commitment required for an initial technical review.',
     alternates: buildAlternates(locale, '/contact'),
   };
 }

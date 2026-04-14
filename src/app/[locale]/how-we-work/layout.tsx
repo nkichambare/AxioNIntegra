@@ -6,9 +6,9 @@ type Props = { children: React.ReactNode; params: Promise<{ locale: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   return {
-    title: 'How We Work | AxionIntegra',
+    title: 'Manufacturing Process | Spec Review to Delivery | AxionIntegra',
     description:
-      'Every programme follows the same disciplined sequence — from technical review to documented delivery.',
+      'From DFM and supplier selection to in-process inspection and traceable final delivery — every programme follows a structured, documented sequence with one accountable team.',
     alternates: buildAlternates(locale, '/how-we-work'),
   };
 }
