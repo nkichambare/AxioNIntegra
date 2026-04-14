@@ -44,7 +44,7 @@ export const teamProfiles: TeamProfile[] = [
     slug: 'aditi-hiray',
     name: 'Aditi Hiray',
     role: 'Co-Founder & Director',
-    image: '/team/p4.png',
+    image: '/team/aditi-hiray.png',
     category: 'team',
     shortBio:
       'Shaping organizational structure and operational alignment to ensure execution frameworks remain consistent, scalable, and aligned with long-term objectives.',
