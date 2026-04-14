@@ -28,7 +28,7 @@ export default function TrustedBySection() {
   }, []);
 
   return (
-    <section ref={ref} className="py-8">
+    <section ref={ref} className="bg-white py-8">
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-5 px-6">
         <span
           className={`font-ibm-mono text-[16px] tracking-[0.2em] uppercase text-muted transition-all duration-700 ${

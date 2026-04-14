@@ -2,26 +2,27 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getMarket, markets } from '@/lib/markets-data';
+import { buildAlternates } from '@/lib/locale-meta';
 
-type Props = { params: Promise<{ slug: string }> };
+type Props = { params: Promise<{ locale: string; slug: string }> };
 
 export async function generateStaticParams() {
   return markets.map((m) => ({ slug: m.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const market = getMarket(slug);
   if (!market) return {};
   return {
     title: `${market.title} | AxionIntegra`,
     description: market.metaDescription,
-    alternates: { canonical: `/markets/${slug}` },
+    alternates: buildAlternates(locale, `/markets/${slug}`),
   };
 }
 
 export default async function Page({ params }: Props) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const market = getMarket(slug);
   if (!market) notFound();
 
@@ -54,7 +55,7 @@ export default async function Page({ params }: Props) {
       <div className="border-b border-border bg-bg/80">
         <div className="mx-auto max-w-[1060px] px-6 py-3 sm:px-14">
           <nav className="flex items-center gap-2 font-ibm-mono text-[11px] tracking-[0.08em] uppercase">
-            <Link href="/#market" className="text-accent transition hover:opacity-70">
+            <Link href={`/${locale}/#market`} className="text-accent transition hover:opacity-70">
               Markets
             </Link>
             <span className="text-muted">/</span>
@@ -67,7 +68,6 @@ export default async function Page({ params }: Props) {
       <div className="mx-auto grid max-w-[1060px] grid-cols-1 items-start gap-14 px-6 py-14 sm:px-14 lg:grid-cols-[1fr_260px] lg:gap-16 lg:py-20">
         {/* Main content */}
         <article className="flex flex-col gap-12">
-          {/* Intro */}
           <section id="overview">
             <span className="mb-3 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
               01 Overview
@@ -81,7 +81,6 @@ export default async function Page({ params }: Props) {
             </div>
           </section>
 
-          {/* Capabilities chips */}
           <section id="capabilities">
             <span className="mb-4 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
               02 Sector Capabilities
@@ -98,7 +97,6 @@ export default async function Page({ params }: Props) {
             </div>
           </section>
 
-          {/* Key challenges */}
           <section id="challenges">
             <span className="mb-3 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
               03 Key Challenges We Solve
@@ -106,10 +104,7 @@ export default async function Page({ params }: Props) {
             <ul className="flex flex-col gap-3">
               {market.challenges.map((item) => (
                 <li key={item} className="flex items-start gap-3 body-text text-secondary">
-                  <span
-                    className="shrink-0 font-ibm-mono text-[13px] text-accent"
-                    aria-hidden="true"
-                  >
+                  <span className="shrink-0 font-ibm-mono text-[13px] text-accent" aria-hidden="true">
                     →
                   </span>
                   {item}
@@ -118,7 +113,6 @@ export default async function Page({ params }: Props) {
             </ul>
           </section>
 
-          {/* Value points */}
           <section id="value">
             <span className="mb-3 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
               04 Why AxionIntegra
@@ -126,10 +120,7 @@ export default async function Page({ params }: Props) {
             <ul className="flex flex-col gap-3">
               {market.valuePoints.map((item) => (
                 <li key={item} className="flex items-start gap-3 body-text text-secondary">
-                  <span
-                    className="mt-[3px] shrink-0 font-ibm-mono text-[13px] font-semibold text-accent"
-                    aria-hidden="true"
-                  >
+                  <span className="mt-[3px] shrink-0 font-ibm-mono text-[13px] font-semibold text-accent" aria-hidden="true">
                     ✓
                   </span>
                   {item}
@@ -138,7 +129,6 @@ export default async function Page({ params }: Props) {
             </ul>
           </section>
 
-          {/* Technical specs */}
           <section id="specs">
             <span className="mb-4 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
               05 Technical Specifications
@@ -147,9 +137,7 @@ export default async function Page({ params }: Props) {
               {market.specs.map((row, i) => (
                 <div
                   key={row.label}
-                  className={`grid grid-cols-[160px_1fr] sm:grid-cols-[200px_1fr] ${
-                    i % 2 === 0 ? 'bg-bg' : 'bg-soft'
-                  }`}
+                  className={`grid grid-cols-[160px_1fr] sm:grid-cols-[200px_1fr] ${i % 2 === 0 ? 'bg-bg' : 'bg-soft'}`}
                 >
                   <div className="border-r border-border px-4 py-3 font-ibm-mono text-[11px] tracking-[0.06em] text-secondary">
                     {row.label}
@@ -165,21 +153,19 @@ export default async function Page({ params }: Props) {
 
         {/* Sticky sidebar */}
         <aside className="flex flex-col gap-5 lg:sticky lg:top-24">
-          {/* CTA */}
           <div className="bg-accent p-5">
             <span className="mb-2.5 block font-ibm-mono text-[9px] tracking-[0.2em] uppercase text-white/60">
               Start a Programme
             </span>
             <p className="mb-4 text-[14px] leading-[1.6] text-white/90">{market.ctaLine}</p>
             <Link
-              href="/contact"
+              href={`/${locale}/contact`}
               className="block text-center bg-black/20 px-4 py-2.5 font-ibm-mono text-[11px] tracking-[0.15em] uppercase text-white transition hover:bg-black/30"
             >
               Speak to Our Team →
             </Link>
           </div>
 
-          {/* Other markets */}
           <div className="overflow-hidden border border-border">
             <div className="bg-footer px-4 py-3">
               <p className="font-ibm-mono text-[9px] tracking-[0.22em] uppercase text-[#94a3b8]">
@@ -193,7 +179,7 @@ export default async function Page({ params }: Props) {
               {others.map((other) => (
                 <li key={other.slug}>
                   <Link
-                    href={`/markets/${other.slug}`}
+                    href={`/${locale}/markets/${other.slug}`}
                     className="group flex items-center justify-between gap-3 px-4 py-3.5 transition hover:bg-soft"
                   >
                     <span className="text-[13px] leading-[1.45] text-secondary group-hover:text-primary transition">
@@ -224,7 +210,7 @@ export default async function Page({ params }: Props) {
             will respond with a clear outline of how we can structure the engagement.
           </p>
           <Link
-            href="/contact"
+            href={`/${locale}/contact`}
             className="inline-block bg-white px-6 py-3 font-ibm-mono text-[11px] tracking-[0.15em] uppercase text-accent transition hover:bg-white/90"
           >
             Speak to Our Team →

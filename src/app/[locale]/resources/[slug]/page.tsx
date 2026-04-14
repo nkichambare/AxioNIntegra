@@ -4,44 +4,37 @@ import { notFound } from 'next/navigation';
 import ResourceBody from '@/components/resource-body';
 import { type BlogPostSummary, getPostBySlug, getPosts, normalizeLocale } from '@/lib/content';
 import { formatLocalDate } from '@/lib/date-format';
+import { buildAlternates, LOCALES } from '@/lib/locale-meta';
 
-type ResourcePostPageProps = {
-  params: Promise<{ slug: string }>;
-  searchParams: Promise<{ lang?: string | string[] }>;
+type Props = {
+  params: Promise<{ locale: string; slug: string }>;
 };
 
-async function getResourcePageData(
-  params: Promise<{ slug: string }>,
-  searchParams: Promise<{ lang?: string | string[] }>,
-) {
-  const { slug } = await params;
-  const { lang } = await searchParams;
-  const locale = normalizeLocale(lang);
-  const [post, allPosts] = await Promise.all([getPostBySlug(slug, locale), getPosts(locale)]);
+async function getPageData(params: Props['params']) {
+  const { locale, slug } = await params;
+  const normalizedLocale = normalizeLocale(locale);
+  const [post, allPosts] = await Promise.all([
+    getPostBySlug(slug, normalizedLocale),
+    getPosts(normalizedLocale),
+  ]);
   const relatedArticles = allPosts.filter((p) => p.routeSlug !== slug).slice(0, 5);
-  return { locale, post, relatedArticles };
+  return { locale, normalizedLocale, slug, post, relatedArticles };
 }
 
 export async function generateStaticParams() {
-  const posts = await getPosts('en');
-  return posts.map((post) => ({ slug: post.routeSlug }));
+  const allPosts = await Promise.all(LOCALES.map((l) => getPosts(l)));
+  const slugs = [...new Set(allPosts.flat().map((p) => p.routeSlug))];
+  return slugs.map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({
-  params,
-  searchParams,
-}: ResourcePostPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
-    const { post } = await getResourcePageData(params, searchParams);
-
-    if (!post) {
-      return { title: 'Resources | AxionIntegra' };
-    }
-
+    const { locale, slug, post } = await getPageData(params);
+    if (!post) return { title: 'Resources | AxionIntegra' };
     return {
       title: `${post.title} | AxionIntegra`,
       description: post.excerpt,
-      alternates: { canonical: `/resources/${(await params).slug}` },
+      alternates: buildAlternates(locale, `/resources/${slug}`),
     };
   } catch {
     return { title: 'Resources | AxionIntegra' };
@@ -62,23 +55,25 @@ function extractHeadings(markdown: string): { text: string; id: string }[] {
     });
 }
 
-export default async function ResourcePostPage({ params, searchParams }: ResourcePostPageProps) {
-  let locale: ReturnType<typeof normalizeLocale> = 'en';
+export default async function ResourcePostPage({ params }: Props) {
+  let locale = 'en';
+  let normalizedLocale: ReturnType<typeof normalizeLocale> = 'en';
+  let slug = '';
   let post: Awaited<ReturnType<typeof getPostBySlug>> = null;
   let relatedArticles: BlogPostSummary[] = [];
 
   try {
-    const data = await getResourcePageData(params, searchParams);
+    const data = await getPageData(params);
     locale = data.locale;
+    normalizedLocale = data.normalizedLocale;
+    slug = data.slug;
     post = data.post;
     relatedArticles = data.relatedArticles;
   } catch {
     notFound();
   }
 
-  if (!post) {
-    notFound();
-  }
+  if (!post) notFound();
 
   const headings = extractHeadings(post.body);
 
@@ -87,7 +82,6 @@ export default async function ResourcePostPage({ params, searchParams }: Resourc
       {/* ── HERO ── */}
       <div className="relative overflow-hidden bg-footer pt-16">
         <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-accent" />
-
         <div className="mx-auto max-w-[1060px] px-6 py-14 sm:px-14 sm:py-20">
           <div className="mb-6 flex items-center gap-3.5">
             <span className="bg-accent px-3 py-1.5 font-ibm-mono text-[10px] tracking-[0.2em] uppercase text-white">
@@ -97,21 +91,18 @@ export default async function ResourcePostPage({ params, searchParams }: Resourc
               AxionIntegra Resources
             </span>
           </div>
-
           <h1 className="mb-5 text-[clamp(26px,3.8vw,44px)] font-black leading-[1.15] text-[#f1f5f9]">
             {post.title}
           </h1>
-
           <p className="max-w-[640px] text-[16px] font-light leading-[1.7] text-[#94a3b8]">
             {post.excerpt}
           </p>
-
           <div className="mt-9 flex flex-wrap gap-2 border-t border-[#1e293b] pt-6">
             <span className="border border-[#1e293b] px-2.5 py-1.5 font-ibm-mono text-[10px] tracking-[0.1em] uppercase text-[#64748b]">
               AxionIntegra Editorial
             </span>
             <span className="border border-[#1e293b] px-2.5 py-1.5 font-ibm-mono text-[10px] tracking-[0.1em] uppercase text-[#64748b]">
-              {formatLocalDate(post.publishDate, locale)}
+              {formatLocalDate(post.publishDate, normalizedLocale)}
             </span>
           </div>
         </div>
@@ -121,10 +112,7 @@ export default async function ResourcePostPage({ params, searchParams }: Resourc
       <div className="border-b border-border bg-bg/80">
         <div className="mx-auto max-w-[1060px] px-6 py-3 sm:px-14">
           <nav className="flex items-center gap-2 font-ibm-mono text-[11px] tracking-[0.08em] uppercase">
-            <Link
-              href={`/?lang=${locale}#resources`}
-              className="text-accent transition hover:opacity-70"
-            >
+            <Link href={`/${locale}/#resources`} className="text-accent transition hover:opacity-70">
               Resources
             </Link>
             <span className="text-muted">/</span>
@@ -135,14 +123,11 @@ export default async function ResourcePostPage({ params, searchParams }: Resourc
 
       {/* ── CONTENT ── */}
       <div className="mx-auto grid max-w-[1060px] grid-cols-1 items-start gap-14 px-6 py-14 sm:px-14 lg:grid-cols-[1fr_260px] lg:gap-16 lg:py-20">
-        {/* Article body */}
         <article>
           <ResourceBody body={post.body} />
         </article>
 
-        {/* Sticky sidebar */}
         <aside className="flex flex-col gap-5 lg:sticky lg:top-24">
-          {/* Table of Contents */}
           {headings.length > 0 && (
             <div className="overflow-hidden border border-border">
               <div className="bg-footer px-4 py-2.5 font-ibm-mono text-[9px] tracking-[0.22em] uppercase text-[#94a3b8]">
@@ -151,10 +136,7 @@ export default async function ResourcePostPage({ params, searchParams }: Resourc
               <ul className="bg-bg">
                 {headings.map((h, i) => (
                   <li key={h.id} className="border-b border-border last:border-b-0">
-                    <a
-                      href={`#${h.id}`}
-                      className="flex items-start gap-2.5 px-4 py-2.5 transition hover:bg-soft"
-                    >
+                    <a href={`#${h.id}`} className="flex items-start gap-2.5 px-4 py-2.5 transition hover:bg-soft">
                       <span className="mt-0.5 shrink-0 font-ibm-mono text-[10px] text-accent">
                         {String(i + 1).padStart(2, '0')}
                       </span>
@@ -168,7 +150,6 @@ export default async function ResourcePostPage({ params, searchParams }: Resourc
             </div>
           )}
 
-          {/* CTA card */}
           <div className="bg-accent p-5">
             <span className="mb-2.5 block font-ibm-mono text-[9px] tracking-[0.2em] uppercase text-white/60">
               Talk to AxionIntegra
@@ -178,14 +159,13 @@ export default async function ResourcePostPage({ params, searchParams }: Resourc
               from DFM review to production ramp support.
             </p>
             <Link
-              href="/contact"
+              href={`/${locale}/contact`}
               className="block text-center bg-black/20 px-4 py-2.5 font-ibm-mono text-[11px] tracking-[0.15em] uppercase text-white transition hover:bg-black/30"
             >
               Contact Us →
             </Link>
           </div>
 
-          {/* Related Articles */}
           {relatedArticles.length > 0 && (
             <div className="overflow-hidden border border-border">
               <div className="bg-footer px-4 py-2.5 font-ibm-mono text-[9px] tracking-[0.22em] uppercase text-[#94a3b8]">
@@ -195,7 +175,7 @@ export default async function ResourcePostPage({ params, searchParams }: Resourc
                 {relatedArticles.map((article, i) => (
                   <li key={article.routeSlug} className="border-b border-border last:border-b-0">
                     <Link
-                      href={`/resources/${article.routeSlug}?lang=${locale}`}
+                      href={`/${locale}/resources/${article.routeSlug}`}
                       className="flex items-start gap-2.5 px-4 py-3 transition hover:bg-soft"
                     >
                       <span className="mt-0.5 shrink-0 font-ibm-mono text-[10px] text-accent">
@@ -236,7 +216,7 @@ export default async function ResourcePostPage({ params, searchParams }: Resourc
           </div>
           <div className="flex min-w-[180px] flex-col">
             <Link
-              href="/contact"
+              href={`/${locale}/contact`}
               className="block whitespace-nowrap bg-accent px-6 py-3.5 text-center font-ibm-mono text-[11px] tracking-[0.15em] uppercase text-white transition hover:opacity-90"
             >
               Get in Touch

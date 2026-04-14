@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { IBM_Plex_Mono, Playfair_Display } from 'next/font/google';
+import { headers } from 'next/headers';
 import CookieBanner from '@/components/cookie-banner';
 import SiteFooter from '@/components/site-footer';
 import SiteHeader from '@/components/site-header';
@@ -22,18 +23,17 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://axionintegra.com'),
   title: 'AxioNIntegra',
   description: 'AxioNIntegra',
-  alternates: {
-    canonical: '/',
-  },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = (await headers()).get('x-locale') ?? 'en';
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={`antialiased ${playfair.variable} ${ibmMono.variable}`}>
         <SiteHeader />
         {children}

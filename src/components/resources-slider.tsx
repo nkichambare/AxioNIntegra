@@ -48,7 +48,7 @@ export default function ResourcesSlider({ resources, requestedLocale }: Resource
               heading={resource.title}
               description={resource.preview}
               readTime={resource.ctaLabel}
-              href={`/resources/${resource.postSlug}?lang=${requestedLocale}`}
+              href={`/${requestedLocale}/resources/${resource.postSlug}`}
             />
           </div>
         ))}

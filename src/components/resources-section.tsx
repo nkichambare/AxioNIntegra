@@ -22,7 +22,7 @@ export default function ResourcesSection({ resources, requestedLocale }: Resourc
             </p>
           </div>
           <Link
-            href={`/resources?lang=${requestedLocale}`}
+            href={`/${requestedLocale}/resources`}
             className="hidden shrink-0 font-ibm-mono text-[11px] tracking-[0.12em] uppercase text-accent transition hover:opacity-70 md:block"
           >
             All Articles →
@@ -35,7 +35,7 @@ export default function ResourcesSection({ resources, requestedLocale }: Resourc
         {/* Mobile "all articles" link */}
         <div className="flex justify-center md:hidden">
           <Link
-            href={`/resources?lang=${requestedLocale}`}
+            href={`/${requestedLocale}/resources`}
             className="font-ibm-mono text-[11px] tracking-[0.12em] uppercase text-accent transition hover:opacity-70"
           >
             All Articles →

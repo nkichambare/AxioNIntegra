@@ -2,26 +2,27 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { capabilities, getCapability } from '@/lib/capabilities-data';
+import { buildAlternates } from '@/lib/locale-meta';
 
-type Props = { params: Promise<{ slug: string }> };
+type Props = { params: Promise<{ locale: string; slug: string }> };
 
 export async function generateStaticParams() {
   return capabilities.map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const cap = getCapability(slug);
   if (!cap) return {};
   return {
     title: `${cap.title} | AxionIntegra`,
     description: cap.metaDescription,
-    alternates: { canonical: `/capabilities/${slug}` },
+    alternates: buildAlternates(locale, `/capabilities/${slug}`),
   };
 }
 
 export default async function Page({ params }: Props) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const cap = getCapability(slug);
   if (!cap) notFound();
 
@@ -54,7 +55,7 @@ export default async function Page({ params }: Props) {
       <div className="border-b border-border bg-bg/80">
         <div className="mx-auto max-w-[1060px] px-6 py-3 sm:px-14">
           <nav className="flex items-center gap-2 font-ibm-mono text-[11px] tracking-[0.08em] uppercase">
-            <Link href="/#capabilities" className="text-accent transition hover:opacity-70">
+            <Link href={`/${locale}/#capabilities`} className="text-accent transition hover:opacity-70">
               Capabilities
             </Link>
             <span className="text-muted">/</span>
@@ -87,12 +88,7 @@ export default async function Page({ params }: Props) {
             <ul className="flex flex-col gap-3">
               {cap.scope.map((item) => (
                 <li key={item} className="flex items-start gap-3 body-text text-secondary">
-                  <span
-                    className="shrink-0 font-ibm-mono text-[13px] text-accent"
-                    aria-hidden="true"
-                  >
-                    →
-                  </span>
+                  <span className="shrink-0 font-ibm-mono text-[13px] text-accent" aria-hidden="true">→</span>
                   {item}
                 </li>
               ))}
@@ -122,12 +118,7 @@ export default async function Page({ params }: Props) {
             <ul className="flex flex-col gap-3">
               {cap.risk.map((item) => (
                 <li key={item} className="flex items-start gap-3 body-text text-secondary">
-                  <span
-                    className="shrink-0 font-ibm-mono text-[13px] text-accent"
-                    aria-hidden="true"
-                  >
-                    →
-                  </span>
+                  <span className="shrink-0 font-ibm-mono text-[13px] text-accent" aria-hidden="true">→</span>
                   {item}
                 </li>
               ))}
@@ -151,7 +142,7 @@ export default async function Page({ params }: Props) {
             </span>
             <p className="mb-4 text-[14px] leading-[1.6] text-white/90">{cap.ctaText}</p>
             <Link
-              href="/contact"
+              href={`/${locale}/contact`}
               className="block text-center bg-black/20 px-4 py-2.5 font-ibm-mono text-[11px] tracking-[0.15em] uppercase text-white transition hover:bg-black/30"
             >
               Contact Us →
@@ -167,7 +158,7 @@ export default async function Page({ params }: Props) {
               {others.map((other, i) => (
                 <li key={other.slug} className="border-b border-border last:border-b-0">
                   <Link
-                    href={`/capabilities/${other.slug}`}
+                    href={`/${locale}/capabilities/${other.slug}`}
                     className="flex items-start gap-2.5 px-4 py-3 transition hover:bg-soft"
                   >
                     <span className="mt-0.5 shrink-0 font-ibm-mono text-[10px] text-accent">

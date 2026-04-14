@@ -47,42 +47,30 @@ export default function SiteHeader() {
   const [isPending, startTransition] = useTransition();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
-  const [currentLang, setCurrentLang] = useState(() => {
-    if (typeof window === 'undefined') return 'en';
-    return new URLSearchParams(window.location.search).get('lang') ?? 'en';
-  });
+  const LOCALES = ['en', 'de', 'fr'];
+
+  const currentLang = (() => {
+    const segment = pathname.split('/')[1];
+    return LOCALES.includes(segment) ? segment : 'en';
+  })();
 
   const withLang = (href: string) => {
     if (!href.startsWith('/')) return href;
-    const [pathWithQuery, hashPart] = href.split('#');
-    const separator = pathWithQuery.includes('?') ? '&' : '?';
-    const nextHref = `${pathWithQuery}${separator}lang=${encodeURIComponent(currentLang)}`;
-    return hashPart ? `${nextHref}#${hashPart}` : nextHref;
+    const [path, hash] = href.split('#');
+    const localePath = `/${currentLang}${path === '/' ? '' : path}`;
+    return hash ? `${localePath}#${hash}` : localePath;
   };
 
   const handleLanguageChange = (nextLang: string) => {
-    setCurrentLang(nextLang);
-    const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
-    params.set('lang', nextLang);
-    const query = params.toString();
+    const segments = pathname.split('/');
+    if (LOCALES.includes(segments[1])) segments[1] = nextLang;
+    else segments.splice(1, 0, nextLang);
     const hash = typeof window !== 'undefined' ? window.location.hash : '';
     startTransition(() => {
-      router.push(`${pathname}${query ? `?${query}` : ''}${hash}`);
+      router.push(`${segments.join('/')}${hash}`);
     });
     closeMenu();
   };
-
-  useEffect(() => {
-    const syncLangFromUrl = () => {
-      const next = new URLSearchParams(window.location.search).get('lang') ?? 'en';
-      setCurrentLang((prev) => (prev === next ? prev : next));
-    };
-
-    window.addEventListener('popstate', syncLangFromUrl);
-    return () => {
-      window.removeEventListener('popstate', syncLangFromUrl);
-    };
-  }, []);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {

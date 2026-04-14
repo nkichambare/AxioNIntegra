@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
@@ -16,6 +17,7 @@ const trustItems = [
 ];
 
 export default function HomeHero() {
+  const { locale = 'en' } = useParams<{ locale: string }>();
   return (
     <section className="relative w-full overflow-hidden px-0 pb-20 pt-[88px] [background-image:linear-gradient(to_right,rgba(226,232,240,0.6)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.6)_1px,transparent_1px)] [background-size:40px_40px]">
       <div className="mx-auto flex w-full max-w-6xl px-6">
@@ -46,7 +48,7 @@ export default function HomeHero() {
 
           <motion.div variants={fadeUp} className="mt-2 flex flex-wrap items-center gap-6">
             <Link
-              href="/contact"
+              href={`/${locale}/contact`}
               className="inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-[14px] font-semibold leading-[1.2] text-white shadow-lg shadow-slate-900/10 transition hover:-translate-y-0.5 hover:shadow-slate-900/20"
             >
               Speak to us

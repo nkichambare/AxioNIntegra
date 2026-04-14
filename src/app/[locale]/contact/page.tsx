@@ -1,9 +1,17 @@
 import type { Metadata } from 'next';
 import ContactForm from '@/components/contact-form';
+import { buildAlternates } from '@/lib/locale-meta';
 
-export const metadata: Metadata = {
-  alternates: { canonical: '/contact' },
-};
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: 'Contact | AxionIntegra',
+    description: 'Get in touch with the AxionIntegra team.',
+    alternates: buildAlternates(locale, '/contact'),
+  };
+}
 
 const TRUST_POINTS = [
   'Full NDA available on request before project discussion',

@@ -1,11 +1,17 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { buildAlternates } from '@/lib/locale-meta';
 
-export const metadata: Metadata = {
-  title: 'Cookie Policy | AxionIntegra',
-  description: 'How AxionIntegra uses cookies on its website.',
-  alternates: { canonical: '/cookie-policy' },
-};
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: 'Cookie Policy | AxionIntegra',
+    description: 'How AxionIntegra uses cookies on its website.',
+    alternates: buildAlternates(locale, '/cookie-policy'),
+  };
+}
 
 const LAST_UPDATED = '13 April 2025';
 

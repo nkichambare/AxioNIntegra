@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 
 const steps = [
   {
@@ -68,6 +69,7 @@ const dotPop = {
 const vp = { once: true, margin: '-80px' } as const;
 
 export default function HowWeWorkPage() {
+  const { locale } = useParams<{ locale: string }>();
   return (
     <main className="min-h-screen bg-bg pt-[88px] text-primary">
       {/* ── Hero ── */}
@@ -81,7 +83,7 @@ export default function HowWeWorkPage() {
           </p>
           <div className="mt-8">
             <Link
-              href="/contact"
+              href={`/${locale}/contact`}
               className="inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-[14px] font-semibold leading-[1.2] text-white shadow-lg shadow-slate-900/10 transition hover:-translate-y-0.5 hover:shadow-slate-900/20"
             >
               Start a conversation
@@ -214,7 +216,7 @@ export default function HowWeWorkPage() {
           </p>
           <div className="mt-8">
             <Link
-              href="/contact"
+              href={`/${locale}/contact`}
               className="inline-flex items-center justify-center rounded-full bg-accent px-8 py-3 text-[14px] font-semibold leading-[1.2] text-white shadow-lg shadow-slate-900/10 transition hover:-translate-y-0.5 hover:shadow-slate-900/20"
             >
               Get in touch

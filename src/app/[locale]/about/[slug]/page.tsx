@@ -3,9 +3,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getProfileBySlug, teamProfiles } from '@/lib/team-profiles';
+import { buildAlternates } from '@/lib/locale-meta';
 
 type ProfilePageProps = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 };
 
 export async function generateStaticParams() {
@@ -13,24 +14,22 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: ProfilePageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const profile = getProfileBySlug(slug);
 
   if (!profile) {
-    return {
-      title: 'Profile | AxioNIntegra',
-    };
+    return { title: 'Profile | AxioNIntegra' };
   }
 
   return {
     title: `${profile.name} | AxioNIntegra`,
     description: `${profile.name} - ${profile.role}`,
-    alternates: { canonical: `/about/${slug}` },
+    alternates: buildAlternates(locale, `/about/${slug}`),
   };
 }
 
 export default async function ProfilePage({ params }: ProfilePageProps) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const profile = getProfileBySlug(slug);
 
   if (!profile) {
@@ -42,7 +41,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
       <section className="border-b border-border bg-soft/50">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-6 py-5">
           <p className="label-text text-muted">Profile</p>
-          <Link href="/about" className="text-[14px] font-medium text-accent transition hover:opacity-80">
+          <Link href={`/${locale}/about`} className="text-[14px] font-medium text-accent transition hover:opacity-80">
             Back to About
           </Link>
         </div>

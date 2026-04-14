@@ -1,11 +1,17 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { buildAlternates } from '@/lib/locale-meta';
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy | AxionIntegra',
-  description: 'How AxionIntegra collects, uses, and protects your personal data.',
-  alternates: { canonical: '/privacy-policy' },
-};
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: 'Privacy Policy | AxionIntegra',
+    description: 'How AxionIntegra collects, uses, and protects your personal data.',
+    alternates: buildAlternates(locale, '/privacy-policy'),
+  };
+}
 
 const LAST_UPDATED = '13 April 2025';
 const CONTACT_EMAIL = 'contact@axionintegra.com';

@@ -1,23 +1,40 @@
-import Link from 'next/link';
+'use client';
 
-const companyLinks = [
-  { label: 'About Us', href: '/about' },
-  { label: 'Our Team', href: '/about' },
-  { label: 'Capabilities', href: '/#capabilities' },
-  { label: 'How We Work', href: '/how-we-work' },
-  { label: 'Markets', href: '/#market' },
-  { label: 'Resources', href: '/#resources' },
-  { label: 'Contact', href: '/contact' },
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+const LOCALES = ['en', 'de', 'fr'];
+
+const companyPaths = [
+  { label: 'About Us', path: '/about' },
+  { label: 'Our Team', path: '/about' },
+  { label: 'Capabilities', path: '/#capabilities' },
+  { label: 'How We Work', path: '/how-we-work' },
+  { label: 'Markets', path: '/#market' },
+  { label: 'Resources', path: '/#resources' },
+  { label: 'Contact', path: '/contact' },
 ];
 
-const legalLinks = [
-  { label: 'Impressum', href: '/impressum' },
-  { label: 'Datenschutzerklärung', href: '/datenschutz' },
-  { label: 'Privacy Policy', href: '/privacy-policy' },
-  { label: 'Cookie Policy', href: '/cookie-policy' },
+const legalPaths = [
+  { label: 'Impressum', path: '/impressum' },
+  { label: 'Datenschutzerklärung', path: '/datenschutz' },
+  { label: 'Privacy Policy', path: '/privacy-policy' },
+  { label: 'Cookie Policy', path: '/cookie-policy' },
 ];
 
 export default function SiteFooter() {
+  const pathname = usePathname();
+  const locale = (() => {
+    const segment = pathname.split('/')[1];
+    return LOCALES.includes(segment) ? segment : 'en';
+  })();
+
+  const localePath = (path: string) => {
+    const [p, hash] = path.split('#');
+    const full = `/${locale}${p === '/' ? '' : p}`;
+    return hash ? `${full}#${hash}` : full;
+  };
+
   return (
     <footer className="bg-footer pt-16 text-footer-text sm:pt-20">
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr]">
@@ -40,10 +57,10 @@ export default function SiteFooter() {
         <div className="flex flex-col gap-4">
           <p className="label-text text-footer-text/60">Company</p>
           <div className="flex flex-col gap-3">
-            {companyLinks.map((link) => (
+            {companyPaths.map((link) => (
               <Link
                 key={link.label}
-                href={link.href}
+                href={localePath(link.path)}
                 className="text-[15px] text-footer-text transition hover:text-white"
               >
                 {link.label}
@@ -56,10 +73,10 @@ export default function SiteFooter() {
         <div className="flex flex-col gap-4">
           <p className="label-text text-footer-text/60">Legal</p>
           <div className="flex flex-col gap-3">
-            {legalLinks.map((link) => (
+            {legalPaths.map((link) => (
               <Link
                 key={link.label}
-                href={link.href}
+                href={localePath(link.path)}
                 className="text-[15px] text-footer-text transition hover:text-white"
               >
                 {link.label}
@@ -87,15 +104,16 @@ export default function SiteFooter() {
       </div>
 
       <div className="mt-8 w-full overflow-hidden" style={{ height: '15vw' }}>
-        <h1
+        <p
           className="whitespace-nowrap text-[18vw] font-semibold leading-[1] tracking-tight translate-y-[-15%] select-none"
           style={{
             color: 'transparent',
             WebkitTextStroke: '1px rgba(148,163,184,0.25)',
           }}
+          aria-hidden="true"
         >
           AxionIntegra
-        </h1>
+        </p>
       </div>
     </footer>
   );

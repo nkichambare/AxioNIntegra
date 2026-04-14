@@ -2,19 +2,24 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getPosts, normalizeLocale } from '@/lib/content';
 import { formatLocalDate } from '@/lib/date-format';
+import { buildAlternates } from '@/lib/locale-meta';
 
-export const metadata: Metadata = {
-  alternates: { canonical: '/resources' },
-};
+type Props = { params: Promise<{ locale: string }> };
 
-type ResourcesListPageProps = {
-  searchParams: Promise<{ lang?: string | string[] }>;
-};
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: 'Resources | AxionIntegra',
+    description:
+      'Technical articles on precision manufacturing, production scaling, quality systems, and supply chain integration.',
+    alternates: buildAlternates(locale, '/resources'),
+  };
+}
 
-export default async function ResourcesListPage({ searchParams }: ResourcesListPageProps) {
-  const { lang } = await searchParams;
-  const locale = normalizeLocale(lang);
-  const posts = await getPosts(locale);
+export default async function ResourcesListPage({ params }: Props) {
+  const { locale } = await params;
+  const normalizedLocale = normalizeLocale(locale);
+  const posts = await getPosts(normalizedLocale);
 
   return (
     <main className="min-h-screen bg-soft text-primary">
@@ -47,7 +52,7 @@ export default async function ResourcesListPage({ searchParams }: ResourcesListP
             All Articles
           </span>
           <Link
-            href={`/?lang=${locale}#resources`}
+            href={`/${locale}/#resources`}
             className="font-ibm-mono text-[11px] tracking-[0.08em] uppercase text-accent transition hover:opacity-70"
           >
             ← Back to Home
@@ -64,20 +69,17 @@ export default async function ResourcesListPage({ searchParams }: ResourcesListP
             {posts.map((post, index) => (
               <Link
                 key={`${post.translationKey}-${post.locale}`}
-                href={`/resources/${post.routeSlug}?lang=${locale}`}
+                href={`/${locale}/resources/${post.routeSlug}`}
                 className="group grid grid-cols-1 items-start gap-4 border-b border-border py-8 transition hover:bg-bg sm:grid-cols-[72px_1fr] sm:gap-8 sm:px-4"
               >
-                {/* Index number */}
                 <div className="hidden sm:flex items-start pt-1">
                   <span className="font-playfair text-[36px] font-black leading-none text-border transition group-hover:text-accent">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                 </div>
-
-                {/* Content */}
                 <div>
                   <p className="mb-2 font-ibm-mono text-[10px] tracking-[0.15em] uppercase text-muted">
-                    {formatLocalDate(post.publishDate, locale)}
+                    {formatLocalDate(post.publishDate, normalizedLocale)}
                   </p>
                   <h2 className="mb-2.5 font-playfair text-[22px] font-bold leading-[1.25] text-primary transition group-hover:text-accent sm:text-[24px]">
                     {post.title}

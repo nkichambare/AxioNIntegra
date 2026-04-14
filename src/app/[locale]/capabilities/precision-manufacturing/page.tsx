@@ -1,24 +1,32 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { buildAlternates } from '@/lib/locale-meta';
 
-export const metadata: Metadata = {
-  title: 'Precision Manufacturing Execution | AxionIntegra',
-  description:
-    'Controlled, traceable, and performance-aligned manufacturing execution that meets technical specifications and delivery commitments.',
-  alternates: { canonical: '/capabilities/precision-manufacturing' },
-};
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: 'Precision Manufacturing Execution | AxionIntegra',
+    description:
+      'Controlled, traceable, and performance-aligned manufacturing execution that meets technical specifications and delivery commitments.',
+    alternates: buildAlternates(locale, '/capabilities/precision-manufacturing'),
+  };
+}
 
 const otherCapabilities = [
   {
     label: 'Manufacturing Integration & Supplier Coordination',
-    href: '/capabilities/manufacturing-integration',
+    slug: 'manufacturing-integration',
   },
-  { label: 'Quality Validation & Compliance Control', href: '/capabilities/quality-validation' },
-  { label: 'Strategic Sourcing & Cost Optimization', href: '/capabilities/strategic-sourcing' },
-  { label: 'Scalable Production & Program Support', href: '/capabilities/scalable-production' },
+  { label: 'Quality Validation & Compliance Control', slug: 'quality-validation' },
+  { label: 'Strategic Sourcing & Cost Optimization', slug: 'strategic-sourcing' },
+  { label: 'Scalable Production & Program Support', slug: 'scalable-production' },
 ];
 
-export default function Page() {
+export default async function Page({ params }: Props) {
+  const { locale } = await params;
+
   return (
     <main className="min-h-screen bg-soft text-primary">
       {/* ── HERO ── */}
@@ -47,7 +55,7 @@ export default function Page() {
       <div className="border-b border-border bg-bg/80">
         <div className="mx-auto max-w-[1060px] px-6 py-3 sm:px-14">
           <nav className="flex items-center gap-2 font-ibm-mono text-[11px] tracking-[0.08em] uppercase">
-            <Link href="/#capabilities" className="text-accent transition hover:opacity-70">
+            <Link href={`/${locale}/#capabilities`} className="text-accent transition hover:opacity-70">
               Capabilities
             </Link>
             <span className="text-muted">/</span>
@@ -64,7 +72,6 @@ export default function Page() {
             <span className="mb-3 block font-ibm-mono text-[14px] tracking-[0.2em] uppercase text-accent">
               01 Overview
             </span>
-            {/* <h2 className="heading-3 mb-4 text-primary">Overview</h2> */}
             <div className="flex flex-col gap-4">
               <p className="body-text text-secondary">
                 AxionIntegra delivers precision-manufactured components and assemblies through
@@ -96,7 +103,7 @@ export default function Page() {
                 'Prototype, pre-series, and serial production',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 body-text text-secondary">
-                  <span className="mt-[10px] h-px w-4 shrink-0 bg-accent/50" aria-hidden="true" />
+                  <span className="shrink-0 font-ibm-mono text-[13px] text-accent" aria-hidden="true">→</span>
                   {item}
                 </li>
               ))}
@@ -144,7 +151,7 @@ export default function Page() {
                 'Escalation procedures for deviation management',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 body-text text-secondary">
-                  <span className="mt-[10px] h-px w-4 shrink-0 bg-accent/50" aria-hidden="true" />
+                  <span className="shrink-0 font-ibm-mono text-[13px] text-accent" aria-hidden="true">→</span>
                   {item}
                 </li>
               ))}
@@ -174,7 +181,7 @@ export default function Page() {
               outline an execution approach.
             </p>
             <Link
-              href="/contact"
+              href={`/${locale}/contact`}
               className="block text-center bg-black/20 px-4 py-2.5 font-ibm-mono text-[11px] tracking-[0.15em] uppercase text-white transition hover:bg-black/30"
             >
               Contact Us →
@@ -188,9 +195,9 @@ export default function Page() {
             </div>
             <ul className="bg-bg">
               {otherCapabilities.map((cap, i) => (
-                <li key={cap.href} className="border-b border-border last:border-b-0">
+                <li key={cap.slug} className="border-b border-border last:border-b-0">
                   <Link
-                    href={cap.href}
+                    href={`/${locale}/capabilities/${cap.slug}`}
                     className="flex items-start gap-2.5 px-4 py-3 transition hover:bg-soft"
                   >
                     <span className="mt-0.5 shrink-0 font-ibm-mono text-[10px] text-accent">

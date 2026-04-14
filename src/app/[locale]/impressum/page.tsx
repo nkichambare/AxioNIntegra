@@ -1,11 +1,17 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { buildAlternates } from '@/lib/locale-meta';
 
-export const metadata: Metadata = {
-  title: 'Impressum | AxionIntegra',
-  description: 'Legal notice for AxionIntegra.',
-  alternates: { canonical: '/impressum' },
-};
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: 'Impressum | AxionIntegra',
+    description: 'Legal notice for AxionIntegra.',
+    alternates: buildAlternates(locale, '/impressum'),
+  };
+}
 
 export default function ImpressumPage() {
   return (
