@@ -39,10 +39,9 @@ export default function HomeHero() {
           </motion.h1>
 
           <motion.p variants={fadeUp} className="body-text max-w-2xl text-pretty text-secondary">
-            We take full ownership of precision manufacturing and supply chain execution. By
-            integrating supplier coordination, quality validation, and delivery management under one
-            accountable structure, we reduce operational complexity and protect performance for
-            industrial customers.
+            We step in as your dedicated execution partner coordinating suppliers, validating
+            quality, and managing delivery under one accountable structure, so your team stays
+            focused while we keep the programme on track.
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-2 flex flex-wrap items-center gap-6">

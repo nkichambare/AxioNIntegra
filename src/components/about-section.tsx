@@ -15,7 +15,7 @@ const stats = [
   },
   {
     value: '∞',
-    title: 'End-to-end ownership',
+    title: 'End-to-end accountability',
     description: 'From spec review to final delivery one team, one contract, one point of contact.',
   },
 ];
