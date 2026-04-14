@@ -1,4 +1,9 @@
+import type { Metadata } from 'next';
 import ContactForm from '@/components/contact-form';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/contact' },
+};
 
 const TRUST_POINTS = [
   'Full NDA available on request before project discussion',

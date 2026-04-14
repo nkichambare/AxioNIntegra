@@ -19,8 +19,12 @@ const ibmMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://axionintegra.com'),
   title: 'AxioNIntegra',
   description: 'AxioNIntegra',
+  alternates: {
+    canonical: '/',
+  },
 };
 
 export default function RootLayout({

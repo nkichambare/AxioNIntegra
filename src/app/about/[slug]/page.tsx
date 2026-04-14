@@ -25,6 +25,7 @@ export async function generateMetadata({ params }: ProfilePageProps): Promise<Me
   return {
     title: `${profile.name} | AxioNIntegra`,
     description: `${profile.name} - ${profile.role}`,
+    alternates: { canonical: `/about/${slug}` },
   };
 }
 

@@ -16,6 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${market.title} | AxionIntegra`,
     description: market.metaDescription,
+    alternates: { canonical: `/markets/${slug}` },
   };
 }
 

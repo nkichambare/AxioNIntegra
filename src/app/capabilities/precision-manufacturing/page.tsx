@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: 'Precision Manufacturing Execution | AxionIntegra',
   description:
     'Controlled, traceable, and performance-aligned manufacturing execution that meets technical specifications and delivery commitments.',
+  alternates: { canonical: '/capabilities/precision-manufacturing' },
 };
 
 const otherCapabilities = [

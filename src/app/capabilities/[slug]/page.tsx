@@ -16,6 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${cap.title} | AxionIntegra`,
     description: cap.metaDescription,
+    alternates: { canonical: `/capabilities/${slug}` },
   };
 }
 

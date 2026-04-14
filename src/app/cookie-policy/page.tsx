@@ -4,6 +4,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Cookie Policy | AxionIntegra',
   description: 'How AxionIntegra uses cookies on its website.',
+  alternates: { canonical: '/cookie-policy' },
 };
 
 const LAST_UPDATED = '13 April 2025';

@@ -4,6 +4,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Datenschutzerklärung | AxionIntegra',
   description: 'Datenschutzerklärung von AxionIntegra gemäß DSGVO.',
+  alternates: { canonical: '/datenschutz' },
 };
 
 const LAST_UPDATED = '13. April 2025';

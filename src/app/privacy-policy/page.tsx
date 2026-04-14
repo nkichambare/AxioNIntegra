@@ -4,6 +4,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Privacy Policy | AxionIntegra',
   description: 'How AxionIntegra collects, uses, and protects your personal data.',
+  alternates: { canonical: '/privacy-policy' },
 };
 
 const LAST_UPDATED = '13 April 2025';

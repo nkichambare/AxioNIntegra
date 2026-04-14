@@ -1,6 +1,11 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getPosts, normalizeLocale } from '@/lib/content';
 import { formatLocalDate } from '@/lib/date-format';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/resources' },
+};
 
 type ResourcesListPageProps = {
   searchParams: Promise<{ lang?: string | string[] }>;

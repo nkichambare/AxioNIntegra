@@ -41,6 +41,7 @@ export async function generateMetadata({
     return {
       title: `${post.title} | AxionIntegra`,
       description: post.excerpt,
+      alternates: { canonical: `/resources/${(await params).slug}` },
     };
   } catch {
     return { title: 'Resources | AxionIntegra' };

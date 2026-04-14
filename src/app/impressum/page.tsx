@@ -4,6 +4,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Impressum | AxionIntegra',
   description: 'Legal notice for AxionIntegra.',
+  alternates: { canonical: '/impressum' },
 };
 
 export default function ImpressumPage() {
