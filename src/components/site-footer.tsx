@@ -45,6 +45,12 @@ export default function SiteFooter() {
             Precision manufacturing and supply chain execution. One accountable partner from
             requirement to delivery.
           </p>
+          <p className="text-[14px] text-footer-text/70 leading-relaxed">
+            Allmandring 1<br />
+            Vaihingen, Stuttgart 70569
+            <br />
+            Germany
+          </p>
           <a
             href="mailto:contact@axionintegra.com"
             className="text-[14px] text-blue-400 transition hover:text-blue-300"

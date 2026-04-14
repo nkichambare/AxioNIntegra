@@ -35,9 +35,9 @@ export default function DatenschutzPage() {
               <p>
                 AxionIntegra
                 <br />
-                [Straße und Hausnummer]
+                Allmandring 1
                 <br />
-                [PLZ] [Stadt], [Land]
+                70569 Stuttgart (Vaihingen), Deutschland
                 <br />
                 E-Mail:{' '}
                 <a

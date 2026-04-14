@@ -33,9 +33,10 @@ export default function PrivacyPolicyPage() {
           <div className="flex flex-col gap-10">
             <PolicySection title="1. Who we are">
               <p>
-                {COMPANY_NAME} is a precision manufacturing and supply chain integration company.
-                This Privacy Policy explains how we collect, use, and protect personal data
-                submitted through our website (<strong>axionintegra.com</strong>).
+                {COMPANY_NAME} is a precision manufacturing and supply chain integration company
+                based at Allmandring 1, 70569 Stuttgart (Vaihingen), Germany. This Privacy Policy
+                explains how we collect, use, and protect personal data submitted through our
+                website (<strong>axionintegra.com</strong>).
               </p>
               <p>
                 For any privacy-related questions, contact us at{' '}
