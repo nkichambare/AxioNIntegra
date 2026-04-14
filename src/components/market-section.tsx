@@ -7,9 +7,21 @@ import { markets } from '@/lib/markets-data';
 
 export default function MarketSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  // Tracks the centered slide on mobile to drive the dot indicator.
   const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
   const mobileTrackRef = useRef<HTMLElement | null>(null);
+  const total = markets.length;
+
+  function scrollToIndex(index: number) {
+    const track = mobileTrackRef.current;
+    if (!track) return;
+    const card = track.children[index] as HTMLElement;
+    if (!card) return;
+    track.scrollTo({ left: card.offsetLeft - 24, behavior: 'smooth' });
+    setMobileActiveIndex(index);
+  }
+
+  const prev = () => scrollToIndex(Math.max(mobileActiveIndex - 1, 0));
+  const next = () => scrollToIndex(Math.min(mobileActiveIndex + 1, total - 1));
   const marketRows = [markets.slice(0, 3), markets.slice(3, 6)];
 
   // Desktop-only: resize cards within the hovered row (expanded card + shrunken neighbors).
@@ -113,17 +125,37 @@ export default function MarketSection() {
           ))}
         </section>
 
-        {/* Mobile dot indicators */}
-        <div className="flex items-center justify-center gap-3 md:hidden">
-          {markets.map((market, index) => (
-            <span
-              key={`${market.title}-dot`}
-              className={`inline-block rounded-full bg-slate-500 transition-all duration-300 ${
-                mobileActiveIndex === index ? 'h-2 w-5 bg-slate-900' : 'h-2 w-2'
-              }`}
-              aria-hidden="true"
-            />
-          ))}
+        {/* Mobile controls: dots + arrows */}
+        <div className="flex items-center justify-between md:hidden">
+          <div className="flex gap-2">
+            {markets.map((market, index) => (
+              <span
+                key={`${market.title}-dot`}
+                className={`inline-block rounded-full transition-all duration-300 ${
+                  mobileActiveIndex === index ? 'h-1.5 w-6 bg-accent' : 'h-1.5 w-1.5 bg-border'
+                }`}
+                aria-hidden="true"
+              />
+            ))}
+          </div>
+          <div className="flex gap-3">
+            <button
+              onClick={prev}
+              disabled={mobileActiveIndex === 0}
+              aria-label="Previous"
+              className="flex h-8 w-8 items-center justify-center rounded border border-border text-secondary transition hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-30"
+            >
+              ←
+            </button>
+            <button
+              onClick={next}
+              disabled={mobileActiveIndex === total - 1}
+              aria-label="Next"
+              className="flex h-8 w-8 items-center justify-center rounded border border-border text-secondary transition hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-30"
+            >
+              →
+            </button>
+          </div>
         </div>
 
         {/* Tablet grid (md to lg): static 2-column card layout */}

@@ -4,6 +4,7 @@ import ExpertiseSection from '@/components/expertise-section';
 import HomeHero from '@/components/home-hero';
 import MarketSection from '@/components/market-section';
 import ResourcesSection from '@/components/resources-section';
+import TrustedBySection from '@/components/trusted-by-section';
 import { getResources, normalizeLocale } from '@/lib/content';
 
 type HomePageProps = {
@@ -21,6 +22,7 @@ export default async function Home({ searchParams }: HomePageProps) {
 
       <main className="relative flex w-full flex-col text-primary">
         <HomeHero />
+        <TrustedBySection />
 
         <AboutSection />
         <ExpertiseSection />

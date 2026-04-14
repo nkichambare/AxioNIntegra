@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { TfiClose } from 'react-icons/tfi';
-import LanguageSelect from '@/components/language-select';
 
 const menuReveal: Variants = {
   hidden: {
@@ -114,7 +113,7 @@ export default function SiteHeader() {
         }`}
       />
       <header className="fixed top-0 left-0 right-0 z-30 border-b border-border bg-bg/90 backdrop-blur">
-        <div className="mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center px-4">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:grid md:grid-cols-[1fr_auto_1fr]">
           <div className="flex items-center gap-3">
             <Link
               href={withLang('/')}
@@ -168,7 +167,7 @@ export default function SiteHeader() {
               <RxHamburgerMenu className="h-4 w-4" aria-hidden="true" />
             </button>
 
-            <LanguageSelect value={currentLang} onChange={handleLanguageChange} />
+            {/* <LanguageSelect value={currentLang} onChange={handleLanguageChange} /> */}
           </div>
         </div>
       </header>
@@ -198,13 +197,13 @@ export default function SiteHeader() {
                   AxioNIntegra
                 </Link>
                 <div className="flex items-center gap-3">
-                  <LanguageSelect
+                  {/* <LanguageSelect
                     id="language-mobile"
                     value={currentLang}
                     onChange={handleLanguageChange}
                     selectClassName="border-white/20 bg-transparent text-footer-text focus:ring-white/20"
                     chevronClassName="text-footer-text"
-                  />
+                  /> */}
                   <button
                     type="button"
                     aria-label="Close menu"

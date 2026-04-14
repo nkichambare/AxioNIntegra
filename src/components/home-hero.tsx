@@ -17,7 +17,7 @@ const trustItems = [
 
 export default function HomeHero() {
   return (
-    <section className="relative w-full px-0 pb-20 pt-[88px] [background-image:linear-gradient(to_right,rgba(226,232,240,0.6)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.6)_1px,transparent_1px)] [background-size:40px_40px]">
+    <section className="relative w-full overflow-hidden px-0 pb-20 pt-[88px] [background-image:linear-gradient(to_right,rgba(226,232,240,0.6)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.6)_1px,transparent_1px)] [background-size:40px_40px]">
       <div className="mx-auto flex w-full max-w-6xl px-6">
         <motion.div
           initial="hidden"
@@ -56,7 +56,7 @@ export default function HomeHero() {
 
           <motion.div
             variants={fadeUp}
-            className="mt-4 flex items-center gap-6 border-t border-border pt-6"
+            className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3"
           >
             {trustItems.map((item) => (
               <div key={item.label} className="flex shrink-0 items-center gap-2">

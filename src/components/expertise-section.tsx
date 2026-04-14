@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { HiOutlineArrowLongRight } from 'react-icons/hi2';
 
 type ExperienceItem = {
   id: string;
@@ -64,7 +63,7 @@ export default function ExpertiseSection() {
             <Link
               key={item.id}
               href={item.href}
-              className="group relative min-h-[380px] overflow-hidden rounded-2xl border border-border bg-slate-900 p-6"
+              className="group relative min-h-[380px] overflow-hidden rounded-2xl border border-border bg-slate-900 p-6 cursor-default"
             >
               <Image
                 src={item.image}
@@ -89,10 +88,10 @@ export default function ExpertiseSection() {
                   )}
                 </div>
 
-                <span className="flex items-center gap-2 text-white">
+                {/* <span className="flex items-center gap-2 text-white">
                   <span className="label-text">{item.cta}</span>
                   <HiOutlineArrowLongRight className="h-6 w-6" aria-hidden="true" />
-                </span>
+                </span> */}
               </div>
             </Link>
           ))}
