@@ -1,34 +1,9 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import Link from 'next/link';
 import { HiOutlineArrowLongRight } from 'react-icons/hi2';
-
-const markets = [
-  {
-    title: 'Industrial Equipment Manufacturers',
-    bgClass: "bg-[url('/market/networks-data-centres.png')]",
-  },
-  {
-    title: 'Electrical & Power Systems',
-    bgClass: "bg-[url('/market/switchgears.png')]",
-  },
-  {
-    title: 'Precision Engineering & Machine Builders',
-    bgClass: "bg-[url('/market/metals-chlorine-refining.png')]",
-  },
-  {
-    title: 'Renewable & Industrial Energy Systems',
-    bgClass: "bg-[url('/market/green-hydrogen..png')]",
-  },
-  {
-    title: 'Automotive & Industrial Mobility Components',
-    bgClass: "bg-[url('/market/power-storage.png')]",
-  },
-  {
-    title: 'Industrial Assemblies & OEM Suppliers',
-    bgClass: "bg-[url('/market/industrial-mobility.png')]",
-  },
-];
+import { markets } from '@/lib/markets-data';
 
 export default function MarketSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -125,15 +100,16 @@ export default function MarketSection() {
           className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 hide-scrollbar md:hidden"
         >
           {markets.map((market) => (
-            <article
+            <Link
               key={market.title}
+              href={`/markets/${market.slug}`}
               className={`group relative min-h-[420px] w-[86%] shrink-0 snap-center overflow-hidden rounded-2xl border border-border bg-slate-900 bg-cover bg-center bg-no-repeat p-6 cursor-pointer ${market.bgClass}`}
             >
               {renderCardContent(market.title, false, {
                 alwaysShowExplore: true,
                 titleClassName: 'max-w-[85%] text-[22px] font-medium leading-[1.25] break-words',
               })}
-            </article>
+            </Link>
           ))}
         </section>
 
@@ -153,12 +129,13 @@ export default function MarketSection() {
         {/* Tablet grid (md to lg): static 2-column card layout */}
         <section className="hidden gap-6 md:grid md:grid-cols-2 lg:hidden">
           {markets.map((market) => (
-            <article
+            <Link
               key={market.title}
+              href={`/markets/${market.slug}`}
               className={`group relative min-h-[280px] overflow-hidden rounded-2xl border border-border bg-slate-900 bg-cover bg-center bg-no-repeat p-6 cursor-pointer ${market.bgClass}`}
             >
               {renderCardContent(market.title, false)}
-            </article>
+            </Link>
           ))}
         </section>
 
@@ -171,15 +148,16 @@ export default function MarketSection() {
                 const isHovered = hoveredIndex === index;
 
                 return (
-                  <article
+                  <Link
                     key={market.title}
+                    href={`/markets/${market.slug}`}
                     onMouseEnter={() => setHoveredIndex(index)}
                     onMouseLeave={() => setHoveredIndex(null)}
                     style={{ flexBasis: getDesktopCardBasis(index) }}
                     className={`group relative min-h-[280px] shrink-0 overflow-hidden rounded-2xl border border-border bg-slate-900 bg-cover bg-center bg-no-repeat p-6 cursor-pointer transition-all duration-500 ${market.bgClass}`}
                   >
                     {renderCardContent(market.title, isHovered)}
-                  </article>
+                  </Link>
                 );
               })}
             </div>
