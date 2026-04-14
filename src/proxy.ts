@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 const LOCALES = ['en', 'de', 'fr'];
 const PUBLIC_FILE = /\.(.*)$/;
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (PUBLIC_FILE.test(pathname) || pathname.startsWith('/_next')) return;
