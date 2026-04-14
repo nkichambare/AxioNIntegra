@@ -9,7 +9,7 @@ type ResourcesSectionProps = {
 
 export default function ResourcesSection({ resources, requestedLocale }: ResourcesSectionProps) {
   return (
-    <section id="resources" className="bg-bg py-24">
+    <section id="resources" className="bg-bg py-16">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-6 md:gap-14">
         {/* Header */}
         <div className="flex items-end justify-between gap-6">

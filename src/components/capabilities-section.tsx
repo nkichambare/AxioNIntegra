@@ -83,7 +83,7 @@ const hoverStyle =
 
 export default function CapabilitiesSection() {
   return (
-    <section id="capabilities" className="bg-soft py-24">
+    <section id="capabilities" className="bg-soft py-16">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mb-12">
           <p className="section-heading">Core Capabilities</p>
