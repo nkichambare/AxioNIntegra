@@ -22,7 +22,7 @@ const stats = [
 
 export default function AboutSection() {
   return (
-    <section id="about" className="bg-bg py-20 sm:py-24">
+    <section id="about" className="bg-bg pb-20 pt-16 sm:pb-24 sm:pt-16">
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 md:grid-cols-2 md:items-center md:gap-14">
         <div className="order-1 flex flex-col gap-5 md:order-1">
           <p className="section-heading text-secondary">About</p>

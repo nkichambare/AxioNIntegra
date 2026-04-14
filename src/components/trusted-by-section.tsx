@@ -1,7 +1,16 @@
 'use client';
 
-import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+
+const LOGOS = [
+  { src: '/trusted-by/bedmutha-logo.png', alt: 'Bedmutha', href: 'https://bedmutha.com/' },
+  {
+    src: '/trusted-by/atul-hiray-logo.png',
+    alt: 'Groups of Atul',
+    href: 'https://groupsofatul.com/',
+  },
+];
 
 export default function TrustedBySection() {
   const ref = useRef<HTMLElement>(null);
@@ -9,7 +18,9 @@ export default function TrustedBySection() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
       { threshold: 0.2 },
     );
     if (ref.current) observer.observe(ref.current);
@@ -31,19 +42,17 @@ export default function TrustedBySection() {
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
-          <a
-            href="https://bedmutha.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-opacity duration-300 hover:opacity-70"
-          >
-            <Image
-              src="/bedmutha-logo.png"
-              alt="Bedmutha"
-              height={32}
-              width={140}
-            />
-          </a>
+          {LOGOS.map((logo) => (
+            <a
+              key={logo.href}
+              href={logo.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-opacity duration-300 hover:opacity-70"
+            >
+              <Image src={logo.src} alt={logo.alt} height={32} width={140} />
+            </a>
+          ))}
         </div>
       </div>
     </section>
