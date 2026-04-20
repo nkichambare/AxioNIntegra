@@ -8,13 +8,13 @@ type HeroSlide = { src: string; alt: string; caption: string };
 
 const slides: HeroSlide[] = [
   {
-    src: '/hero/hero-1.png',
+    src: '/hero/hero-1.webp',
     alt: 'CNC machining precision part',
     caption: 'Precision CNC Machining',
   },
-  { src: '/hero/hero-2.png', alt: 'Quality inspection process', caption: 'Quality Assurance' },
-  { src: '/hero/hero-3.png', alt: 'Supply chain coordination', caption: 'Supply Chain Execution' },
-  { src: '/hero/hero-4.png', alt: 'Precision components', caption: 'Component Delivery' },
+  { src: '/hero/hero-2.webp', alt: 'Quality inspection process', caption: 'Quality Assurance' },
+  { src: '/hero/hero-3.webp', alt: 'Supply chain coordination', caption: 'Supply Chain Execution' },
+  { src: '/hero/hero-4.webp', alt: 'Precision components', caption: 'Component Delivery' },
 ];
 
 export default function HeroCarousel() {
