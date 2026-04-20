@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import HeroCarousel from './hero-carousel';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
@@ -19,8 +20,17 @@ const trustItems = [
 export default function HomeHero() {
   const { locale = 'en' } = useParams<{ locale: string }>();
   return (
-    <section className="relative w-full overflow-hidden px-0 pb-20 pt-[88px] [background-image:linear-gradient(to_right,rgba(226,232,240,0.6)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.6)_1px,transparent_1px)] [background-size:40px_40px]">
-      <div className="mx-auto flex w-full max-w-6xl px-6">
+    <section className="relative w-full overflow-hidden pt-22">
+      {/* Full-bleed background carousel */}
+      <div className="absolute inset-0 z-0">
+        <HeroCarousel />
+      </div>
+
+      {/* Dark overlay for text legibility */}
+      <div className="absolute inset-0 z-10 bg-slate-900/65" />
+
+      {/* Foreground content */}
+      <div className="relative z-20 mx-auto flex w-full max-w-6xl px-6">
         <motion.div
           initial="hidden"
           animate="show"
@@ -28,19 +38,14 @@ export default function HomeHero() {
             hidden: {},
             show: { transition: { staggerChildren: 0.12 } },
           }}
-          className="flex max-w-3xl flex-col gap-6 pt-[12%] text-left"
+          className="flex max-w-3xl flex-col gap-6 pb-24 pt-[12%] text-left"
         >
-          {/* <motion.div variants={fadeUp} className="flex items-center gap-4">
-            <span className="h-px w-10 bg-border" />
-            <span className="label-text text-secondary">From Requirement to Delivery.</span>
-          </motion.div> */}
-
-          <motion.h1 variants={fadeUp} className="heading-1">
+          <motion.h1 variants={fadeUp} className="heading-1 text-white">
             From Requirement to Delivery.
-            <span className="block text-muted"> One Responsible Interface..</span>
+            <span className="block text-white/85"> One Responsible Interface..</span>
           </motion.h1>
 
-          <motion.p variants={fadeUp} className="body-text max-w-2xl text-pretty text-secondary">
+          <motion.p variants={fadeUp} className="body-text max-w-2xl text-pretty text-white/90">
             We step in as your dedicated execution partner coordinating suppliers, validating
             quality, and managing delivery under one accountable structure, so your team stays
             focused while we keep the programme on track.
@@ -66,10 +71,10 @@ export default function HomeHero() {
                   height="15"
                   viewBox="0 0 15 15"
                   fill="none"
-                  className="shrink-0 text-accent"
+                  className="shrink-0 text-white/90"
                   aria-hidden="true"
                 >
-                  <circle cx="7.5" cy="7.5" r="7.5" className="fill-accent/10" />
+                  <circle cx="7.5" cy="7.5" r="7.5" className="fill-white/20" />
                   <path
                     d="M4.5 7.5L6.5 9.5L10.5 5.5"
                     stroke="currentColor"
@@ -78,7 +83,7 @@ export default function HomeHero() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <span className="whitespace-nowrap text-[13px] leading-[1.4] text-secondary">
+                <span className="whitespace-nowrap text-[13px] leading-[1.4] text-white/90">
                   {item.label}
                 </span>
               </div>
