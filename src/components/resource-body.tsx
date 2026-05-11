@@ -2,6 +2,7 @@ import React from 'react';
 import type { Blockquote, Text } from 'mdast';
 import type { Components } from 'react-markdown';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import { visit } from 'unist-util-visit';
 
@@ -121,6 +122,10 @@ const components: Components = {
     );
   },
 
+  strong({ children }) {
+    return <strong className="font-semibold text-primary">{children}</strong>;
+  },
+
   // Tables
   table({ children }) {
     return (
@@ -132,7 +137,7 @@ const components: Components = {
     );
   },
   thead({ children }) {
-    return <thead className="bg-footer">{children}</thead>;
+    return <thead className="bg-slate-100">{children}</thead>;
   },
   tbody({ children }) {
     return <tbody>{children}</tbody>;
@@ -142,7 +147,7 @@ const components: Components = {
   },
   th({ children }) {
     return (
-      <th className="px-4 py-3 text-left font-ibm-mono text-[10px] tracking-[0.15em] uppercase text-[#94a3b8]">
+      <th className="px-4 py-3 text-left font-ibm-mono text-[10px] tracking-[0.15em] uppercase text-slate-600">
         {children}
       </th>
     );
@@ -213,7 +218,11 @@ export default function ResourceBody({ body }: ResourceBodyProps) {
         '[&_a:hover]:opacity-75',
       ].join(' ')}
     >
-      <ReactMarkdown components={components} remarkPlugins={[remarkGfm, remarkBlockquoteTheme]}>
+      <ReactMarkdown
+        components={components}
+        remarkPlugins={[remarkGfm, remarkBlockquoteTheme]}
+        rehypePlugins={[rehypeRaw]}
+      >
         {body}
       </ReactMarkdown>
     </div>
