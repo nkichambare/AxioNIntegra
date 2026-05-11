@@ -19,6 +19,7 @@ function slugify(text: string) {
 const BLOCKQUOTE_THEMES = {
   highlight: { borderColor: '#d97706', background: '#fffbeb', color: '#92400e' },
   warning: { borderColor: '#dc2626', background: '#fff5f5', color: '#991b1b' },
+  success: { borderColor: '#16a34a', background: '#f0fdf4', color: '#14532d' },
   default: { borderColor: '#1e3a8a', background: '#f1f5f9', color: '#0f172a' },
 } as const;
 
@@ -38,12 +39,12 @@ function remarkBlockquoteTheme() {
       const firstInline = firstBlock.children[0];
       if (firstInline?.type !== 'text') return;
 
-      const match = (firstInline as Text).value.match(/^\[(highlight|warning)\]\s*/);
+      const match = (firstInline as Text).value.match(/^\[(highlight|warning|success)\]\s*/);
       if (!match) return;
 
       // Strip keyword from the AST  bold/italic siblings are untouched
       (firstInline as Text).value = (firstInline as Text).value.replace(
-        /^\[(highlight|warning)\]\s*/,
+        /^\[(highlight|warning|success)\]\s*/,
         '',
       );
 
