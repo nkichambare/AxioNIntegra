@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useTransition } from 'react';
 import { AnimatePresence, motion, type Variants } from 'framer-motion';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { RxHamburgerMenu } from 'react-icons/rx';
@@ -103,11 +104,15 @@ export default function SiteHeader() {
       <header className="fixed top-0 left-0 right-0 z-30 border-b border-border bg-bg/90 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:grid md:grid-cols-[1fr_auto_1fr]">
           <div className="flex items-center gap-3">
-            <Link
-              href={withLang('/')}
-              className="text-[15px] font-semibold leading-[1.2] text-primary"
-            >
-              AxioNIntegra
+            <Link href={withLang('/')} aria-label="AxionIntegra home">
+              <Image
+                src="/logo-transparent.png"
+                alt="AxionIntegra"
+                width={140}
+                height={100}
+                className="h-12 w-auto object-contain"
+                priority
+              />
             </Link>
           </div>
 
@@ -177,12 +182,14 @@ export default function SiteHeader() {
               className="mx-auto flex h-full max-w-5xl flex-col px-6 py-10 text-footer-text"
             >
               <div className="flex items-center justify-between">
-                <Link
-                  href={withLang('/')}
-                  className="text-[15px] font-semibold leading-[1.2]"
-                  onClick={closeMenu}
-                >
-                  AxioNIntegra
+                <Link href={withLang('/')} aria-label="AxionIntegra home" onClick={closeMenu}>
+                  <Image
+                    src="/logo-transparent.png"
+                    alt="AxionIntegra"
+                    width={140}
+                    height={100}
+                    className="h-12 w-auto object-contain"
+                  />
                 </Link>
                 <div className="flex items-center gap-3">
                   {/* <LanguageSelect
