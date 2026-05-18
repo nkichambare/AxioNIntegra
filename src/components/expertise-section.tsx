@@ -58,6 +58,24 @@ export default function ExpertiseSection() {
           </p>
         </div>
 
+        <div className="flex flex-col gap-3">
+          <p className="font-ibm-mono text-[10px] tracking-[0.2em] uppercase text-muted">
+            Quality &amp; Compliance Standards
+          </p>
+          <div className="flex flex-wrap gap-5">
+            {['ISO 9001', 'IATF 16949', 'EN 10204', 'DIN Standards', 'DFM', 'RoHS Compliant'].map(
+              (standard) => (
+                <span
+                  key={standard}
+                  className="rounded-sm border border-border border-l-accent border-l-2 bg-soft px-3 py-1 font-ibm-mono text-[11px] tracking-[0.15em] uppercase text-secondary"
+                >
+                  {standard}
+                </span>
+              ),
+            )}
+          </div>
+        </div>
+
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {experiences.map((item) => (
             <Link
