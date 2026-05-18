@@ -20,6 +20,11 @@ const LOGOS = [
     alt: 'Siddhi Precision',
     href: 'https://siddhiprecision.com/',
   },
+  {
+    src: '/trusted-by/m&e-logo.svg',
+    alt: 'M&E Components',
+    href: 'https://mnecomponents.com/',
+  },
 ];
 
 export default function TrustedBySection() {
