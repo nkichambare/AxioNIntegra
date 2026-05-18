@@ -10,6 +10,16 @@ const LOGOS = [
     alt: 'Groups of Atul',
     href: 'https://groupsofatul.com/',
   },
+  {
+    src: '/trusted-by/sidhi-forge-logo.png',
+    alt: 'Sidhi Forge',
+    href: 'https://www.siddhiforge.com/',
+  },
+  {
+    src: '/trusted-by/siddhi-logo.png',
+    alt: 'Siddhi Precision',
+    href: 'https://siddhiprecision.com/',
+  },
 ];
 
 export default function TrustedBySection() {

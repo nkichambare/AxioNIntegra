@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { teamProfiles } from '@/lib/team-profiles';
 
-type AboutTab = 'about' | 'mission';
+type AboutTab = 'about' | 'mission' | 'team';
 
 const teamMembers = teamProfiles.filter((profile) => profile.category === 'team');
 const advisors = teamProfiles.filter((profile) => profile.category === 'advisor');
@@ -76,26 +76,39 @@ export default function AboutPage() {
                 <span className="absolute inset-x-0 bottom-0 h-[3px] bg-accent" />
               ) : null}
             </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab('team')}
+              className={`heading-3 relative py-7 text-left transition cursor-pointer ${
+                activeTab === 'team' ? 'text-primary' : 'text-muted'
+              }`}
+            >
+              Team
+              {activeTab === 'team' ? (
+                <span className="absolute inset-x-0 bottom-0 h-[3px] bg-accent" />
+              ) : null}
+            </button>
           </div>
         </div>
       </section>
 
-      <section className={activeTab === 'about' ? 'py-16 sm:py-20' : ''}>
-        <div className={activeTab === 'about' ? 'mx-auto w-full max-w-6xl px-6' : ''}>
+      <section className={activeTab !== 'mission' ? 'py-16 sm:py-20' : ''}>
+        <div className={activeTab !== 'mission' ? 'mx-auto w-full max-w-6xl px-6' : ''}>
           {activeTab === 'about' ? (
+            <div className="max-w-3xl">
+              <h1 className="heading-2">
+                Engineering expertise. Industrial discipline. End-to-end accountability.
+              </h1>
+              <p className="body-text mt-4 text-secondary">
+                AxionIntegra is led by engineers and operators who have worked across precision
+                manufacturing, industrial supply chain management, and quality systems. Our team
+                combines deep technical knowledge with operational experience to deliver programs
+                that perform under real industrial conditions.
+              </p>
+            </div>
+          ) : activeTab === 'team' ? (
             <div className="flex flex-col gap-14">
-              <div className="max-w-3xl">
-                <h1 className="heading-2">
-                  Engineering expertise. Industrial discipline. End-to-end accountability.
-                </h1>
-                <p className="body-text mt-4 text-secondary">
-                  AxionIntegra is led by engineers and operators who have worked across precision
-                  manufacturing, industrial supply chain management, and quality systems. Our team
-                  combines deep technical knowledge with operational experience to deliver programs
-                  that perform under real industrial conditions.
-                </p>
-              </div>
-
               <div className="flex flex-col gap-6">
                 <div className="mx-auto flex max-w-4xl flex-col items-center gap-3 text-center">
                   <h2 className="heading-2">

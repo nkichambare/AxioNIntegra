@@ -47,6 +47,7 @@ export default function SiteHeader() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
   const LOCALES = ['en', 'de', 'fr'];
 
@@ -54,6 +55,8 @@ export default function SiteHeader() {
     const segment = pathname.split('/')[1];
     return LOCALES.includes(segment) ? segment : 'en';
   })();
+
+  const isHome = pathname === '/' || pathname === `/${currentLang}`;
 
   const withLang = (href: string) => {
     if (!href.startsWith('/')) return href;
@@ -72,6 +75,12 @@ export default function SiteHeader() {
     });
     closeMenu();
   };
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -101,7 +110,13 @@ export default function SiteHeader() {
           isPending ? 'origin-left scale-x-100' : 'origin-right scale-x-0'
         }`}
       />
-      <header className="fixed top-0 left-0 right-0 z-30 border-b border-border bg-bg/90 backdrop-blur">
+      <header
+        className={`fixed top-0 left-0 right-0 z-30 border-b transition-all duration-300 ${
+          scrolled || !isHome
+            ? 'border-border bg-bg/90 backdrop-blur'
+            : 'border-transparent bg-transparent'
+        }`}
+      >
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:grid md:grid-cols-[1fr_auto_1fr]">
           <div className="flex items-center gap-3">
             <Link href={withLang('/')} aria-label="AxionIntegra home">
@@ -117,36 +132,19 @@ export default function SiteHeader() {
           </div>
 
           <nav className="hidden items-center justify-center gap-8 md:flex">
-            <Link
-              href={withLang('/#market')}
-              className="text-[14px] font-medium text-secondary transition hover:text-primary"
-            >
-              Market
-            </Link>
-            <Link
-              href={withLang('/#capabilities')}
-              className="text-[14px] font-medium text-secondary transition hover:text-primary"
-            >
-              Capabilities
-            </Link>
-            <Link
-              href={withLang('/how-we-work')}
-              className="text-[14px] font-medium text-secondary transition hover:text-primary"
-            >
-              How We Work
-            </Link>
-            <Link
-              href={withLang('/about')}
-              className="text-[14px] font-medium text-secondary transition hover:text-primary"
-            >
-              About
-            </Link>
-            <Link
-              href={withLang('/contact')}
-              className="text-[14px] font-medium text-secondary transition hover:text-primary"
-            >
-              Contact
-            </Link>
+            {['/#market', '/#capabilities', '/how-we-work', '/about', '/contact'].map((href, i) => (
+              <Link
+                key={href}
+                href={withLang(href)}
+                className={`text-[14px] font-medium transition ${
+                  scrolled || !isHome
+                    ? 'text-secondary hover:text-primary'
+                    : 'text-white hover:text-white/70'
+                }`}
+              >
+                {['Market', 'Capabilities', 'How We Work', 'About', 'Contact'][i]}
+              </Link>
+            ))}
           </nav>
 
           <div className="flex items-center justify-end gap-3">
@@ -154,7 +152,11 @@ export default function SiteHeader() {
               type="button"
               aria-label="Open menu"
               onClick={() => setIsMenuOpen(true)}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-secondary transition hover:text-primary"
+              className={`flex h-9 w-9 items-center justify-center rounded-full border transition ${
+                scrolled || !isHome
+                  ? 'border-border text-secondary hover:text-primary'
+                  : 'border-white/40 text-white hover:text-white/70'
+              }`}
             >
               <span className="sr-only">Open menu</span>
               <RxHamburgerMenu className="h-4 w-4" aria-hidden="true" />
