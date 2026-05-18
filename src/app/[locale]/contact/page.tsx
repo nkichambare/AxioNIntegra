@@ -44,6 +44,12 @@ export default function ContactPage() {
               >
                 contact@axionintegra.com
               </a>
+              <a
+                href="tel:+919920981545"
+                className="mt-2 block text-[17px] font-medium text-accent transition hover:opacity-75"
+              >
+                +91 99209 81545
+              </a>
             </div>
 
             {/* Response time */}

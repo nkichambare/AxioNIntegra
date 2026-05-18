@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { FaLinkedinIn, FaWhatsapp } from 'react-icons/fa';
 
 const LOCALES = ['en', 'de', 'fr'];
 
@@ -51,11 +52,24 @@ export default function SiteFooter() {
             <br />
             Germany
           </p>
+          <p className="text-[14px] text-footer-text/70 leading-relaxed">
+            705, Sai Dwarka Residency, Bankar Mala
+            <br />
+            Kathe Galli, Nashik – 422011
+            <br />
+            India
+          </p>
           <a
             href="mailto:contact@axionintegra.com"
             className="text-[14px] text-blue-400 transition hover:text-blue-300"
           >
             contact@axionintegra.com
+          </a>
+          <a
+            href="tel:+919920981545"
+            className="text-[14px] text-footer-text/70 transition hover:text-white"
+          >
+            +91 99209 81545
           </a>
         </div>
 
@@ -91,14 +105,26 @@ export default function SiteFooter() {
           </div>
           <div className="mt-2 flex flex-col gap-2">
             <p className="label-text text-footer-text/60">Follow us</p>
-            <a
-              href="https://linkedin.com/company/axionintegra"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[15px] text-blue-400 transition hover:text-blue-300"
-            >
-              LinkedIn
-            </a>
+            <div className="flex items-center gap-3">
+              <a
+                href="https://linkedin.com/company/axionintegra"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 text-footer-text transition hover:border-blue-400 hover:text-blue-400"
+              >
+                <FaLinkedinIn className="h-4 w-4" />
+              </a>
+              <a
+                href="https://wa.me/919920981545"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 text-footer-text transition hover:border-green-400 hover:text-green-400"
+              >
+                <FaWhatsapp className="h-4 w-4" />
+              </a>
+            </div>
           </div>
         </div>
       </div>

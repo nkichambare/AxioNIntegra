@@ -4,6 +4,7 @@ import CapabilitiesSection from '@/components/capabilities-section';
 import ExpertiseSection from '@/components/expertise-section';
 import HomeHero from '@/components/home-hero';
 import MarketSection from '@/components/market-section';
+import OperatingInSection from '@/components/operating-in-section';
 import ResourcesSection from '@/components/resources-section';
 import TrustedBySection from '@/components/trusted-by-section';
 import { getResources, normalizeLocale } from '@/lib/content';
@@ -33,6 +34,7 @@ export default async function Home({ params }: HomePageProps) {
       <HomeHero />
       <TrustedBySection />
       <AboutSection />
+      <OperatingInSection />
       <ExpertiseSection />
       <CapabilitiesSection />
       <MarketSection />

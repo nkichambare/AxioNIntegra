@@ -71,7 +71,7 @@ export default function HomeHero() {
                   height="15"
                   viewBox="0 0 15 15"
                   fill="none"
-                  className="shrink-0 text-white/90"
+                  className="shrink-0 text-white"
                   aria-hidden="true"
                 >
                   <circle cx="7.5" cy="7.5" r="7.5" className="fill-white/20" />
@@ -83,7 +83,7 @@ export default function HomeHero() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <span className="whitespace-nowrap text-[13px] leading-[1.4] text-white/90">
+                <span className="whitespace-nowrap text-[13px] leading-[1.4] text-white">
                   {item.label}
                 </span>
               </div>
