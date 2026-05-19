@@ -65,7 +65,7 @@ export default function TrustedBySection() {
               rel="noopener noreferrer"
               className="transition-opacity duration-300 hover:opacity-70"
             >
-              <Image src={logo.src} alt={logo.alt} height={32} width={140} />
+              <Image src={logo.src} alt={logo.alt} height={30} width={120} />
             </a>
           ))}
         </div>
