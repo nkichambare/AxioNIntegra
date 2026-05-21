@@ -25,6 +25,13 @@ const LOGOS = [
     alt: 'M&E Components',
     href: 'https://mnecomponents.com/',
   },
+  {
+    src: '/trusted-by/lemken-logo.svg',
+    alt: 'Lemken',
+    href: 'https://lemken.com/',
+    width: 160,
+    height: 48,
+  },
 ];
 
 export default function TrustedBySection() {
@@ -53,21 +60,28 @@ export default function TrustedBySection() {
           Trusted By
         </span>
         <div
-          className={`flex items-center gap-10 transition-all duration-700 delay-150 ${
+          className={`w-full overflow-x-auto transition-all duration-700 delay-150 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
-          {LOGOS.map((logo) => (
-            <a
-              key={logo.href}
-              href={logo.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-opacity duration-300 hover:opacity-70"
-            >
-              <Image src={logo.src} alt={logo.alt} height={30} width={120} />
-            </a>
-          ))}
+          <div className="flex min-w-max items-center gap-10 px-2 md:justify-center md:min-w-0">
+            {LOGOS.map((logo) => (
+              <a
+                key={logo.href}
+                href={logo.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-shrink-0 transition-opacity duration-300 hover:opacity-70"
+              >
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  height={logo.height ?? 30}
+                  width={logo.width ?? 120}
+                />
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </section>

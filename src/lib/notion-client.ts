@@ -96,6 +96,18 @@ function richTextToMarkdown(items: NotionRichText[] | undefined) {
       const text = item.plain_text ?? '';
       let value = text;
       if (item.annotations?.code) value = `\`${value}\``;
+      const color = item.annotations?.color;
+      if (color && color !== 'default') {
+        const textColor = NOTION_TEXT_COLORS[color];
+        const bgColor = NOTION_BG_COLORS[color];
+        const style = [
+          textColor ? `color:${textColor}` : '',
+          bgColor ? `background-color:${bgColor};border-radius:3px;padding:1px 3px` : '',
+        ]
+          .filter(Boolean)
+          .join(';');
+        if (style) value = `<span style="${style}">${value}</span>`;
+      }
       if (item.annotations?.bold) {
         const inner = value.trim();
         const leading = value.slice(0, value.length - value.trimStart().length);
@@ -109,18 +121,6 @@ function richTextToMarkdown(items: NotionRichText[] | undefined) {
         value = inner ? `${leading}*${inner}*${trailing}` : value;
       }
       if (item.href) value = `[${value}](${item.href})`;
-      const color = item.annotations?.color;
-      if (color && color !== 'default') {
-        const textColor = NOTION_TEXT_COLORS[color];
-        const bgColor = NOTION_BG_COLORS[color];
-        const style = [
-          textColor ? `color:${textColor}` : '',
-          bgColor ? `background-color:${bgColor};border-radius:3px;padding:1px 3px` : '',
-        ]
-          .filter(Boolean)
-          .join(';');
-        if (style) value = `<span style="${style}">${value}</span>`;
-      }
       return value;
     })
     .join('');
