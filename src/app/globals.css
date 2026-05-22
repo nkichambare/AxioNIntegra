@@ -27,6 +27,16 @@
   --color-accent: var(--color-accent);
   --color-footer: var(--color-footer-bg);
   --color-footer-text: var(--color-footer-text);
+  --animate-marquee: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 body {

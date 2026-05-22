@@ -4,33 +4,59 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 const LOGOS = [
-  { src: '/trusted-by/bedmutha-logo.png', alt: 'Bedmutha', href: 'https://bedmutha.com/' },
+  {
+    src: '/trusted-by/bedmutha-logo.png',
+    alt: 'Bedmutha',
+    href: 'https://bedmutha.com/',
+    containerWidth: 60,
+  },
   {
     src: '/trusted-by/atul-hiray-logo.png',
     alt: 'Groups of Atul',
     href: 'https://groupsofatul.com/',
+    containerWidth: 60,
   },
   {
     src: '/trusted-by/sidhi-forge-logo.png',
     alt: 'Sidhi Forge',
     href: 'https://www.siddhiforge.com/',
+    containerWidth: 60,
   },
   {
     src: '/trusted-by/siddhi-logo.png',
     alt: 'Siddhi Precision',
     href: 'https://siddhiprecision.com/',
+    containerWidth: 110,
   },
   {
     src: '/trusted-by/m&e-logo.svg',
     alt: 'M&E Components',
     href: 'https://mnecomponents.com/',
+    containerWidth: 110,
   },
   {
     src: '/trusted-by/lemken-logo.svg',
     alt: 'Lemken',
     href: 'https://lemken.com/',
-    width: 160,
-    height: 48,
+    containerWidth: 140,
+  },
+  {
+    src: '/trusted-by/tata-motors Logo.png',
+    alt: 'Tata Motors',
+    href: 'https://www.tatamotors.com',
+    containerWidth: 55,
+  },
+  {
+    src: '/trusted-by/zf-india-logo.svg',
+    alt: 'ZF India',
+    href: 'https://www.zf.com/india/en/home/home.html',
+    containerWidth: 55,
+  },
+  {
+    src: '/trusted-by/mahindra-logo.jpeg',
+    alt: 'Mahindra',
+    href: 'https://www.mahindra.com/',
+    containerWidth: 120,
   },
 ];
 
@@ -60,24 +86,31 @@ export default function TrustedBySection() {
           Trusted By
         </span>
         <div
-          className={`w-full overflow-x-auto transition-all duration-700 delay-150 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
+          className={`w-full overflow-hidden transition-all duration-700 delay-150 ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
+          style={{
+            maskImage:
+              'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
+          }}
         >
-          <div className="flex min-w-max items-center gap-10 px-2 md:justify-center md:min-w-0">
-            {LOGOS.map((logo) => (
+          <div className="flex animate-marquee items-center gap-10 hover:[animation-play-state:paused]">
+            {[...LOGOS, ...LOGOS].map((logo, i) => (
               <a
-                key={logo.href}
+                key={`${logo.href}-${i}`}
                 href={logo.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-shrink-0 transition-opacity duration-300 hover:opacity-70"
+                aria-hidden={i >= LOGOS.length ? true : undefined}
+                className="relative flex h-[60px] flex-shrink-0 transition-opacity duration-300 hover:opacity-70"
+                style={{ width: logo.containerWidth }}
               >
                 <Image
                   src={logo.src}
                   alt={logo.alt}
-                  height={logo.height ?? 30}
-                  width={logo.width ?? 120}
+                  fill
+                  className="object-contain"
+                  sizes={`${logo.containerWidth}px`}
                 />
               </a>
             ))}
