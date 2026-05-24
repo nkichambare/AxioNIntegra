@@ -28,7 +28,7 @@ const securityHeaders = [
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com",
       "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: blob:",
+      "img-src 'self' data: blob: https://flagcdn.com",
       "font-src 'self'",
       "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com",
       "media-src 'none'",
@@ -42,6 +42,14 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'flagcdn.com',
+      },
+    ],
+  },
   async headers() {
     return [
       {

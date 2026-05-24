@@ -2,16 +2,17 @@
 
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import Image from 'next/image';
 
 const COUNTRIES = [
-  { flag: '🇩🇪', name: 'Germany' },
-  { flag: '🇮🇳', name: 'India' },
-  { flag: '🇬🇧', name: 'United Kingdom' },
-  { flag: '🇫🇷', name: 'France' },
-  { flag: '🇮🇪', name: 'Ireland' },
-  { flag: '🇨🇱', name: 'Chile' },
-  { flag: '🇦🇺', name: 'Australia' },
-  { flag: '🇯🇵', name: 'Japan' },
+  { code: 'de', name: 'Germany' },
+  { code: 'in', name: 'India' },
+  { code: 'gb', name: 'United Kingdom' },
+  { code: 'fr', name: 'France' },
+  { code: 'ie', name: 'Ireland' },
+  { code: 'cl', name: 'Chile' },
+  { code: 'au', name: 'Australia' },
+  { code: 'jp', name: 'Japan' },
 ];
 
 const container = {
@@ -63,7 +64,13 @@ export default function OperatingInSection() {
           {COUNTRIES.map((country, i) => (
             <motion.div key={country.name} variants={chip} className="flex items-center gap-3">
               <span className="flex items-center gap-2 text-[15px] font-medium text-secondary">
-                <span className="text-[22px] leading-none">{country.flag}</span>
+                <Image
+                  src={`https://flagcdn.com/w40/${country.code}.png`}
+                  alt={country.name}
+                  width={22}
+                  height={16}
+                  className="rounded-sm object-cover"
+                />
                 {country.name}
               </span>
               {i < COUNTRIES.length - 1 && (
