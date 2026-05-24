@@ -94,7 +94,7 @@ export default function TrustedBySection() {
               'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
           }}
         >
-          <div className="flex animate-marquee items-center gap-10 hover:[animation-play-state:paused]">
+          <div className="flex w-max animate-marquee items-center gap-10 hover:[animation-play-state:paused]">
             {[...LOGOS, ...LOGOS].map((logo, i) => (
               <a
                 key={`${logo.href}-${i}`}
