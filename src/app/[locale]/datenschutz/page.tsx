@@ -35,9 +35,9 @@ export default function DatenschutzPage() {
               <p>
                 AxionIntegra
                 <br />
-                Allmandring 1
+                Stuttgart, Baden-Württemberg
                 <br />
-                70569 Stuttgart (Vaihingen), Deutschland
+                70186 Deutschland
                 <br />
                 E-Mail:{' '}
                 <a

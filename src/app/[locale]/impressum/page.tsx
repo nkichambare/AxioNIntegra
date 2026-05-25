@@ -31,8 +31,8 @@ export default function ImpressumPage() {
               <h2 className="heading-3 text-primary">Unternehmensangaben</h2>
               <div className="body-text flex flex-col gap-1 text-secondary">
                 <p className="font-medium text-primary">AxionIntegra</p>
-                <p>Allmandring 1</p>
-                <p>70569 Stuttgart (Vaihingen)</p>
+                <p>Stuttgart, Baden-Württemberg</p>
+                <p>70186</p>
                 <p>Deutschland</p>
               </div>
             </div>

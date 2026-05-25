@@ -10,29 +10,16 @@ const COUNTRIES = [
   { code: 'gb', name: 'United Kingdom' },
   { code: 'fr', name: 'France' },
   { code: 'ie', name: 'Ireland' },
-  { code: 'cl', name: 'Chile' },
+  { code: 'it', name: 'Italy' },
+  { code: 'dk', name: 'Denmark' },
+  { code: 'nl', name: 'Netherlands' },
+  { code: 'be', name: 'Belgium' },
+  { code: 'at', name: 'Austria' },
+  { code: 'pl', name: 'Poland' },
+  { code: 'hu', name: 'Hungary' },
   { code: 'au', name: 'Australia' },
   { code: 'jp', name: 'Japan' },
 ];
-
-const container = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const chip = {
-  hidden: { opacity: 0, y: 16 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { type: 'spring' as const, stiffness: 260, damping: 24 },
-  },
-};
 
 const label = {
   hidden: { opacity: 0, y: 10 },
@@ -55,15 +42,20 @@ export default function OperatingInSection() {
           Operating In
         </motion.span>
 
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate={inView ? 'show' : 'hidden'}
-          className="flex flex-wrap items-center justify-center gap-3"
+        <div
+          className="w-full overflow-hidden"
+          style={{
+            maskImage:
+              'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
+          }}
         >
-          {COUNTRIES.map((country, i) => (
-            <motion.div key={country.name} variants={chip} className="flex items-center gap-3">
-              <span className="flex items-center gap-2 text-[15px] font-medium text-secondary">
+          <div className="flex w-max animate-marquee-slow items-center gap-10 hover:[animation-play-state:paused]">
+            {[...COUNTRIES, ...COUNTRIES].map((country, i) => (
+              <span
+                key={`${country.code}-${i}`}
+                aria-hidden={i >= COUNTRIES.length ? true : undefined}
+                className="flex shrink-0 items-center gap-2 text-[15px] font-medium text-secondary"
+              >
                 <Image
                   src={`https://flagcdn.com/w40/${country.code}.png`}
                   alt={country.name}
@@ -73,12 +65,9 @@ export default function OperatingInSection() {
                 />
                 {country.name}
               </span>
-              {i < COUNTRIES.length - 1 && (
-                <span className="h-3.5 w-px bg-border" aria-hidden="true" />
-              )}
-            </motion.div>
-          ))}
-        </motion.div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

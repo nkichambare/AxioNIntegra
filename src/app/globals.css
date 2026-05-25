@@ -30,6 +30,7 @@
   --color-footer: var(--color-footer-bg);
   --color-footer-text: var(--color-footer-text);
   --animate-marquee: marquee 25s linear infinite;
+  --animate-marquee-slow: marquee 30s linear infinite;
 }
 
 @keyframes marquee {

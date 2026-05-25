@@ -47,8 +47,9 @@ export default function SiteFooter() {
             requirement to delivery.
           </p>
           <p className="text-[14px] text-footer-text/70 leading-relaxed">
-            Allmandring 1<br />
-            Vaihingen, Stuttgart 70569
+            Stuttgart, Baden-Württemberg
+            <br />
+            Germany 70186
             <br />
             Germany
           </p>

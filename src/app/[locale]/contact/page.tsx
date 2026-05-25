@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import ContactForm from '@/components/contact-form';
+import SalesRegionsAccordion from '@/components/sales-regions-accordion';
 import { buildAlternates } from '@/lib/locale-meta';
 
 type Props = { params: Promise<{ locale: string }> };
@@ -13,6 +15,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: buildAlternates(locale, '/contact'),
   };
 }
+
+const OFFICES = [
+  {
+    code: 'de',
+    country: 'Germany',
+    address: ['Stuttgart, Baden-Württemberg', 'Germany 70186'],
+    mapsUrl: 'https://maps.google.com/?q=Stuttgart,+Baden-Württemberg,+Germany+70186',
+  },
+  {
+    code: 'in',
+    country: 'India',
+    address: ['705, Sai Dwarka Residency, Bankar Mala', 'Kathe Galli, Nashik – 422011', 'India'],
+    mapsUrl: 'https://maps.google.com/?q=Kathe+Galli,+Nashik+422011,+India',
+  },
+];
 
 const TRUST_POINTS = [
   'Full NDA available on request before project discussion',
@@ -97,6 +114,55 @@ export default function ContactPage() {
           >
             <ContactForm />
           </div>
+        </div>
+
+        {/* Our Locations */}
+        <div className="mt-10 border-t border-border pt-10">
+          <p className="font-ibm-mono text-[10px] tracking-[0.2em] uppercase text-muted mb-6">
+            Our Locations
+          </p>
+
+          {/* Physical offices — dark inverted cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
+            {OFFICES.map((office) => (
+              <div
+                key={office.code}
+                className="rounded-b-2xl rounded-t-none border border-border bg-bg p-6 flex flex-col"
+                style={{ borderTopWidth: '1.5px', borderTopColor: '#0f172a' }}
+              >
+                <div className="flex items-center gap-2.5 mb-3">
+                  <Image
+                    src={`https://flagcdn.com/w40/${office.code}.png`}
+                    alt={office.country}
+                    width={22}
+                    height={16}
+                    className="rounded-sm object-cover shrink-0"
+                  />
+                  <span className="text-[16px] font-semibold text-primary">{office.country}</span>
+                  <span className="font-ibm-mono text-[9px] tracking-[0.15em] uppercase text-white bg-accent px-1.5 py-0.5 rounded">
+                    Office
+                  </span>
+                </div>
+                <address className="text-[13px] leading-[1.8] text-secondary not-italic flex-1">
+                  {office.address.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </address>
+                <a
+                  href={office.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-block font-ibm-mono text-[10px] tracking-[0.12em] uppercase text-accent transition hover:opacity-75"
+                >
+                  Get Directions →
+                </a>
+              </div>
+            ))}
+          </div>
+
+          <SalesRegionsAccordion />
         </div>
       </div>
     </main>
