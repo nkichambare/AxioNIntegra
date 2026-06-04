@@ -70,7 +70,7 @@ export const teamProfiles: TeamProfile[] = [
   {
     slug: 'rajendra-desurkar',
     name: 'Rajendra Desurkar',
-    role: 'COO',
+    role: 'Director & COO',
     image: '/team/rajendra-desurkar.jpeg',
     category: 'team',
     shortBio:
