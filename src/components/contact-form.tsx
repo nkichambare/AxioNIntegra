@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { type ContactFormData, submitContactForm } from '@/app/contact/actions';
 
@@ -289,9 +290,12 @@ export default function ContactForm() {
           <p className="text-[12px] leading-[1.6] text-muted">
             By submitting this form, you agree that your data will be used solely to respond to your
             inquiry in accordance with our{' '}
-            <a href="/privacy-policy" className="underline underline-offset-2 hover:text-secondary">
+            <Link
+              href="/privacy-policy"
+              className="underline underline-offset-2 hover:text-secondary"
+            >
               Privacy Policy
-            </a>
+            </Link>
             . We do not share or sell your data.
           </p>
         </div>
