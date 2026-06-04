@@ -95,6 +95,34 @@ export const teamProfiles: TeamProfile[] = [
     ],
   },
   {
+    slug: 'akshay-devhare',
+    name: 'Akshay Devhare',
+    role: 'Human Resource',
+    image: '/team/akshay-devhare.jpeg',
+    category: 'team',
+    shortBio:
+      'HR and administration professional with manufacturing-sector experience across statutory compliance, labour law, recruitment, payroll, training, and employee relations.',
+    longBio: [
+      'Akshay Devhare brings HR, industrial relations, and administration experience across manufacturing organizations in Chakan, Pune. His background includes roles with SAM Manufacturing Ltd. (MINDA Group), Otter Controls India Pvt. Ltd. (UK MNC), and S N Casting Ltd., where he has worked across HR operations, IR, administration, and employee support functions.',
+      'He has in-depth knowledge of legal and statutory compliance, labour law, and HR best practices. His work spans recruitment and selection, onboarding, employee orientation, payroll processing, benefits administration, documentation, training coordination, performance appraisal systems, and health and safety protocol compliance.',
+      'Akshay has managed HR responsibilities for a 250+ employee manufacturing unit and has supported recruitment and training for mid-level employees. He also contributes to employee relations by addressing demands, grievances, workplace concerns, and disputes through structured communication between management and employees.',
+    ],
+    focusAreas: [
+      'HR, IR & Administration',
+      'Legal & Statutory Compliance',
+      'Labour Law & HR Best Practices',
+      'Recruitment, Onboarding & Training',
+      'Payroll, Benefits & Employee Records',
+      'Employee Relations & Grievance Handling',
+    ],
+    highlights: [
+      'Worked in HR and administration roles across SAM Manufacturing, Otter Controls India, and S N Casting.',
+      'Supported management and employee relations by addressing demands, grievances, disputes, employment concerns, and workplace complaints.',
+      'Maintained employment records covering compensation, benefits, pension plans, disciplinary matters, and employee disputes.',
+      'Participated in CSR activities in local villages and supported workplace morale initiatives with motivational speakers and industry experts.',
+    ],
+  },
+  {
     slug: 'sudhakar-punde',
     name: 'Sudhakar Punde',
     role: 'Advisor',
