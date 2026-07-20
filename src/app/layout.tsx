@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   title: 'AxionIntegra | Precision Manufacturing & Supply Chain Partner',
   description:
     'AxionIntegra is your dedicated execution partner for precision manufacturing and supply chain — coordinating suppliers, validating quality, and managing delivery end to end.',
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default async function RootLayout({
