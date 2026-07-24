@@ -62,7 +62,12 @@ function SelectWrapper({ children }: { children: React.ReactNode }) {
 }
 
 // ── Main component ─────────────────────────────────────────────
-export default function ContactForm() {
+type ContactFormProps = {
+  requestType?: 'credential-verification';
+};
+
+export default function ContactForm({ requestType }: ContactFormProps) {
+  const isCredentialVerification = requestType === 'credential-verification';
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState(false);
 
@@ -70,7 +75,17 @@ export default function ContactForm() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<ContactFormData>({ mode: 'onBlur', reValidateMode: 'onChange' });
+  } = useForm<ContactFormData>({
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+    defaultValues: isCredentialVerification
+      ? {
+          programmeType: 'credential_verification',
+          message:
+            "I would like to request verification of AxionIntegra's registration credentials.",
+        }
+      : undefined,
+  });
 
   async function onSubmit(data: ContactFormData) {
     setSubmitError(false);
@@ -96,7 +111,9 @@ export default function ContactForm() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="heading-3 mb-2">Inquiry received</h3>
+        <h3 className="heading-3 mb-2">
+          {isCredentialVerification ? 'Verification request received' : 'Inquiry received'}
+        </h3>
         <p className="body-text text-secondary">
           Your inquiry has been received. We will respond within 2–3 business days.
         </p>
@@ -164,76 +181,85 @@ export default function ContactForm() {
           <ErrorMsg message={errors.country?.message} />
         </label>
 
-        {/* ── Project details ── */}
-        <SectionLabel>Project details</SectionLabel>
+        {isCredentialVerification ? (
+          <>
+            <SectionLabel>Verification request</SectionLabel>
+            <input type="hidden" {...register('programmeType')} />
+          </>
+        ) : (
+          <>
+            {/* ── Project details ── */}
+            <SectionLabel>Project details</SectionLabel>
 
-        {/* Programme type */}
-        <label className="flex flex-col gap-1.5">
-          <FieldLabel required>Programme Type</FieldLabel>
-          <SelectWrapper>
-            <select
-              defaultValue=""
-              required
-              className={errors.programmeType ? selectErrorClass : selectClass}
-              {...register('programmeType', { required: 'Please select a programme type' })}
-            >
-              <option value="" disabled>
-                Select programme type
-              </option>
-              <option value="prototype">Prototype</option>
-              <option value="pilot_run">Pilot run</option>
-              <option value="series_production">Series production</option>
-              <option value="sourcing_consultancy">Sourcing consultancy</option>
-              <option value="not_yet_defined">Not yet defined</option>
-            </select>
-          </SelectWrapper>
-          <ErrorMsg message={errors.programmeType?.message} />
-        </label>
+            {/* Programme type */}
+            <label className="flex flex-col gap-1.5">
+              <FieldLabel required>Programme Type</FieldLabel>
+              <SelectWrapper>
+                <select
+                  defaultValue=""
+                  required
+                  className={errors.programmeType ? selectErrorClass : selectClass}
+                  {...register('programmeType', { required: 'Please select a programme type' })}
+                >
+                  <option value="" disabled>
+                    Select programme type
+                  </option>
+                  <option value="prototype">Prototype</option>
+                  <option value="pilot_run">Pilot run</option>
+                  <option value="series_production">Series production</option>
+                  <option value="sourcing_consultancy">Sourcing consultancy</option>
+                  <option value="not_yet_defined">Not yet defined</option>
+                </select>
+              </SelectWrapper>
+              <ErrorMsg message={errors.programmeType?.message} />
+            </label>
 
-        {/* Manufacturing process */}
-        <label className="flex flex-col gap-1.5">
-          <FieldLabel optional>Manufacturing Process</FieldLabel>
-          <SelectWrapper>
-            <select
-              defaultValue=""
-              required
-              className={selectClass}
-              {...register('manufacturingProcess')}
-            >
-              <option value="" disabled>
-                Select process
-              </option>
-              <option value="cnc_machining">CNC machining</option>
-              <option value="sheet_metal">Sheet metal</option>
-              <option value="injection_moulding">Injection moulding</option>
-              <option value="assembly">Assembly</option>
-              <option value="multiple">Multiple</option>
-              <option value="not_yet_defined">Not yet defined</option>
-            </select>
-          </SelectWrapper>
-        </label>
+            {/* Manufacturing process */}
+            <label className="flex flex-col gap-1.5">
+              <FieldLabel optional>Manufacturing Process</FieldLabel>
+              <SelectWrapper>
+                <select
+                  defaultValue=""
+                  required
+                  className={selectClass}
+                  {...register('manufacturingProcess')}
+                >
+                  <option value="" disabled>
+                    Select process
+                  </option>
+                  <option value="cnc_machining">CNC machining</option>
+                  <option value="sheet_metal">Sheet metal</option>
+                  <option value="injection_moulding">Injection moulding</option>
+                  <option value="assembly">Assembly</option>
+                  <option value="multiple">Multiple</option>
+                  <option value="not_yet_defined">Not yet defined</option>
+                </select>
+              </SelectWrapper>
+            </label>
 
-        {/* Annual volume */}
-        <label className="flex flex-col gap-1.5">
-          <FieldLabel optional>Estimated Annual Volume</FieldLabel>
-          <input
-            type="text"
-            placeholder="e.g. 500 units, 10,000 units"
-            className={inputClass}
-            {...register('annualVolume')}
-          />
-        </label>
+            {/* Annual volume */}
+            <label className="flex flex-col gap-1.5">
+              <FieldLabel optional>Estimated Annual Volume</FieldLabel>
+              <input
+                type="text"
+                placeholder="e.g. 500 units, 10,000 units"
+                className={inputClass}
+                {...register('annualVolume')}
+              />
+            </label>
 
-        {/* Target timeline */}
-        <label className="flex flex-col gap-1.5">
-          <FieldLabel optional>Target Timeline</FieldLabel>
-          <input
-            type="text"
-            placeholder="e.g. First delivery in 3 months"
-            className={inputClass}
-            {...register('targetTimeline')}
-          />
-        </label>
+            {/* Target timeline */}
+            <label className="flex flex-col gap-1.5">
+              <FieldLabel optional>Target Timeline</FieldLabel>
+              <input
+                type="text"
+                placeholder="e.g. First delivery in 3 months"
+                className={inputClass}
+                {...register('targetTimeline')}
+              />
+            </label>
+          </>
+        )}
 
         {/* ── How can we help ── */}
         <label className="col-span-full flex flex-col gap-1.5">
@@ -285,7 +311,11 @@ export default function ContactForm() {
                 />
               </svg>
             )}
-            {isSubmitting ? 'Sending…' : 'Send Inquiry'}
+            {isSubmitting
+              ? 'Sending…'
+              : isCredentialVerification
+                ? 'Send Verification Request'
+                : 'Send Inquiry'}
           </button>
           <p className="text-[12px] leading-[1.6] text-muted">
             By submitting this form, you agree that your data will be used solely to respond to your

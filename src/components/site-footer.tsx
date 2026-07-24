@@ -13,6 +13,7 @@ const companyPaths = [
   { label: 'How We Work', path: '/how-we-work' },
   { label: 'Markets', path: '/#market' },
   { label: 'Resources', path: '/#resources' },
+  { label: 'Registrations & Credentials', path: '/credentials' },
   { label: 'Contact', path: '/contact' },
 ];
 

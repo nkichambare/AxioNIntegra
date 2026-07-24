@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { capabilities } from '@/lib/capabilities-data';
 import { getPosts } from '@/lib/content';
+import { credentials } from '@/lib/credentials-data';
 import { markets } from '@/lib/markets-data';
 import { teamProfiles } from '@/lib/team-profiles';
 
@@ -21,6 +22,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/contact', priority: 0.9, changeFrequency: 'monthly' },
     { path: '/how-we-work', priority: 0.8, changeFrequency: 'monthly' },
     { path: '/resources', priority: 0.8, changeFrequency: 'weekly' },
+    ...(credentials.length
+      ? [
+          {
+            path: '/credentials',
+            priority: 0.6,
+            changeFrequency: 'monthly' as const,
+          },
+        ]
+      : []),
     { path: '/privacy-policy', priority: 0.3, changeFrequency: 'yearly' },
     { path: '/cookie-policy', priority: 0.3, changeFrequency: 'yearly' },
     { path: '/impressum', priority: 0.3, changeFrequency: 'yearly' },

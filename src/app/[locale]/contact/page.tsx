@@ -4,7 +4,10 @@ import ContactForm from '@/components/contact-form';
 import SalesRegionsAccordion from '@/components/sales-regions-accordion';
 import { buildAlternates } from '@/lib/locale-meta';
 
-type Props = { params: Promise<{ locale: string }> };
+type Props = {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ request?: string }>;
+};
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
@@ -36,7 +39,10 @@ const TRUST_POINTS = [
   'No commitment required for initial technical review',
 ];
 
-export default function ContactPage() {
+export default async function ContactPage({ searchParams }: Props) {
+  const { request } = await searchParams;
+  const requestType = request === 'credential-verification' ? 'credential-verification' : undefined;
+
   return (
     <main className="min-h-screen bg-soft pt-[88px] text-primary">
       <div className="mx-auto w-full max-w-6xl px-6 py-16 sm:py-20">
@@ -112,7 +118,7 @@ export default function ContactPage() {
             className="rounded-b-2xl rounded-t-none border border-border bg-bg p-8 sm:p-10"
             style={{ borderTopWidth: '1.5px', borderTopColor: 'var(--color-accent)' }}
           >
-            <ContactForm />
+            <ContactForm requestType={requestType} />
           </div>
         </div>
 

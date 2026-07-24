@@ -73,14 +73,18 @@ export async function submitContactForm(data: ContactFormData): Promise<{ ok: bo
 
   try {
     const resend = new Resend(apiKey);
+    const isCredentialVerification = data.programmeType === 'credential_verification';
     const { error } = await resend.emails.send({
       from: 'AxionIntegra Contact <onboarding@resend.dev>',
       to,
       replyTo: data.workEmail,
-      subject: `[Enquiry] ${data.fullName} – ${data.companyName}`,
+      subject: `${isCredentialVerification ? '[Credential verification]' : '[Enquiry]'} ${data.fullName} – ${data.companyName}`,
       html: buildEmailHtml(data),
       tags: [
-        { name: 'category', value: 'enquiry' },
+        {
+          name: 'category',
+          value: isCredentialVerification ? 'credential-verification' : 'enquiry',
+        },
         { name: 'source', value: 'contact-form' },
       ],
     });

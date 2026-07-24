@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import AboutSection from '@/components/about-section';
 import CapabilitiesSection from '@/components/capabilities-section';
+import CredentialsSection from '@/components/credentials-section';
 import ExpertiseSection from '@/components/expertise-section';
 import HomeHero from '@/components/home-hero';
 import MarketSection from '@/components/market-section';
@@ -34,6 +35,7 @@ export default async function Home({ params }: HomePageProps) {
       <HomeHero />
       <TrustedBySection />
       <AboutSection />
+      <CredentialsSection locale={normalizedLocale} />
       <OperatingInSection />
       <ExpertiseSection />
       <CapabilitiesSection />
