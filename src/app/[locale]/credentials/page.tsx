@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { FiArrowRight, FiShield } from 'react-icons/fi';
-import CredentialCard from '@/components/credential-card';
+import CredentialsAccordion from '@/components/credentials-accordion';
 import { credentials } from '@/lib/credentials-data';
 import { buildAlternates } from '@/lib/locale-meta';
 
@@ -40,13 +40,7 @@ export default async function CredentialsPage({ params }: Props) {
       {credentials.length ? (
         <section className="py-16 sm:py-20">
           <div className="mx-auto w-full max-w-6xl px-6">
-            <div className="grid max-w-4xl gap-5 sm:grid-cols-2">
-              {credentials
-                .toSorted((a, b) => a.displayOrder - b.displayOrder)
-                .map((credential) => (
-                  <CredentialCard key={credential.id} credential={credential} locale={locale} />
-                ))}
-            </div>
+            <CredentialsAccordion locale={locale} />
           </div>
         </section>
       ) : (

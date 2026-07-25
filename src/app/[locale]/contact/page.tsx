@@ -118,6 +118,18 @@ export default async function ContactPage({ searchParams }: Props) {
             className="rounded-b-2xl rounded-t-none border border-border bg-bg p-8 sm:p-10"
             style={{ borderTopWidth: '1.5px', borderTopColor: 'var(--color-accent)' }}
           >
+            {requestType ? (
+              <div className="mb-7 border-b border-border pb-7">
+                <p className="label-text text-muted">Registration verification</p>
+                <h2 className="mt-2 text-[18px] font-medium leading-[1.3] text-primary">
+                  Requesting registration verification
+                </h2>
+                <p className="mt-2 text-[14px] leading-[1.7] text-secondary">
+                  Complete the form below and our team will provide the relevant documentation after
+                  reviewing your request.
+                </p>
+              </div>
+            ) : null}
             <ContactForm requestType={requestType} />
           </div>
         </div>

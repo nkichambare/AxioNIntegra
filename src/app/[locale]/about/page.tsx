@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import CredentialsAccordion from '@/components/credentials-accordion';
 import { teamProfiles } from '@/lib/team-profiles';
 
-type AboutTab = 'about' | 'mission' | 'team';
+type AboutTab = 'about' | 'mission' | 'team' | 'credentials';
 
 const teamMembers = teamProfiles.filter((profile) => profile.category === 'team');
 const advisors = teamProfiles.filter((profile) => profile.category === 'advisor');
@@ -44,56 +46,80 @@ const coreValues = [
 ];
 
 export default function AboutPage() {
+  const { locale = 'en' } = useParams<{ locale: string }>();
   const [activeTab, setActiveTab] = useState<AboutTab>('about');
 
   return (
     <main className="min-h-screen bg-bg pt-[88px] text-primary">
       <section className="border-b border-border bg-soft/50">
         <div className="mx-auto w-full max-w-6xl px-6">
-          <div className="flex gap-10 sm:gap-16">
-            <button
-              type="button"
-              onClick={() => setActiveTab('about')}
-              className={`heading-3 relative py-7 text-left transition cursor-pointer ${
-                activeTab === 'about' ? 'text-primary' : 'text-muted'
-              }`}
-            >
-              About
-              {activeTab === 'about' ? (
-                <span className="absolute inset-x-0 bottom-0 h-[3px] bg-accent" />
-              ) : null}
-            </button>
+          <div className="hide-scrollbar overflow-x-auto">
+            <div className="flex min-w-max gap-8 sm:gap-10">
+              <button
+                type="button"
+                onClick={() => setActiveTab('about')}
+                className={`relative cursor-pointer py-5 text-left text-[14px] leading-[1.2] font-medium whitespace-nowrap transition sm:text-[16px] ${
+                  activeTab === 'about' ? 'text-primary' : 'text-muted'
+                }`}
+              >
+                About
+                {activeTab === 'about' ? (
+                  <span className="absolute inset-x-0 bottom-0 h-[2px] bg-accent" />
+                ) : null}
+              </button>
 
-            <button
-              type="button"
-              onClick={() => setActiveTab('mission')}
-              className={`heading-3 relative py-7 text-left transition cursor-pointer ${
-                activeTab === 'mission' ? 'text-primary' : 'text-muted'
-              }`}
-            >
-              Mission, Vision, Values
-              {activeTab === 'mission' ? (
-                <span className="absolute inset-x-0 bottom-0 h-[3px] bg-accent" />
-              ) : null}
-            </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab('mission')}
+                className={`relative cursor-pointer py-5 text-left text-[14px] leading-[1.2] font-medium whitespace-nowrap transition sm:text-[16px] ${
+                  activeTab === 'mission' ? 'text-primary' : 'text-muted'
+                }`}
+              >
+                Mission &amp; Values
+                {activeTab === 'mission' ? (
+                  <span className="absolute inset-x-0 bottom-0 h-[2px] bg-accent" />
+                ) : null}
+              </button>
 
-            <button
-              type="button"
-              onClick={() => setActiveTab('team')}
-              className={`heading-3 relative py-7 text-left transition cursor-pointer ${
-                activeTab === 'team' ? 'text-primary' : 'text-muted'
-              }`}
-            >
-              Team
-              {activeTab === 'team' ? (
-                <span className="absolute inset-x-0 bottom-0 h-[3px] bg-accent" />
-              ) : null}
-            </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab('team')}
+                className={`relative cursor-pointer py-5 text-left text-[14px] leading-[1.2] font-medium whitespace-nowrap transition sm:text-[16px] ${
+                  activeTab === 'team' ? 'text-primary' : 'text-muted'
+                }`}
+              >
+                Team
+                {activeTab === 'team' ? (
+                  <span className="absolute inset-x-0 bottom-0 h-[2px] bg-accent" />
+                ) : null}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setActiveTab('credentials')}
+                className={`relative cursor-pointer py-5 text-left text-[14px] leading-[1.2] font-medium whitespace-nowrap transition sm:text-[16px] ${
+                  activeTab === 'credentials' ? 'text-primary' : 'text-muted'
+                }`}
+              >
+                Credentials
+                {activeTab === 'credentials' ? (
+                  <span className="absolute inset-x-0 bottom-0 h-[2px] bg-accent" />
+                ) : null}
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className={activeTab !== 'mission' ? 'py-16 sm:py-20' : ''}>
+      <section
+        className={
+          activeTab === 'mission'
+            ? ''
+            : activeTab === 'credentials'
+              ? 'pt-10 pb-16 sm:pt-12 sm:pb-20'
+              : 'py-16 sm:py-20'
+        }
+      >
         <div className={activeTab !== 'mission' ? 'mx-auto w-full max-w-6xl px-6' : ''}>
           {activeTab === 'about' ? (
             <div className="max-w-3xl">
@@ -178,6 +204,19 @@ export default function AboutPage() {
                   ))}
                 </div>
               </div>
+            </div>
+          ) : activeTab === 'credentials' ? (
+            <div className="flex flex-col gap-9">
+              <div className="max-w-3xl">
+                <p className="label-text text-muted">Company verification</p>
+                <h2 className="heading-2 mt-3">Registrations &amp; Credentials</h2>
+                <p className="body-text mt-4 text-secondary">
+                  Verified company registration information supporting transparent supplier
+                  onboarding and independent business verification. Supporting documents are
+                  provided privately after reviewing a verification request.
+                </p>
+              </div>
+              <CredentialsAccordion locale={locale} />
             </div>
           ) : (
             <div className="flex flex-col gap-0">
