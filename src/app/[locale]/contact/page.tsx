@@ -3,10 +3,16 @@ import Image from 'next/image';
 import ContactForm from '@/components/contact-form';
 import SalesRegionsAccordion from '@/components/sales-regions-accordion';
 import { buildAlternates } from '@/lib/locale-meta';
+import { getForgedSector, getPortfolioItem } from '@/lib/portfolio-data';
 
 type Props = {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ request?: string }>;
+  searchParams: Promise<{
+    request?: string;
+    product?: string;
+    sector?: string;
+    component?: string;
+  }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -40,8 +46,13 @@ const TRUST_POINTS = [
 ];
 
 export default async function ContactPage({ searchParams }: Props) {
-  const { request } = await searchParams;
+  const { request, product, sector: sectorSlug, component: componentSlug } = await searchParams;
   const requestType = request === 'credential-verification' ? 'credential-verification' : undefined;
+  const forgedSector = getForgedSector(sectorSlug);
+  const forgedComponent = forgedSector?.components.find((item) => item.slug === componentSlug);
+  const enquiryProduct =
+    getPortfolioItem(product)?.title ??
+    (forgedComponent ? `${forgedComponent.title} — ${forgedSector?.title}` : forgedSector?.title);
 
   return (
     <main className="min-h-screen bg-soft pt-[88px] text-primary">
@@ -130,7 +141,7 @@ export default async function ContactPage({ searchParams }: Props) {
                 </p>
               </div>
             ) : null}
-            <ContactForm requestType={requestType} />
+            <ContactForm requestType={requestType} enquiryProduct={enquiryProduct} />
           </div>
         </div>
 

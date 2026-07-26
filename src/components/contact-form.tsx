@@ -64,9 +64,10 @@ function SelectWrapper({ children }: { children: React.ReactNode }) {
 // ── Main component ─────────────────────────────────────────────
 type ContactFormProps = {
   requestType?: 'credential-verification';
+  enquiryProduct?: string;
 };
 
-export default function ContactForm({ requestType }: ContactFormProps) {
+export default function ContactForm({ requestType, enquiryProduct }: ContactFormProps) {
   const isCredentialVerification = requestType === 'credential-verification';
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState(false);
@@ -84,7 +85,12 @@ export default function ContactForm({ requestType }: ContactFormProps) {
           message:
             "I would like to request verification of AxionIntegra's registration credentials.",
         }
-      : undefined,
+      : enquiryProduct
+        ? {
+            programmeType: 'sourcing_consultancy',
+            message: `I would like to discuss supply requirements for ${enquiryProduct}.`,
+          }
+        : undefined,
   });
 
   async function onSubmit(data: ContactFormData) {

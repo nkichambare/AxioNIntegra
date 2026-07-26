@@ -3,6 +3,7 @@ import { capabilities } from '@/lib/capabilities-data';
 import { getPosts } from '@/lib/content';
 import { credentials } from '@/lib/credentials-data';
 import { markets } from '@/lib/markets-data';
+import { forgedSectors } from '@/lib/portfolio-data';
 import { teamProfiles } from '@/lib/team-profiles';
 
 const BASE = 'https://axionintegra.com';
@@ -21,6 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/about', priority: 0.9, changeFrequency: 'monthly' },
     { path: '/contact', priority: 0.9, changeFrequency: 'monthly' },
     { path: '/how-we-work', priority: 0.8, changeFrequency: 'monthly' },
+    { path: '/portfolio', priority: 0.9, changeFrequency: 'monthly' },
     { path: '/resources', priority: 0.8, changeFrequency: 'weekly' },
     ...(credentials.length
       ? [
@@ -50,6 +52,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/capabilities/precision-manufacturing', priority: 0.8, changeFrequency: 'monthly' },
     ...markets.map((m) => ({
       path: `/markets/${m.slug}`,
+      priority: 0.8,
+      changeFrequency: 'monthly' as const,
+    })),
+    ...forgedSectors.map((sector) => ({
+      path: `/portfolio/forged-components/${sector.slug}`,
       priority: 0.8,
       changeFrequency: 'monthly' as const,
     })),

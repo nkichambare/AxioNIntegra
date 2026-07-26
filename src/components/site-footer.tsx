@@ -10,6 +10,7 @@ const companyPaths = [
   { label: 'About Us', path: '/about' },
   { label: 'Our Team', path: '/about' },
   { label: 'Capabilities', path: '/#capabilities' },
+  { label: 'Product Portfolio', path: '/portfolio' },
   { label: 'How We Work', path: '/how-we-work' },
   { label: 'Markets', path: '/#market' },
   { label: 'Resources', path: '/#resources' },

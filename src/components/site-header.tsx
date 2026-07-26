@@ -132,17 +132,24 @@ export default function SiteHeader() {
           </div>
 
           <nav className="hidden items-center justify-center gap-8 md:flex">
-            {['/#market', '/#capabilities', '/how-we-work', '/about', '/contact'].map((href, i) => (
+            {[
+              { href: '/#market', label: 'Market' },
+              { href: '/#capabilities', label: 'Capabilities' },
+              { href: '/#portfolio', label: 'Portfolio' },
+              { href: '/how-we-work', label: 'How We Work' },
+              { href: '/about', label: 'About' },
+              { href: '/contact', label: 'Contact' },
+            ].map((item) => (
               <Link
-                key={href}
-                href={withLang(href)}
+                key={item.href}
+                href={withLang(item.href)}
                 className={`text-[14px] font-medium transition ${
                   scrolled || !isHome
                     ? 'text-secondary hover:text-primary'
                     : 'text-white hover:text-white/70'
                 }`}
               >
-                {['Market', 'Capabilities', 'How We Work', 'About', 'Contact'][i]}
+                {item.label}
               </Link>
             ))}
           </nav>
@@ -226,6 +233,13 @@ export default function SiteHeader() {
                   onClick={closeMenu}
                 >
                   Capabilities
+                </Link>
+                <Link
+                  className="heading-2 text-footer-text"
+                  href={withLang('/#portfolio')}
+                  onClick={closeMenu}
+                >
+                  Portfolio
                 </Link>
                 <Link
                   className="heading-2 text-footer-text"

@@ -5,6 +5,7 @@ import ExpertiseSection from '@/components/expertise-section';
 import HomeHero from '@/components/home-hero';
 import MarketSection from '@/components/market-section';
 import OperatingInSection from '@/components/operating-in-section';
+import PortfolioSection from '@/components/portfolio-section';
 import ResourcesSection from '@/components/resources-section';
 import TrustedBySection from '@/components/trusted-by-section';
 import { getResources, normalizeLocale } from '@/lib/content';
@@ -37,6 +38,7 @@ export default async function Home({ params }: HomePageProps) {
       <OperatingInSection />
       <ExpertiseSection />
       <CapabilitiesSection />
+      <PortfolioSection locale={normalizedLocale} />
       <MarketSection />
       <ResourcesSection resources={resources} requestedLocale={normalizedLocale} />
     </main>
