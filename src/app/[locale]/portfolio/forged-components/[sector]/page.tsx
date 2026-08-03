@@ -40,23 +40,15 @@ export default async function ForgedSectorPage({ params }: ForgedSectorPageProps
       <section className="py-16 md:py-20">
         <div className="mx-auto w-full max-w-6xl px-6">
           <Link
-            href={`/${normalizedLocale}/portfolio`}
+            href={`/${normalizedLocale}/portfolio/forging-casting`}
             className="text-[14px] font-medium text-accent transition hover:opacity-70"
           >
-            ← Back to portfolio
+            ← Back to Forging &amp; Casting
           </Link>
 
-          <div className="mt-8 flex flex-col gap-3 border-b border-border pb-8 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="section-heading text-secondary">Available Components</p>
-              <h1 className="heading-2 mt-3">{sector.title}</h1>
-            </div>
-            <p className="text-[14px] leading-[1.6] text-muted">
-              Additional configurations are available on request.
-            </p>
-          </div>
+          <h1 className="sr-only">{sector.title}</h1>
 
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {sector.components.map((component) => (
               <Link
                 key={component.slug}

@@ -22,7 +22,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/about', priority: 0.9, changeFrequency: 'monthly' },
     { path: '/contact', priority: 0.9, changeFrequency: 'monthly' },
     { path: '/how-we-work', priority: 0.8, changeFrequency: 'monthly' },
-    { path: '/portfolio', priority: 0.9, changeFrequency: 'monthly' },
+    { path: '/portfolio/forging-casting', priority: 0.9, changeFrequency: 'monthly' },
+    { path: '/portfolio/cnc-tooling', priority: 0.9, changeFrequency: 'monthly' },
+    { path: '/portfolio/copper-products', priority: 0.9, changeFrequency: 'monthly' },
     { path: '/resources', priority: 0.8, changeFrequency: 'weekly' },
     ...(credentials.length
       ? [

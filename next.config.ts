@@ -79,6 +79,11 @@ const nextConfig: NextConfig = {
         destination: `/${locale}/resources/:slug`,
         permanent: true,
       },
+      {
+        source: `/${locale}/portfolio`,
+        destination: `/${locale}/#portfolio`,
+        permanent: true,
+      },
     ]);
   },
 };

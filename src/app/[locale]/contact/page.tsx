@@ -3,7 +3,7 @@ import Image from 'next/image';
 import ContactForm from '@/components/contact-form';
 import SalesRegionsAccordion from '@/components/sales-regions-accordion';
 import { buildAlternates } from '@/lib/locale-meta';
-import { getForgedSector, getPortfolioItem } from '@/lib/portfolio-data';
+import { getCopperRange, getForgedSector, getPortfolioItem } from '@/lib/portfolio-data';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -52,6 +52,8 @@ export default async function ContactPage({ searchParams }: Props) {
   const forgedComponent = forgedSector?.components.find((item) => item.slug === componentSlug);
   const enquiryProduct =
     getPortfolioItem(product)?.title ??
+    getCopperRange(product)?.title ??
+    (product === 'forging-casting' ? 'Forging & Casting' : undefined) ??
     (forgedComponent ? `${forgedComponent.title} — ${forgedSector?.title}` : forgedSector?.title);
 
   return (

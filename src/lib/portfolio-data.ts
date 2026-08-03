@@ -8,7 +8,6 @@ export type PortfolioItem = {
   imageAlt: string;
   products: string[];
   supplierSource: string;
-  featured: boolean;
 };
 
 export const portfolioItems: PortfolioItem[] = [
@@ -29,7 +28,6 @@ export const portfolioItems: PortfolioItem[] = [
       'Side-lock and face-mill holders',
     ],
     supplierSource: 'https://siddhiprecision.com/bt-taper-holder/',
-    featured: true,
   },
   {
     family: 'precision-tooling',
@@ -47,7 +45,6 @@ export const portfolioItems: PortfolioItem[] = [
       'Combi shell-mill adaptors',
     ],
     supplierSource: 'https://siddhiprecision.com/sk-taper-holder/',
-    featured: true,
   },
   {
     family: 'precision-tooling',
@@ -65,7 +62,6 @@ export const portfolioItems: PortfolioItem[] = [
       'Morse-taper adaptors',
     ],
     supplierSource: 'https://siddhiprecision.com/hsk-tool-shank/',
-    featured: true,
   },
   {
     family: 'precision-tooling',
@@ -83,7 +79,6 @@ export const portfolioItems: PortfolioItem[] = [
       'Shell-mill holders',
     ],
     supplierSource: 'https://siddhiprecision.com/iso-taper-holder/',
-    featured: true,
   },
   {
     family: 'precision-tooling',
@@ -101,7 +96,6 @@ export const portfolioItems: PortfolioItem[] = [
       'Rigid tapping chucks',
     ],
     supplierSource: 'https://siddhiprecision.com/er-collet-chuck/',
-    featured: true,
   },
   {
     family: 'precision-tooling',
@@ -120,7 +114,6 @@ export const portfolioItems: PortfolioItem[] = [
       'CNC sleeves',
     ],
     supplierSource: 'https://siddhiprecision.com/precision-tool-holder/',
-    featured: true,
   },
   {
     family: 'precision-tooling',
@@ -133,7 +126,6 @@ export const portfolioItems: PortfolioItem[] = [
     imageAlt: 'Long milling arbor for conventional machine tools',
     products: ['Long milling arbors', 'Adjustable adaptors', 'Machine-tool interface accessories'],
     supplierSource: 'https://siddhiprecision.com/conventional-machine-tool/',
-    featured: false,
   },
   {
     family: 'precision-tooling',
@@ -151,14 +143,126 @@ export const portfolioItems: PortfolioItem[] = [
       'Master mandrills',
     ],
     supplierSource: 'https://siddhiprecision.com/lathe-accessories-for-precision-and-productivity/',
-    featured: false,
   },
 ];
 
-export const featuredPortfolioItems = portfolioItems.filter((item) => item.featured);
-
 export function getPortfolioItem(slug: string | undefined) {
   return portfolioItems.find((item) => item.slug === slug);
+}
+
+export type CopperRange = {
+  family: 'copper-products';
+  slug: string;
+  title: string;
+  description: string;
+  imageSrc: string;
+  imageAlt: string;
+  products: string[];
+  supplierSource: string;
+};
+
+export const copperRanges: CopperRange[] = [
+  {
+    family: 'copper-products',
+    slug: 'copper-rods-wire-rods',
+    title: 'Copper Rods & Wire Rods',
+    description:
+      'High-conductivity copper feedstock for electrical, engineering, and downstream drawing applications, supplied in round and extruded forms.',
+    imageSrc: '/portfolio/copper/rod.jpg',
+    imageAlt: 'Copper rods prepared for industrial supply',
+    products: [
+      'Round rods: 5–60 mm',
+      'Extruded rods: 5–100 mm',
+      'Wire rods: 8, 12, 16, 20 & 25 mm',
+      'IS 1897, IS 613 and IS 12444 grades',
+    ],
+    supplierSource: 'https://bedmutha.com/copper-products/',
+  },
+  {
+    family: 'copper-products',
+    slug: 'busbars-strips-profiles',
+    title: 'Busbars, Strips & Profiles',
+    description:
+      'Conductive copper forms for switchgear, power distribution, electrical equipment, and made-to-drawing industrial applications.',
+    imageSrc: '/portfolio/copper/busbar.jpg',
+    imageAlt: 'Copper busbar moving through production rollers',
+    products: [
+      'Busbars: 10–160 mm wide, 3–50 mm thick',
+      'Rectangular strips: 8–200 mm wide, 0.15–3 mm thick',
+      'Sections and profiles to customer requirements',
+      'IS 1897, IS 613 and OFC C-11100 options',
+    ],
+    supplierSource: 'https://bedmutha.com/copper-products/',
+  },
+  {
+    family: 'copper-products',
+    slug: 'copper-foil',
+    title: 'Copper Foil',
+    description:
+      'Thin oxygen-free copper foil for electrical and engineered applications where consistent thickness and conductivity are essential.',
+    imageSrc: '/portfolio/copper/foil.jpg',
+    imageAlt: 'Precision copper foil production',
+    products: [
+      'Widths from 8–160 mm',
+      'Thicknesses from 0.035–0.150 mm',
+      'Oxygen-free copper construction',
+      'Application-specific supply programmes',
+    ],
+    supplierSource: 'https://bedmutha.com/copper-products/',
+  },
+  {
+    family: 'copper-products',
+    slug: 'wires-cables',
+    title: 'Copper Wires & Cables',
+    description:
+      'Bare, bunched, and insulated copper conductors for residential, industrial, submersible, and battery cable requirements.',
+    imageSrc: '/portfolio/copper/cables.jpg',
+    imageAlt: 'Copper electrical cables and conductors',
+    products: [
+      'Bare wire: 1.6–4.0 mm',
+      'Bunched wire: 0.35–16 mm²',
+      'Housing cable: 0.5–95 mm², up to 1100 V',
+      'Three-core flat submersible cable: 1.5–50 mm²',
+      'Battery cable: 16–95 mm²',
+    ],
+    supplierSource: 'https://bedmutha.com/copper-products/',
+  },
+  {
+    family: 'copper-products',
+    slug: 'battery-connectors-flexible-busbars',
+    title: 'Battery Connectors & Flexible Busbars',
+    description:
+      'Custom current-carrying connections for EV and energy-storage battery systems, engineered around electrical, thermal, vibration, and packaging constraints.',
+    imageSrc: '/portfolio/copper/profiles.jpg',
+    imageAlt: 'Engineered copper profiles for electrical connections',
+    products: [
+      'Cell-to-cell connectors',
+      'Cylindrical, prismatic and pouch-cell formats',
+      'Copper, aluminium and clad material options',
+      'Laminated flexible and hybrid busbars',
+    ],
+    supplierSource: 'https://mnecomponents.com/',
+  },
+  {
+    family: 'copper-products',
+    slug: 'stamped-laser-welded-components',
+    title: 'Stamped & Laser-Welded Components',
+    description:
+      'Precision-formed and joined components for battery packs and electrical assemblies, including high-volume progressive-stamped parts and dissimilar-metal joints.',
+    imageSrc: '/portfolio/copper/strip.jpg',
+    imageAlt: 'Formed copper strip components',
+    products: [
+      'High-speed progressive stamping',
+      'Copper, nickel, aluminium, clad and stainless materials',
+      'Similar and dissimilar-metal laser welding',
+      'Custom battery and electrical components',
+    ],
+    supplierSource: 'https://mnecomponents.com/',
+  },
+];
+
+export function getCopperRange(slug: string | undefined) {
+  return copperRanges.find((item) => item.slug === slug);
 }
 
 export type ForgedComponent = {
