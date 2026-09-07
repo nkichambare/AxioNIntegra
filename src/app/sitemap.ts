@@ -3,7 +3,7 @@ import { capabilities } from '@/lib/capabilities-data';
 import { getPosts } from '@/lib/content';
 import { credentials } from '@/lib/credentials-data';
 import { markets } from '@/lib/markets-data';
-import { forgedSectors } from '@/lib/portfolio-data';
+import { forgedSectors, toolingRanges } from '@/lib/portfolio-data';
 import { teamProfiles } from '@/lib/team-profiles';
 
 const BASE = 'https://axionintegra.com';
@@ -24,6 +24,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/how-we-work', priority: 0.8, changeFrequency: 'monthly' },
     { path: '/portfolio/forging-casting', priority: 0.9, changeFrequency: 'monthly' },
     { path: '/portfolio/cnc-tooling', priority: 0.9, changeFrequency: 'monthly' },
+    {
+      path: '/portfolio/cnc-tooling/bt-tool-holders',
+      priority: 0.8,
+      changeFrequency: 'monthly',
+    },
     { path: '/portfolio/copper-products', priority: 0.9, changeFrequency: 'monthly' },
     { path: '/resources', priority: 0.8, changeFrequency: 'weekly' },
     ...(credentials.length
@@ -59,6 +64,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
     ...forgedSectors.map((sector) => ({
       path: `/portfolio/forged-components/${sector.slug}`,
+      priority: 0.8,
+      changeFrequency: 'monthly' as const,
+    })),
+    ...toolingRanges.map((range) => ({
+      path: `/portfolio/cnc-tooling/${range.slug}`,
       priority: 0.8,
       changeFrequency: 'monthly' as const,
     })),

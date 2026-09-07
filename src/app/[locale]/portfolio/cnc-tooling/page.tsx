@@ -70,8 +70,8 @@ export default async function CncToolingPage({ params }: CncToolingPageProps) {
               <Link
                 key={item.slug}
                 id={item.slug}
-                href={`/${normalizedLocale}/contact?product=${item.slug}`}
-                aria-label={`Enquire about ${item.title}`}
+                href={`/${normalizedLocale}/portfolio/cnc-tooling/${item.slug}`}
+                aria-label={`View ${item.title}`}
                 className="group grid scroll-mt-24 overflow-hidden rounded-2xl border border-border bg-bg transition duration-200 hover:-translate-y-0.5 hover:border-accent/40 md:grid-cols-2"
               >
                 <div
@@ -113,7 +113,7 @@ export default async function CncToolingPage({ params }: CncToolingPageProps) {
                   </ul>
 
                   <div className="mt-8 flex items-center gap-3 text-accent">
-                    <span className="text-[14px] font-medium">Enquire about this range</span>
+                    <span className="text-[14px] font-medium">View product range</span>
                     <HiOutlineArrowLongRight
                       aria-hidden="true"
                       className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1"

@@ -76,4 +76,30 @@ body {
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
+  .copper-details-reveal {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    overflow-anchor: none;
+    transition:
+      grid-template-rows 420ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 260ms ease;
+  }
+
+  .copper-details-reveal.is-expanded {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  .copper-details-reveal-inner {
+    min-height: 0;
+    overflow: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .copper-details-reveal {
+    transition: none;
+  }
 }

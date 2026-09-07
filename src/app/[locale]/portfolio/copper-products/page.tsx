@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { HiOutlineArrowLongRight } from 'react-icons/hi2';
+import CopperProductCard from '@/components/copper-product-card';
 import { normalizeLocale } from '@/lib/content';
 import { buildAlternates } from '@/lib/locale-meta';
 import { copperRanges } from '@/lib/portfolio-data';
@@ -67,59 +67,12 @@ export default async function CopperProductsPage({ params }: CopperProductsPageP
 
           <div className="mt-10 space-y-7">
             {copperRanges.map((item, index) => (
-              <Link
+              <CopperProductCard
                 key={item.slug}
-                id={item.slug}
-                href={`/${normalizedLocale}/contact?product=${item.slug}`}
-                aria-label={`Enquire about ${item.title}`}
-                className="group grid scroll-mt-24 overflow-hidden rounded-2xl border border-border bg-bg transition duration-200 hover:-translate-y-0.5 hover:border-accent/40 md:grid-cols-2"
-              >
-                <div
-                  className={`relative min-h-[300px] overflow-hidden bg-bg md:min-h-[390px] ${
-                    index % 2 === 1 ? 'md:order-2' : 'md:order-1'
-                  }`}
-                >
-                  <Image
-                    src={item.imageSrc}
-                    alt={item.imageAlt}
-                    fill
-                    sizes="(max-width: 767px) 100vw, 50vw"
-                    className="object-cover transition duration-500 group-hover:scale-[1.025]"
-                  />
-                </div>
-
-                <article
-                  className={`flex min-h-[300px] flex-col justify-center border-t border-border p-7 sm:p-10 md:min-h-[390px] md:border-t-0 ${
-                    index % 2 === 1 ? 'md:order-1 md:border-r' : 'md:order-2 md:border-l'
-                  }`}
-                >
-                  <h3 className="heading-2">{item.title}</h3>
-                  <p className="body-text mt-5 max-w-xl text-secondary">{item.description}</p>
-
-                  <ul className="mt-5 grid gap-x-6 gap-y-2 sm:grid-cols-2">
-                    {item.products.map((product) => (
-                      <li
-                        key={product}
-                        className="flex items-start gap-2 text-[13px] leading-[1.55] text-muted"
-                      >
-                        <span
-                          aria-hidden="true"
-                          className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-accent"
-                        />
-                        {product}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="mt-8 flex items-center gap-3 text-accent">
-                    <span className="text-[14px] font-medium">Enquire about this range</span>
-                    <HiOutlineArrowLongRight
-                      aria-hidden="true"
-                      className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1"
-                    />
-                  </div>
-                </article>
-              </Link>
+                item={item}
+                index={index}
+                locale={normalizedLocale}
+              />
             ))}
           </div>
         </div>

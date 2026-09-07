@@ -10,12 +10,17 @@ const companyPaths = [
   { label: 'About Us', path: '/about' },
   { label: 'Our Team', path: '/about' },
   { label: 'Capabilities', path: '/#capabilities' },
-  { label: 'Product Portfolio', path: '/#portfolio' },
   { label: 'How We Work', path: '/how-we-work' },
   { label: 'Markets', path: '/#market' },
   { label: 'Resources', path: '/#resources' },
   { label: 'Registrations & Credentials', path: '/credentials' },
   { label: 'Contact', path: '/contact' },
+];
+
+const portfolioPaths = [
+  { label: 'Forging & Casting', path: '/portfolio/forging-casting' },
+  { label: 'CNC Tooling', path: '/portfolio/cnc-tooling' },
+  { label: 'Copper Products', path: '/portfolio/copper-products' },
 ];
 
 const legalPaths = [
@@ -40,10 +45,12 @@ export default function SiteFooter() {
 
   return (
     <footer className="bg-footer pt-16 text-footer-text sm:pt-20">
-      <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr]">
+      <div className="mx-auto grid w-full max-w-6xl grid-cols-2 gap-10 px-6 md:grid-cols-[1.35fr_0.85fr_1fr_0.9fr] md:gap-8">
         {/* Brand */}
         <div className="col-span-2 flex flex-col gap-4 md:col-span-1">
-          <p className="text-[15px] font-semibold leading-[1.2] text-white">AxionIntegra</p>
+          <p className="text-[15px] font-semibold leading-[1.2] text-white">
+            AxionIntegra Pvt. Ltd.
+          </p>
           <p className="body-text max-w-xs text-footer-text">
             Precision manufacturing and supply chain execution. One accountable partner from
             requirement to delivery.
@@ -81,6 +88,22 @@ export default function SiteFooter() {
           <p className="label-text text-footer-text/60">Company</p>
           <div className="flex flex-col gap-3">
             {companyPaths.map((link) => (
+              <Link
+                key={link.label}
+                href={localePath(link.path)}
+                className="text-[15px] text-footer-text transition hover:text-white"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Product portfolio */}
+        <div className="flex flex-col gap-4">
+          <p className="label-text text-footer-text/60">Product Portfolio</p>
+          <div className="flex flex-col gap-3">
+            {portfolioPaths.map((link) => (
               <Link
                 key={link.label}
                 href={localePath(link.path)}
@@ -134,7 +157,7 @@ export default function SiteFooter() {
 
       <div className="mx-auto mt-12 flex w-full max-w-6xl border-t border-white/15 px-6 pt-6">
         <p className="text-[13px] text-footer-text/60">
-          © {new Date().getFullYear()} AxionIntegra. All rights reserved.
+          © {new Date().getFullYear()} AxionIntegra Pvt. Ltd. All rights reserved.
         </p>
       </div>
 

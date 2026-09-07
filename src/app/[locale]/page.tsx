@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
   return {
     title: 'AxionIntegra | Precision Manufacturing & Supply Chain Execution Partner',
     description:
-      'AxionIntegra is your dedicated execution partner for precision manufacturing and supply chain — coordinating suppliers, validating quality, and managing delivery end to end.',
+      'AxionIntegra Pvt. Ltd. is your dedicated execution partner for precision manufacturing and supply chain — coordinating suppliers, validating quality, and managing delivery end to end.',
     alternates: buildAlternates(locale, '/'),
   };
 }
