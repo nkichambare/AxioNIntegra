@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FaLinkedinIn, FaWhatsapp } from 'react-icons/fa';
@@ -37,11 +38,12 @@ export default function SiteFooter() {
     const segment = pathname.split('/')[1];
     return LOCALES.includes(segment) ? segment : 'en';
   })();
-  const sustainableLabel = {
-    en: 'Sustainable Approach',
-    de: 'Unser Nachhaltigkeitsansatz',
-    fr: 'Notre approche durable',
-  }[locale] ?? 'Sustainable Approach';
+  const sustainableLabel =
+    {
+      en: 'Sustainable Approach',
+      de: 'Unser Nachhaltigkeitsansatz',
+      fr: 'Notre approche durable',
+    }[locale] ?? 'Sustainable Approach';
 
   const localePath = (path: string) => {
     const [p, hash] = path.split('#');
@@ -54,9 +56,18 @@ export default function SiteFooter() {
       <div className="mx-auto grid w-full max-w-6xl grid-cols-2 gap-10 px-6 md:grid-cols-[1.35fr_0.85fr_1fr_0.9fr] md:gap-8">
         {/* Brand */}
         <div className="col-span-2 flex flex-col gap-4 md:col-span-1">
-          <p className="text-[15px] font-semibold leading-[1.2] text-white">
-            AxionIntegra Pvt. Ltd.
-          </p>
+          <div className="flex items-center gap-3">
+            <Image
+              src="/logo-transparent.png"
+              alt=""
+              width={36}
+              height={36}
+              className="h-9 w-9 shrink-0 object-contain brightness-0 invert"
+            />
+            <p className="text-[15px] font-semibold leading-[1.2] text-white">
+              AxionIntegra Pvt. Ltd.
+            </p>
+          </div>
           <p className="body-text max-w-xs text-footer-text">
             Precision manufacturing and supply chain execution. One accountable partner from
             requirement to delivery.

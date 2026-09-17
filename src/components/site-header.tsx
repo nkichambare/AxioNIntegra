@@ -1,7 +1,13 @@
 'use client';
 
 import { useEffect, useState, useTransition } from 'react';
-import { AnimatePresence, motion, type Variants } from 'framer-motion';
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  type Variants,
+} from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -42,11 +48,21 @@ const menuContent: Variants = {
   exit: { opacity: 0 },
 };
 
+const imageHeroPaths = [
+  '',
+  '/how-we-work',
+  '/portfolio/forging-casting',
+  '/portfolio/cnc-tooling',
+  '/portfolio/copper-products',
+];
+
 export default function SiteHeader() {
   const pathname = usePathname();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const { scrollY } = useScroll();
   const closeMenu = () => setIsMenuOpen(false);
   const LOCALES = ['en', 'de', 'fr'];
 
@@ -54,11 +70,23 @@ export default function SiteHeader() {
     const segment = pathname.split('/')[1];
     return LOCALES.includes(segment) ? segment : 'en';
   })();
-  const sustainableLabel = {
-    en: 'Sustainable Approach',
-    de: 'Nachhaltigkeit',
-    fr: 'Durabilité',
-  }[currentLang] ?? 'Sustainable Approach';
+  const sustainableLabel =
+    {
+      en: 'Sustainable Approach',
+      de: 'Nachhaltigkeit',
+      fr: 'Durabilité',
+    }[currentLang] ?? 'Sustainable Approach';
+  const hasImageHero = imageHeroPaths.some((path) => pathname === `/${currentLang}${path}`);
+  const isTransparent = hasImageHero && !isScrolled;
+
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    setIsScrolled(latest > 24);
+  });
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => setIsScrolled(window.scrollY > 24));
+    return () => window.cancelAnimationFrame(frame);
+  }, [pathname]);
 
   const withLang = (href: string) => {
     if (!href.startsWith('/')) return href;
@@ -67,6 +95,8 @@ export default function SiteHeader() {
     return hash ? `${localePath}#${hash}` : localePath;
   };
 
+  // Kept ready for the language selector once localized content is published.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleLanguageChange = (nextLang: string) => {
     const segments = pathname.split('/');
     if (LOCALES.includes(segments[1])) segments[1] = nextLang;
@@ -106,7 +136,13 @@ export default function SiteHeader() {
           isPending ? 'origin-left scale-x-100' : 'origin-right scale-x-0'
         }`}
       />
-      <header className="fixed left-0 right-0 top-0 z-30 border-b border-border bg-bg/90 backdrop-blur">
+      <header
+        className={`fixed left-0 right-0 top-0 z-30 border-b transition-colors duration-300 ${
+          isTransparent
+            ? 'border-transparent bg-transparent'
+            : 'border-border bg-bg/95 backdrop-blur'
+        }`}
+      >
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:grid md:grid-cols-[1fr_auto_1fr]">
           <div className="flex items-center gap-3">
             <Link href={withLang('/')} aria-label="AxionIntegra home">
@@ -115,7 +151,9 @@ export default function SiteHeader() {
                 alt="AxionIntegra"
                 width={140}
                 height={100}
-                className="h-12 w-auto object-contain"
+                className={`h-12 w-auto object-contain transition-[filter] duration-300 ${
+                  isTransparent ? 'brightness-0 invert' : ''
+                }`}
                 priority
               />
             </Link>
@@ -134,7 +172,11 @@ export default function SiteHeader() {
               <Link
                 key={item.href}
                 href={withLang(item.href)}
-                className="text-[14px] font-medium text-secondary transition hover:text-primary"
+                className={`text-[14px] font-medium transition-colors ${
+                  isTransparent
+                    ? 'text-white/90 hover:text-white'
+                    : 'text-secondary hover:text-primary'
+                }`}
               >
                 {item.label}
               </Link>
@@ -146,12 +188,17 @@ export default function SiteHeader() {
               type="button"
               aria-label="Open menu"
               onClick={() => setIsMenuOpen(true)}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-secondary transition hover:text-primary"
+              className={`flex h-9 w-9 items-center justify-center rounded-full border transition-colors ${
+                isTransparent
+                  ? 'border-white/50 text-white hover:border-white'
+                  : 'border-border text-secondary hover:text-primary'
+              }`}
             >
               <span className="sr-only">Open menu</span>
               <RxHamburgerMenu className="h-4 w-4" aria-hidden="true" />
             </button>
 
+            {/* Re-enable LanguageSelect after localized content is ready. */}
             {/* <LanguageSelect value={currentLang} onChange={handleLanguageChange} /> */}
           </div>
         </div>
@@ -180,10 +227,11 @@ export default function SiteHeader() {
                     alt="AxionIntegra"
                     width={140}
                     height={100}
-                    className="h-12 w-auto object-contain"
+                    className="h-12 w-auto object-contain brightness-0 invert"
                   />
                 </Link>
                 <div className="flex items-center gap-3">
+                  {/* Re-enable LanguageSelect after localized content is ready. */}
                   {/* <LanguageSelect
                     id="language-mobile"
                     value={currentLang}
