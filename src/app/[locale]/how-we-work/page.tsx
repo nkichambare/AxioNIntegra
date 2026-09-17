@@ -161,22 +161,6 @@ export default async function HowWeWorkPage({ params }: Props) {
           </article>
         ))}
       </section>
-
-      <section className="border-t border-border py-16 sm:py-20">
-        <div className="mx-auto w-full max-w-6xl px-6">
-          <h2 className="heading-2 max-w-2xl">Ready to discuss your programme?</h2>
-          <p className="body-text mt-4 max-w-2xl text-secondary">
-            Tell us what you need to manufacture. We will explain how the process applies to your
-            specifications, volume, and delivery requirements.
-          </p>
-          <Link
-            href={`/${locale}/contact`}
-            className="mt-8 inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-[14px] font-semibold leading-[1.2] text-white transition hover:bg-accent/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
-          >
-            Discuss your requirement
-          </Link>
-        </div>
-      </section>
     </main>
   );
 }
