@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { buildAlternates, type LocaleParam } from '@/lib/locale-meta';
 
@@ -10,9 +11,6 @@ const content = {
     description:
       'How AxionIntegra considers materials, production efficiency, supplier practices, and traceability in industrial programmes.',
     eyebrow: 'Our approach',
-    intro: 'Responsible manufacturing starts with practical decisions made throughout a programme.',
-    summary:
-      'We consider material use, production planning, supplier practices, and documentation alongside quality, cost, and delivery. The right approach depends on each customer’s specifications and the capabilities of the selected manufacturing partners.',
     sectionLabel: 'Where we focus',
     sectionTitle: 'Sustainability in the decisions we can influence',
     pillars: [
@@ -53,10 +51,6 @@ const content = {
     description:
       'Wie AxionIntegra Materialien, Produktionseffizienz, Lieferantenpraktiken und Rückverfolgbarkeit in Industrieprojekten berücksichtigt.',
     eyebrow: 'Unser Ansatz',
-    intro:
-      'Verantwortungsvolle Fertigung beginnt mit konkreten Entscheidungen im gesamten Projektverlauf.',
-    summary:
-      'Wir berücksichtigen Materialeinsatz, Produktionsplanung, Lieferantenpraktiken und Dokumentation ebenso wie Qualität, Kosten und Lieferung. Der passende Ansatz richtet sich nach den Anforderungen des Kunden und den Möglichkeiten der ausgewählten Fertigungspartner.',
     sectionLabel: 'Unsere Schwerpunkte',
     sectionTitle: 'Nachhaltigkeit bei Entscheidungen, die wir beeinflussen können',
     pillars: [
@@ -97,10 +91,6 @@ const content = {
     description:
       'Comment AxionIntegra prend en compte les matériaux, l’efficacité de production, les pratiques des fournisseurs et la traçabilité dans les projets industriels.',
     eyebrow: 'Notre approche',
-    intro:
-      'Une fabrication responsable repose sur des décisions concrètes à chaque étape du projet.',
-    summary:
-      'Nous prenons en compte l’utilisation des matériaux, la planification de la production, les pratiques des fournisseurs et la documentation, au même titre que la qualité, les coûts et les délais. L’approche adaptée dépend des spécifications du client et des capacités des partenaires de fabrication retenus.',
     sectionLabel: 'Nos priorités',
     sectionTitle: 'La durabilité dans les décisions que nous pouvons influencer',
     pillars: [
@@ -142,8 +132,6 @@ const content = {
     title: string;
     description: string;
     eyebrow: string;
-    intro: string;
-    summary: string;
     sectionLabel: string;
     sectionTitle: string;
     pillars: { number: string; title: string; description: string }[];
@@ -175,14 +163,19 @@ export default async function SustainableApproachPage({ params }: Props) {
 
   return (
     <main className="min-h-screen bg-bg pt-16 text-primary">
-      <section className="border-b border-border bg-soft py-16 sm:py-24">
-        <div className="mx-auto w-full max-w-6xl px-6">
-          <p className="label-text text-muted">{copy.eyebrow}</p>
-          <h1 className="heading-1 mt-4 max-w-4xl">{copy.title}</h1>
-          <p className="mt-6 max-w-3xl text-[20px] font-medium leading-[1.4] text-primary sm:text-[22px]">
-            {copy.intro}
-          </p>
-          <p className="body-text mt-5 max-w-3xl text-secondary">{copy.summary}</p>
+      <section className="relative flex min-h-[380px] items-end overflow-hidden bg-footer py-12 sm:min-h-[500px] sm:py-16">
+        <Image
+          src="/sustainable-approach/sustainable-approach.jpg"
+          alt="Wind turbines across fields beneath a blue sky"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[40%_center]"
+        />
+        <div className="absolute inset-0 bg-slate-950/45" aria-hidden="true" />
+        <div className="relative mx-auto w-full max-w-6xl px-6">
+          <p className="label-text text-white/80">{copy.eyebrow}</p>
+          <h1 className="heading-1 mt-4 max-w-4xl text-white">{copy.title}</h1>
         </div>
       </section>
 
