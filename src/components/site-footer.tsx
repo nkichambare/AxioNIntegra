@@ -11,6 +11,7 @@ const companyPaths = [
   { label: 'Our Team', path: '/about' },
   { label: 'Capabilities', path: '/#capabilities' },
   { label: 'How We Work', path: '/how-we-work' },
+  { label: 'Sustainable Approach', path: '/sustainable-approach' },
   { label: 'Markets', path: '/#market' },
   { label: 'Resources', path: '/#resources' },
   { label: 'Registrations & Credentials', path: '/credentials' },
@@ -36,6 +37,11 @@ export default function SiteFooter() {
     const segment = pathname.split('/')[1];
     return LOCALES.includes(segment) ? segment : 'en';
   })();
+  const sustainableLabel = {
+    en: 'Sustainable Approach',
+    de: 'Unser Nachhaltigkeitsansatz',
+    fr: 'Notre approche durable',
+  }[locale] ?? 'Sustainable Approach';
 
   const localePath = (path: string) => {
     const [p, hash] = path.split('#');
@@ -93,7 +99,7 @@ export default function SiteFooter() {
                 href={localePath(link.path)}
                 className="text-[15px] text-footer-text transition hover:text-white"
               >
-                {link.label}
+                {link.path === '/sustainable-approach' ? sustainableLabel : link.label}
               </Link>
             ))}
           </div>

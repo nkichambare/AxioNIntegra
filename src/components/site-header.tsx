@@ -54,6 +54,11 @@ export default function SiteHeader() {
     const segment = pathname.split('/')[1];
     return LOCALES.includes(segment) ? segment : 'en';
   })();
+  const sustainableLabel = {
+    en: 'Sustainable Approach',
+    de: 'Nachhaltigkeit',
+    fr: 'Durabilité',
+  }[currentLang] ?? 'Sustainable Approach';
 
   const withLang = (href: string) => {
     if (!href.startsWith('/')) return href;
@@ -122,6 +127,7 @@ export default function SiteHeader() {
               { href: '/#capabilities', label: 'Capabilities' },
               { href: '/#portfolio', label: 'Portfolio' },
               { href: '/how-we-work', label: 'How We Work' },
+              { href: '/sustainable-approach', label: sustainableLabel },
               { href: '/about', label: 'About' },
               { href: '/contact', label: 'Contact' },
             ].map((item) => (
@@ -165,7 +171,7 @@ export default function SiteHeader() {
               initial="hidden"
               animate="show"
               exit="exit"
-              className="mx-auto flex h-full max-w-5xl flex-col px-6 py-10 text-footer-text"
+              className="mx-auto flex h-full max-w-5xl flex-col overflow-y-auto px-6 py-10 text-footer-text"
             >
               <div className="flex items-center justify-between">
                 <Link href={withLang('/')} aria-label="AxionIntegra home" onClick={closeMenu}>
@@ -196,7 +202,7 @@ export default function SiteHeader() {
                 </div>
               </div>
 
-              <nav className="mt-16 flex flex-col items-start gap-8">
+              <nav className="mt-12 flex flex-col items-start gap-6 sm:mt-16 sm:gap-8">
                 <Link
                   className="heading-2 text-footer-text"
                   href={withLang('/#market')}
@@ -224,6 +230,13 @@ export default function SiteHeader() {
                   onClick={closeMenu}
                 >
                   How We Work
+                </Link>
+                <Link
+                  className="heading-2 text-footer-text"
+                  href={withLang('/sustainable-approach')}
+                  onClick={closeMenu}
+                >
+                  {sustainableLabel}
                 </Link>
                 <Link
                   className="heading-2 text-footer-text"
