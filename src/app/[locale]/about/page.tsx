@@ -39,32 +39,32 @@ const coreValues = [
   {
     title: 'Accountability',
     description:
-      'Responsibility is central to our operating model. Each engagement is defined by clear ownership of coordination, validation, and execution within the agreed scope. We operate under the principle that industrial performance improves when responsibility is centralised and measurable.',
+      'Every engagement has clear ownership across coordination, validation, and delivery, with responsibility defined against the agreed scope.',
   },
   {
     title: 'Precision',
     description:
-      'Technical accuracy and process discipline form the foundation of our work. Every project is aligned strictly to drawings, specifications, and defined acceptance criteria. Manufacturing performance is verified through structured inspection checkpoints rather than assumption.',
+      'Drawings, specifications, and acceptance criteria guide every decision. Defined inspection checkpoints verify conformity throughout production.',
   },
   {
-    title: 'Operational Discipline',
+    title: 'Operational discipline',
     description:
-      'Structured workflows, documented processes, and defined escalation paths reduce variability and improve predictability. We approach execution with systematic control rather than informal coordination.',
+      'Documented workflows and escalation paths reduce variability, keep decisions visible, and make delivery more predictable.',
   },
   {
-    title: 'Cost Integrity',
+    title: 'Cost integrity',
     description:
-      'Cost optimisation must support long-term performance stability. We pursue efficiency improvements through structured evaluation and controlled implementation without compromising engineering requirements or quality standards.',
+      'Efficiency improvements are evaluated against long-term performance without weakening engineering requirements or quality standards.',
   },
   {
     title: 'Transparency',
     description:
-      'Clear communication, documented traceability, and visible performance metrics strengthen trust between all stakeholders. We maintain open process visibility while protecting technical and commercial confidentiality.',
+      'Clear communication, traceable documentation, and visible progress build confidence while protecting technical and commercial confidentiality.',
   },
   {
-    title: 'Sustainable Partnerships',
+    title: 'Sustainable partnerships',
     description:
-      'We prioritise durable industrial relationships over transactional exchanges. Repeat collaboration is built on consistent execution, measurable results, and mutual accountability.',
+      'Long-term relationships are built through consistent execution, measurable results, and shared accountability rather than transactional supply.',
   },
 ];
 
@@ -201,31 +201,30 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section id="values" className="scroll-mt-32" aria-labelledby="values-heading">
-        <div className="relative overflow-hidden bg-soft py-16 sm:py-20">
-          <div className="relative mx-auto max-w-[860px] px-6 sm:px-14 flex flex-col gap-6">
-            <div>
-              <h2
-                id="values-heading"
-                className="text-[clamp(22px,3vw,34px)] font-semibold leading-[1.2] text-primary"
+      <section
+        id="values"
+        className="scroll-mt-32 bg-soft py-16 sm:py-20"
+        aria-labelledby="values-heading"
+      >
+        <div className="mx-auto w-full max-w-6xl px-6">
+          <h2 id="values-heading" className="heading-2 max-w-2xl">
+            Values that guide our operations
+          </h2>
+
+          <div className="mt-10 grid border-t border-border sm:grid-cols-2 sm:mt-12">
+            {coreValues.map((value, index) => (
+              <article
+                key={value.title}
+                className={`border-b border-border py-7 sm:py-8 ${
+                  index % 2 === 0 ? 'sm:pr-10' : 'sm:border-l sm:pl-10'
+                }`}
               >
-                Values that guide our operations
-              </h2>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {coreValues.map((value) => (
-                <article
-                  key={value.title}
-                  className="flex flex-col border border-border bg-bg overflow-hidden"
-                >
-                  <div className="h-[3px] w-full bg-gradient-to-r from-accent/60 via-accent/30 to-transparent" />
-                  <div className="flex flex-col gap-2 p-6">
-                    <h3 className="text-[15px] font-semibold text-primary">{value.title}</h3>
-                    <p className="body-text text-secondary">{value.description}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
+                <h3 className="heading-3">{value.title}</h3>
+                <p className="mt-3 text-[15px] leading-[1.7] text-secondary sm:text-[16px]">
+                  {value.description}
+                </p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
