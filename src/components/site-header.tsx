@@ -51,6 +51,7 @@ const menuContent: Variants = {
 const imageHeroPaths = [
   '',
   '/how-we-work',
+  '/sustainable-approach',
   '/portfolio/forging-casting',
   '/portfolio/cnc-tooling',
   '/portfolio/copper-products',

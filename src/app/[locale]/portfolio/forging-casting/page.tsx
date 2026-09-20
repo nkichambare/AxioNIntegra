@@ -26,7 +26,7 @@ export default async function ForgingCastingPage({ params }: ForgingCastingPageP
   const normalizedLocale = normalizeLocale(locale);
 
   return (
-    <main className="min-h-screen bg-bg pt-16 text-primary">
+    <main className="min-h-screen bg-bg text-primary">
       <section className="relative h-[calc(100svh-4rem)] min-h-[520px] max-h-[760px] overflow-hidden bg-slate-900">
         <Image
           src="/portfolio/forging.jpg"
@@ -42,14 +42,7 @@ export default async function ForgingCastingPage({ params }: ForgingCastingPageP
           aria-hidden="true"
         />
 
-        <div className="relative mx-auto flex h-full w-full max-w-6xl flex-col px-6 py-8 sm:py-10">
-          <Link
-            href={`/${normalizedLocale}/#portfolio`}
-            className="w-fit text-[14px] font-medium text-white/85 transition hover:text-white"
-          >
-            ← Back to portfolio
-          </Link>
-
+        <div className="relative mx-auto flex h-full w-full max-w-6xl flex-col px-6 pb-8 pt-24 sm:pb-10">
           <div className="mt-auto pb-2 sm:pb-4">
             <p className="label-text text-white/75">Product Portfolio</p>
             <h1 className="mt-4 max-w-4xl text-[38px] font-semibold uppercase leading-[1.12] tracking-[-0.03em] text-white sm:text-[52px] md:text-[60px]">

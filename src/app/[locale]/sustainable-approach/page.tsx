@@ -162,7 +162,7 @@ export default async function SustainableApproachPage({ params }: Props) {
   const copy = getContent(locale);
 
   return (
-    <main className="min-h-screen bg-bg pt-16 text-primary">
+    <main className="min-h-screen bg-bg text-primary">
       <section className="relative flex min-h-[380px] items-end overflow-hidden bg-footer py-12 sm:min-h-[500px] sm:py-16">
         <Image
           src="/sustainable-approach/sustainable-approach.jpg"
