@@ -169,7 +169,7 @@ export default function AboutPage() {
 
       <section
         id="mission"
-        className="scroll-mt-32 border-t border-border py-16 sm:py-20"
+        className="scroll-mt-32 border-t border-border pt-16 pb-10 sm:pt-20 sm:pb-12"
         aria-labelledby="mission-heading"
       >
         <div className="mx-auto grid w-full max-w-6xl gap-12 px-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(320px,0.65fr)] lg:gap-0">
@@ -213,15 +213,26 @@ export default function AboutPage() {
 
       <section
         id="values"
-        className="scroll-mt-32 bg-soft py-16 sm:py-20"
+        className="scroll-mt-32 bg-soft pt-10 pb-16 sm:pt-12 sm:pb-20"
         aria-labelledby="values-heading"
       >
         <div className="mx-auto w-full max-w-6xl px-6">
-          <h2 id="values-heading" className="heading-2 max-w-2xl">
-            Values that guide our operations
-          </h2>
+          <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(240px,300px)] md:items-center md:gap-12">
+            <h2 id="values-heading" className="heading-2 max-w-2xl">
+              Values that guide our operations
+            </h2>
+            <div className="max-w-[300px] md:justify-self-end" aria-hidden="true">
+              <Image
+                src="/about/engineering-linework.svg"
+                alt=""
+                width={520}
+                height={160}
+                className="h-auto w-full"
+              />
+            </div>
+          </div>
 
-          <div className="mt-10 grid border-t border-border sm:grid-cols-2 sm:mt-12">
+          <div className="mt-8 grid border-t border-border sm:mt-10 sm:grid-cols-2">
             {coreValues.map((value, index) => (
               <article
                 key={value.title}

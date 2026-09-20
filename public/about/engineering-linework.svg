@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 30 520 160" fill="none">
+  <g stroke="#CBD5E1" stroke-width="1">
+    <path d="M24 110H496" stroke-dasharray="7 9" />
+    <path d="M108 38V182" stroke-dasharray="4 8" />
+    <path d="M409 70V150" stroke-dasharray="4 8" />
+  </g>
+
+  <g stroke="#64748B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="108" cy="110" r="58" />
+    <circle cx="108" cy="110" r="31" />
+    <circle cx="108" cy="64" r="4" />
+    <circle cx="108" cy="156" r="4" />
+    <circle cx="62" cy="110" r="4" />
+    <circle cx="154" cy="110" r="4" />
+
+    <path d="M166 78H236L256 91H346V129H256L236 142H166" />
+    <path d="M166 93H226L246 103H346" />
+    <path d="M166 127H226L246 117H346" />
+    <path d="M346 96H387V124H346" />
+    <path d="M387 86H431V134H387" />
+    <path d="M431 101H480V119H431" />
+
+    <path d="M90 110H126" />
+    <path d="M108 92V128" />
+    <path d="M402 94V126" />
+    <path d="M416 94V126" />
+  </g>
+
+  <g stroke="#1E3A8A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M51 110H45" />
+    <path d="M171 110H346" />
+    <path d="M480 110H490" />
+    <circle cx="108" cy="110" r="8" />
+    <path d="M346 91V129" />
+  </g>
+</svg>
