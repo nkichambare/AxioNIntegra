@@ -27,6 +27,14 @@ const operatingPrinciples = [
   },
 ];
 
+const missionResponsibilities = [
+  'Translate engineering requirements into production-ready specifications',
+  'Qualify manufacturing partners against defined performance standards',
+  'Define inspection and documentation protocols',
+  'Monitor production timelines and manage deviations',
+  'Coordinate delivery against cost and quality objectives',
+];
+
 const coreValues = [
   {
     title: 'Accountability',
@@ -149,140 +157,61 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section aria-labelledby="vision-heading">
-        <div className="relative overflow-hidden bg-soft py-16 sm:py-20">
-          <div
-            className="pointer-events-none absolute right-[-10px] top-[-20px] select-none font-ibm-mono text-[160px] font-black leading-none text-primary/[0.04]"
-            aria-hidden="true"
-          >
-            01
-          </div>
-          <div className="relative mx-auto max-w-[860px] px-6 sm:px-14 flex flex-col gap-6">
-            <div>
-              <span className="mb-3 block font-ibm-mono text-[10px] tracking-[0.22em] uppercase text-accent">
-                Our Vision
-              </span>
-              <h2
-                id="vision-heading"
-                className="text-[clamp(22px,3vw,34px)] font-semibold leading-[1.2] text-primary"
-              >
-                Structured Manufacturing Integration With Full Accountability
-              </h2>
-            </div>
-            <div className="h-px w-12 bg-accent/40" />
-            <div className="flex flex-col gap-4">
-              <p className="body-text text-secondary">
-                AxionIntegra&apos;s vision is to redefine how industrial companies engage with
-                manufacturing and supply execution by replacing fragmented vendor management with
-                structured integration and centralised responsibility.
-              </p>
-              <p className="body-text text-secondary">
-                We envision a manufacturing ecosystem where engineering intent is preserved
-                throughout production, where quality is verified through defined control mechanisms,
-                and where supply chains operate with clarity instead of coordination complexity.
-              </p>
-              <p className="body-text text-secondary">
-                As global manufacturing networks expand and cost pressures intensify, industrial
-                organisations require reliable execution partners who can bridge technical
-                requirements with scalable production capability. Our long-term vision is to become
-                a trusted integration partner for precision components, assemblies, and engineered
-                materials, delivering predictable performance across borders without compromising
-                technical standards.
-              </p>
-              <p className="body-text text-secondary">
-                AxionIntegra aims to contribute to a more disciplined, transparent, and accountable
-                manufacturing environment where responsibility is clearly defined and outcomes are
-                measurable.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section
+        id="mission"
+        className="scroll-mt-32 border-t border-border py-16 sm:py-20"
+        aria-labelledby="mission-heading"
+      >
+        <div className="mx-auto grid w-full max-w-6xl gap-12 px-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(320px,0.65fr)] lg:gap-0">
+          <div className="lg:pr-16">
+            <p className="text-[14px] font-medium text-accent">What we do today</p>
+            <h2 id="mission-heading" className="heading-2 mt-3">
+              Mission
+            </h2>
+            <p className="body-text mt-5 max-w-2xl text-secondary">
+              We eliminate operational fragmentation by aligning specifications, production, quality
+              validation, and delivery under one accountable structure.
+            </p>
 
-      <section id="mission" className="scroll-mt-32" aria-labelledby="mission-heading">
-        <div className="relative overflow-hidden bg-bg py-16 sm:py-20">
-          <div
-            className="pointer-events-none absolute right-[-10px] top-[-20px] select-none font-ibm-mono text-[160px] font-black leading-none text-primary/[0.04]"
-            aria-hidden="true"
-          >
-            02
+            <ul className="mt-8 grid gap-x-8 border-t border-border sm:grid-cols-2">
+              {missionResponsibilities.map((item) => (
+                <li
+                  key={item}
+                  className="border-b border-border py-4 text-[15px] leading-[1.65] text-secondary sm:text-[16px]"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className="relative mx-auto max-w-[860px] px-6 sm:px-14 flex flex-col gap-6">
-            <div>
-              <span className="mb-3 block font-ibm-mono text-[10px] tracking-[0.22em] uppercase text-accent">
-                Our Mission
-              </span>
-              <h2
-                id="mission-heading"
-                className="text-[clamp(22px,3vw,34px)] font-semibold leading-[1.2] text-primary"
-              >
-                Simplifying Industrial Supply Through Execution Ownership
-              </h2>
-            </div>
-            <div className="h-px w-12 bg-accent/40" />
-            <div className="flex flex-col gap-4">
-              <p className="body-text text-secondary">
-                Our mission is to eliminate operational fragmentation within industrial supply
-                chains by acting as a single accountable partner for precision manufacturing and
-                supply coordination.
-              </p>
-              <p className="body-text text-secondary">
-                We support industrial clients by aligning technical specifications with qualified
-                production networks, ensuring manufacturing feasibility, monitoring execution
-                progress, validating quality conformity, and coordinating delivery under a unified
-                structure.
-              </p>
-              <p className="body-text text-secondary">
-                Rather than requiring companies to manage multiple suppliers, inspection activities,
-                and communication layers internally, AxionIntegra centralises coordination and
-                assumes responsibility for execution within its defined scope.
-              </p>
-              <p className="body-text text-secondary">We focus on:</p>
-              <ul className="flex flex-col gap-3">
-                {[
-                  'Translating engineering requirements into production-ready specifications',
-                  'Qualifying manufacturing partners capable of meeting performance standards',
-                  'Structuring inspection and documentation protocols',
-                  'Monitoring production timelines and managing deviations',
-                  'Delivering finished components and assemblies aligned with cost and quality objectives',
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-3 body-text text-secondary">
-                    <span className="mt-[10px] h-px w-4 shrink-0 bg-accent/50" aria-hidden="true" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <p className="body-text text-secondary">
-                Our mission is not limited to supplying parts. It is centred on ensuring that
-                industrial manufacturing programs move forward with clarity, control, and reduced
-                execution risk.
-              </p>
-            </div>
+
+          <div className="border-t border-border pt-10 lg:border-l lg:border-t-0 lg:pl-16 lg:pt-0">
+            <p className="text-[14px] font-medium text-accent">What we are building toward</p>
+            <h2 className="heading-2 mt-3">Vision</h2>
+            <p className="body-text mt-5 text-primary">
+              A manufacturing ecosystem where engineering intent remains intact from design through
+              delivery.
+            </p>
+            <p className="mt-5 text-[15px] leading-[1.7] text-secondary sm:text-[16px]">
+              We aim to become a trusted cross-border integration partner for precision components,
+              assemblies, and engineered materials, giving industrial organisations clearer
+              ownership and more predictable outcomes.
+            </p>
           </div>
         </div>
       </section>
 
       <section id="values" className="scroll-mt-32" aria-labelledby="values-heading">
         <div className="relative overflow-hidden bg-soft py-16 sm:py-20">
-          <div
-            className="pointer-events-none absolute right-[-10px] top-[-20px] select-none font-ibm-mono text-[160px] font-black leading-none text-primary/[0.04]"
-            aria-hidden="true"
-          >
-            03
-          </div>
           <div className="relative mx-auto max-w-[860px] px-6 sm:px-14 flex flex-col gap-6">
             <div>
-              <span className="mb-3 block font-ibm-mono text-[10px] tracking-[0.22em] uppercase text-accent">
-                Our Values
-              </span>
               <h2
                 id="values-heading"
                 className="text-[clamp(22px,3vw,34px)] font-semibold leading-[1.2] text-primary"
               >
-                Principles That Guide Our Operations
+                Values that guide our operations
               </h2>
             </div>
-            <div className="h-px w-12 bg-accent/40" />
             <div className="grid gap-4 sm:grid-cols-2">
               {coreValues.map((value) => (
                 <article
