@@ -3,11 +3,21 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import CredentialsAccordion from '@/components/credentials-accordion';
+import { type Credential, getCredentialText, getFeaturedCredentials } from '@/lib/credentials-data';
 import { teamProfiles } from '@/lib/team-profiles';
 
 const teamMembers = teamProfiles.filter((profile) => profile.category === 'team');
 const advisors = teamProfiles.filter((profile) => profile.category === 'advisor');
+const [founder, ...operationalTeam] = teamMembers;
+const featuredCredentials = getFeaturedCredentials();
+
+const credentialStatusLabels: Record<Credential['status'], string> = {
+  registered: 'Registered',
+  active: 'Active',
+  valid: 'Valid',
+  'no-expiry': 'No expiry',
+  expired: 'Expired',
+};
 
 const operatingPrinciples = [
   {
@@ -230,71 +240,101 @@ export default function AboutPage() {
       </section>
 
       <section id="team" className="scroll-mt-32 py-16 sm:py-20">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-14 px-6">
-          <div className="flex flex-col gap-6">
-            <div className="mx-auto flex max-w-4xl flex-col items-center gap-3 text-center">
-              <h2 className="heading-2">
-                Our brilliant team of <span className="text-accent">AxioNIntegra</span>
-              </h2>
-              <p className="body-text text-secondary">
-                Specialists who bring deep domain expertise to every client engagement.
-              </p>
-            </div>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {teamMembers.map((member) => (
-                <Link
-                  key={member.name}
-                  href={`/about/${member.slug}`}
-                  className="group relative block rounded-3xl bg-bg pb-8 transition duration-300 ease-out hover:-translate-y-1 hover:drop-shadow-[0_12px_24px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-                >
-                  <div className="relative h-[380px] overflow-hidden rounded-3xl">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      className="object-cover transition duration-500 ease-out group-hover:scale-[1.03]"
-                    />
-                    <div className="absolute inset-0 bg-slate-900/20 transition duration-300 group-hover:bg-slate-900/16" />
-                  </div>
-                  <div className="pointer-events-none absolute inset-x-4 -bottom-2 rounded-2xl border border-border bg-bg/95 px-4 py-3 text-center shadow-sm backdrop-blur transition duration-300 ease-out group-hover:-translate-y-1">
-                    <p className="text-[16px] font-medium leading-[1.3] text-primary">
-                      {member.name}
-                    </p>
-                    <p className="mt-1 text-[14px] text-secondary">{member.role}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
+        <div className="mx-auto w-full max-w-6xl px-6">
+          <div className="max-w-2xl">
+            <h2 className="heading-2">Leadership and operations</h2>
+            <p className="body-text mt-4 text-secondary">
+              Specialists combining engineering, operational, and organisational experience across
+              every client engagement.
+            </p>
           </div>
 
-          <div className="flex flex-col gap-6">
-            <div className="mx-auto flex max-w-3xl flex-col items-center gap-2 text-center">
-              <h2 className="heading-2">Our Advisors</h2>
-              <p className="body-text text-secondary">
-                Strategic experts supporting long-term industrial decisions.
+          {founder ? (
+            <Link
+              href={`/${locale}/about/${founder.slug}`}
+              className="group mt-10 grid gap-8 border-y border-border py-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 md:grid-cols-[minmax(280px,0.85fr)_minmax(0,1.15fr)] md:items-center md:gap-12 sm:mt-12"
+            >
+              <div className="relative aspect-[4/3] overflow-hidden rounded-md bg-soft">
+                <Image
+                  src={founder.image}
+                  alt={founder.name}
+                  fill
+                  sizes="(min-width: 768px) 42vw, 100vw"
+                  className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
+                />
+              </div>
+              <div className="max-w-xl">
+                <p className="text-[14px] font-medium text-accent">{founder.role}</p>
+                <h3 className="heading-3 mt-3 transition-colors group-hover:text-accent">
+                  {founder.name}
+                </h3>
+                <p className="body-text mt-5 text-secondary">{founder.shortBio}</p>
+                <p className="mt-6 text-[14px] font-medium text-accent">
+                  View profile <span aria-hidden="true">→</span>
+                </p>
+              </div>
+            </Link>
+          ) : null}
+
+          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {operationalTeam.map((member) => (
+              <Link
+                key={member.name}
+                href={`/${locale}/about/${member.slug}`}
+                className="group block border-b border-border pb-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4"
+              >
+                <div className="relative aspect-square overflow-hidden rounded-md bg-soft">
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
+                  />
+                </div>
+                <h3 className="heading-3 mt-5 transition-colors group-hover:text-accent">
+                  {member.name}
+                </h3>
+                <p className="mt-2 text-[14px] leading-[1.5] text-secondary">{member.role}</p>
+              </Link>
+            ))}
+          </div>
+
+          <div className="mt-16 border-t border-border pt-12 sm:mt-20">
+            <div className="max-w-2xl">
+              <h3 className="heading-3">Advisors</h3>
+              <p className="body-text mt-4 text-secondary">
+                Strategic expertise supporting long-term industrial decisions and capability
+                development.
               </p>
             </div>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+            <div className="mt-8 grid border-t border-border lg:grid-cols-2 lg:gap-x-10">
               {advisors.map((member) => (
                 <Link
                   key={member.name}
-                  href={`/about/${member.slug}`}
-                  className="group relative block rounded-3xl bg-bg pb-8 transition duration-300 ease-out hover:-translate-y-1 hover:drop-shadow-[0_12px_24px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                  href={`/${locale}/about/${member.slug}`}
+                  className="group grid grid-cols-[96px_1fr] gap-5 border-b border-border py-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 sm:grid-cols-[112px_1fr]"
                 >
-                  <div className="relative h-[380px] overflow-hidden rounded-3xl">
+                  <div className="relative aspect-square overflow-hidden rounded-md bg-soft">
                     <Image
                       src={member.image}
                       alt={member.name}
                       fill
-                      className="object-cover transition duration-500 ease-out group-hover:scale-[1.03]"
+                      sizes="112px"
+                      className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
                     />
-                    <div className="absolute inset-0 bg-slate-900/20 transition duration-300 group-hover:bg-slate-900/16" />
                   </div>
-                  <div className="pointer-events-none absolute inset-x-4 -bottom-2 rounded-2xl border border-border bg-bg/95 px-4 py-3 text-center shadow-sm backdrop-blur transition duration-300 ease-out group-hover:-translate-y-1">
-                    <p className="text-[16px] font-medium leading-[1.3] text-primary">
+                  <div>
+                    <h4 className="text-[18px] font-medium leading-[1.35] text-primary transition-colors group-hover:text-accent">
                       {member.name}
+                    </h4>
+                    <p className="mt-1 text-[13px] font-medium leading-[1.5] text-accent">
+                      {member.focusAreas[0]}
                     </p>
-                    <p className="mt-1 text-[14px] text-secondary">{member.role}</p>
+                    <p className="mt-3 line-clamp-2 text-[14px] leading-[1.6] text-secondary">
+                      {member.shortBio}
+                    </p>
                   </div>
                 </Link>
               ))}
@@ -304,17 +344,60 @@ export default function AboutPage() {
       </section>
 
       <section id="credentials" className="scroll-mt-32 bg-soft py-16 sm:py-20">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-9 px-6">
+        <div className="mx-auto w-full max-w-6xl px-6">
           <div className="max-w-3xl">
-            <p className="label-text text-muted">Company verification</p>
-            <h2 className="heading-2 mt-3">Registrations &amp; Credentials</h2>
-            <p className="body-text mt-4 text-secondary">
+            <h2 className="heading-2">Registrations &amp; credentials</h2>
+            <p className="body-text mt-5 text-secondary">
               Verified company registration information supporting transparent supplier onboarding
-              and independent business verification. Supporting documents are provided privately
-              after reviewing a verification request.
+              and independent business verification.
             </p>
+            <Link
+              href={`/${locale}/credentials`}
+              className="mt-6 inline-flex items-center gap-2 text-[14px] font-medium text-accent transition-opacity hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4"
+            >
+              View registrations and credentials
+              <span aria-hidden="true">→</span>
+            </Link>
           </div>
-          <CredentialsAccordion locale={locale} />
+
+          <div className="mt-10 border-t border-border sm:mt-12">
+            {featuredCredentials.map((credential) => (
+              <article
+                key={credential.id}
+                className="grid gap-3 border-b border-border py-6 sm:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)_auto] sm:items-center sm:gap-8 sm:py-7"
+              >
+                <h3 className="text-[17px] font-medium leading-[1.4] text-primary sm:text-[19px]">
+                  {getCredentialText(credential.title, locale)}
+                </h3>
+                <p className="text-[14px] leading-[1.6] text-secondary">
+                  {credential.authority
+                    ? getCredentialText(credential.authority, locale)
+                    : 'Authority not published'}
+                </p>
+                <p className="text-[13px] font-medium text-accent">
+                  {credentialStatusLabels[credential.status]}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-border bg-bg py-16 sm:py-20">
+        <div className="mx-auto w-full max-w-6xl px-6">
+          <div className="max-w-2xl">
+            <h2 className="heading-2">Discuss your manufacturing requirement</h2>
+            <p className="body-text mt-5 text-secondary">
+              Share your drawings, specifications, or sourcing challenge, and our team will help
+              define the right manufacturing path.
+            </p>
+            <Link
+              href={`/${locale}/contact`}
+              className="mt-7 inline-flex items-center justify-center whitespace-nowrap rounded-md bg-accent px-6 py-3.5 text-[14px] font-medium text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 active:opacity-80"
+            >
+              Contact us
+            </Link>
+          </div>
         </div>
       </section>
     </main>
