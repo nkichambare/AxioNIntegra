@@ -50,6 +50,7 @@ const menuContent: Variants = {
 
 const imageHeroPaths = [
   '',
+  '/about',
   '/how-we-work',
   '/sustainable-approach',
   '/portfolio/forging-casting',
