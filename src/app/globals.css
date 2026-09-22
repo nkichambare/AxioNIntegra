@@ -103,3 +103,9 @@ body {
     transition: none;
   }
 }
+
+@media (max-height: 700px) and (max-width: 767px) {
+  .capability-details {
+    display: none;
+  }
+}
